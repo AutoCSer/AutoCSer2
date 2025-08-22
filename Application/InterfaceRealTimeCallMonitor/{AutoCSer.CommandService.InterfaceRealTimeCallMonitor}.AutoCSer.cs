@@ -222,6 +222,103 @@ namespace AutoCSer.CommandService
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter RemoveNode();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode)
+        /// </summary>
+        public sealed partial class IExceptionStatisticsNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IExceptionStatisticsNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IExceptionStatisticsNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IExceptionStatisticsNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add exception call time 
+///            添加异常调用时间
+            /// </summary>
+            /// <param name="callType">Call interface type 
+///            调用接口类型</param>
+            /// <param name="callName">The name of the interface method to be called 
+///            调用接口方法名称</param>
+            /// <param name="callTime">Exception call time 
+///            异常调用时间</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Append(string callType, string callName, System.DateTime callTime)
+            {
+                return base.node.Append(callType, callName, callTime).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the total number of exception calls 
+///            获取异常调用总次数
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount()
+            {
+                return base.node.GetCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the statistics of the specified number of call exceptions 
+///            获取指定数量调用异常统计信息
+            /// </summary>
+            /// <param name="count">The number of get the statistical information of call exceptions 
+///            获取调用异常统计信息数量</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics>> GetManyStatistics(int count)
+            {
+                return base.node.GetManyStatistics(count);
+            }
+            /// <summary>
+            /// Get the statistical information of call exceptions 
+///            获取调用异常统计信息
+            /// </summary>
+            /// <param name="callType">Call interface type 
+///            调用接口类型</param>
+            /// <param name="callName">The name of the interface method to be called 
+///            调用接口方法名称</param>
+            /// <returns>Exception statistical information, failure returns null 
+///            异常统计信息，失败返回 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics> GetStatistics(string callType, string callName)
+            {
+                return base.node.GetStatistics(callType, callName).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of exception statistical information 
+///            获取异常统计信息数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetStatisticsCount()
+            {
+                return base.node.GetStatisticsCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove exception statistics 
+///            移除异常统计信息
+            /// </summary>
+            /// <param name="callType">Call interface type 
+///            调用接口类型</param>
+            /// <param name="callName">The name of the interface method to be called 
+///            调用接口方法名称</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Remove(string callType, string callName)
+            {
+                return base.node.Remove(callType, callName).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the current node 
+///            移除当前节点
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RemoveNode()
+            {
+                return base.node.RemoveNode().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 {
         /// <summary>
@@ -244,6 +341,37 @@ namespace AutoCSer.CommandService
             /// <returns>Node identifier, there have been a node is returned directly 
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, System.DateTime removeTime, int callTimeCount);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode)
+        /// </summary>
+        public sealed partial class IExceptionStatisticsServiceNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IExceptionStatisticsServiceNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IExceptionStatisticsServiceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IExceptionStatisticsServiceNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 创建异常调用统计信息节点 IExceptionStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="removeTime">节点自动移除时间</param>
+            /// <param name="callTimeCount">保存调用时间数量</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, System.DateTime removeTime, int callTimeCount)
+            {
+                return base.node.CreateExceptionStatisticsNode(index, key, nodeInfo, removeTime, callTimeCount).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 {

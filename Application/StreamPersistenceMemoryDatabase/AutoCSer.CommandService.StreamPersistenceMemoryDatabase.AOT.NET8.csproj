@@ -39,6 +39,8 @@
     <Compile Include="Client\ClientNodeAttribute.cs" />
     <Compile Include="Client\ClientNodeMethod.cs" />
     <Compile Include="Client\LocalClient.cs" />
+    <Compile Include="Client\LocalClientReturnValueCallback.cs" />
+    <Compile Include="Client\LocalClientReturnValueNode.cs" />
     <Compile Include="Client\LocalKeepCallback.cs" />
     <Compile Include="Client\LocalResult.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceInputTwoStageCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceReturnValue.cs" />
     <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNodeCallback.cs" />
     <Compile Include="Snapshot\CheckSnapshotCloneObject.cs" />

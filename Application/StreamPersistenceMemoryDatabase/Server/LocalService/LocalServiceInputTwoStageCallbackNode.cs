@@ -36,7 +36,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.parameter = parameter;
             this.keepCallback = new LocalServiceKeepCallbackNodeCallback<KT>(keepCallback, true);
-            result = this.keepCallback;
+            Result = this.keepCallback;
             if ((parameter.Method.Flags & MethodFlagsEnum.IsWriteQueue) == 0) service.CommandServerCallQueue.AppendReadOnly(this);
             else service.CommandServerCallQueue.AppendWriteOnly(this);
         }
@@ -54,7 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsCompleted = true;
             continuation = Common.EmptyAction;
             this.keepCallback = new LocalServiceKeepCallbackNodeCallback<KT>(keepCallback, true);
-            this.result = this.keepCallback;
+            this.Result = this.keepCallback;
             try
             {
                 callback(result);

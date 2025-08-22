@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public override void RunTask()
         {
-            result = service.Rebuild();
+            Result = service.Rebuild();
             completed();
         }
     }

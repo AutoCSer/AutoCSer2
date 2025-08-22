@@ -38,7 +38,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #if NetStandard21
         [AllowNull]
 #endif
-        protected T result;
+        internal T Result;
         /// <summary>
         /// Completed status
         /// 完成状态
@@ -88,7 +88,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="continuation"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        void INotifyCompletion.OnCompleted(Action continuation)
+        public void OnCompleted(Action continuation)
         {
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
@@ -121,7 +121,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T GetResult()
         {
-            return result;
+            return Result;
         }
         /// <summary>
         /// await support

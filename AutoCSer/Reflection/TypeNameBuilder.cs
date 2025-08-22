@@ -306,6 +306,17 @@ namespace AutoCSer.Reflection
         {
             bool isXml = this.isXml;
             NameStream.Write(isXml ? '{' : '<');
+            GenericParameterString(type, genericArguments, isGenericParameterTypeName);
+            NameStream.Write(isXml ? '}' : '>');
+        }
+        /// <summary>
+        /// 泛型参数处理
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="genericArguments">泛型类型参数集合</param>
+        /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
+        internal void GenericParameterString(Type type, Type[] genericArguments, bool isGenericParameterTypeName = true)
+        {
             int index = 0;
             foreach (Type parameter in type.GetGenericArguments())
             {
@@ -313,7 +324,6 @@ namespace AutoCSer.Reflection
                 if (isGenericParameterTypeName) getFullName(parameter, genericArguments);
                 ++index;
             }
-            NameStream.Write(isXml ? '}' : '>');
         }
         /// <summary>
         /// 泛型参数处理
@@ -364,13 +374,28 @@ namespace AutoCSer.Reflection
                 if (reflectedTypeIndex == 0)
                 {
                     NameStream.Write('.');
-                    NameStream.SimpleWrite(type.Name);
+                    //if(!onlyPrefix)
+                        NameStream.SimpleWrite(type.Name);
                     return;
                 }
                 else reflectedType = reflectedTypeArray[--reflectedTypeIndex];
             }
             while (true);
         }
+        ///// <summary>
+        ///// 类型名称前缀
+        ///// </summary>
+        ///// <param name="type"></param>
+        //internal void FullNamePrefix(Type type)
+        //{
+        //    var reflectedType = type.ReflectedType;
+        //    if (reflectedType == null)
+        //    {
+        //        NameStream.SimpleWrite(type.Namespace.notNull());
+        //        NameStream.Write('.');
+        //    }
+        //    else this.ReflectedType(type, reflectedType, true);
+        //}
 
         /// <summary>
         /// 根据类型获取代码名称

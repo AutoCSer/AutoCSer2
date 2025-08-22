@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 分布式锁节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IDistributedLockNode<T>
     {
         /// <summary>

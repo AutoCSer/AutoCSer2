@@ -260,22 +260,12 @@
             同步接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientSynchronousControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientSynchronousControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientSynchronousControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             同步接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientSynchronousControllerReturnValueController.SynchronousReturnSocket(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -505,7 +495,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientSynchronousController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>同步接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyControllerReturnValueController">
@@ -513,22 +503,12 @@
             仅发送数据接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             仅发送数据接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyControllerReturnValueController.SendOnlySocket(System.Int32,System.Int32)">
             <summary>
@@ -620,7 +600,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientSendOnlyController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>仅发送数据接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueControllerReturnValueController">
@@ -628,22 +608,12 @@
             队列接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueControllerReturnValueController.QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -873,7 +843,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueControllerReturnValueController">
@@ -881,22 +851,12 @@
             队列接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueControllerReturnValueController.QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -1126,7 +1086,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientConcurrencyReadQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueControllerReturnValueController">
@@ -1134,22 +1094,12 @@
             队列接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueControllerReturnValueController.QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -1379,7 +1329,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientReadWriteQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController">
@@ -1387,22 +1337,12 @@
             回调接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             回调接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1410,7 +1350,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1418,7 +1357,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1426,7 +1364,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1434,31 +1371,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1466,7 +1398,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1474,7 +1405,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1482,7 +1412,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1490,31 +1419,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.Callback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.Callback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1522,7 +1446,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1530,7 +1453,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1538,7 +1460,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1546,31 +1467,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1578,7 +1494,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1586,7 +1501,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1594,7 +1508,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1602,37 +1515,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackControllerReturnValueController.CallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientCallbackControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientCallbackController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>回调接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController">
@@ -1640,22 +1548,12 @@
             回调接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             回调接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1663,7 +1561,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1671,7 +1568,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1679,7 +1575,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1687,31 +1582,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1719,7 +1609,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1727,7 +1616,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1735,7 +1623,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1743,31 +1630,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.Callback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.Callback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1775,7 +1657,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1783,7 +1664,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1791,7 +1671,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1799,31 +1678,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1831,7 +1705,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1839,7 +1712,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1847,7 +1719,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1855,37 +1726,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientCallbackTaskControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientCallbackTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>回调接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController">
@@ -1893,22 +1759,12 @@
             保持回调接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             保持回调接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1916,7 +1772,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1924,7 +1779,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1932,7 +1786,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1940,31 +1793,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -1972,7 +1820,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1980,7 +1827,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -1988,7 +1834,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -1996,31 +1841,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2028,7 +1868,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2036,7 +1875,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2044,7 +1882,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2052,31 +1889,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2084,7 +1916,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2092,7 +1923,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2100,7 +1930,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2108,31 +1937,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2140,7 +1964,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2148,7 +1971,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2156,7 +1978,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2164,31 +1985,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2196,7 +2012,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2204,7 +2019,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2212,7 +2026,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2220,31 +2033,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2252,7 +2060,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocketReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2260,7 +2067,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocket(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2268,7 +2074,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocket(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2276,31 +2081,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocketReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocketReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocket(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueSocket(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2308,7 +2108,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2316,7 +2115,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2324,7 +2122,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2332,31 +2129,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2364,7 +2156,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2372,7 +2163,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2380,7 +2170,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2388,31 +2177,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackReadWriteQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2420,7 +2204,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2428,7 +2211,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2436,7 +2218,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2444,31 +2225,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountReadWriteQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2476,7 +2252,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2484,7 +2259,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2492,7 +2266,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2500,31 +2273,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackConcurrencyReadQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -2532,7 +2300,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2540,7 +2307,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -2548,7 +2314,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2556,37 +2321,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackControllerReturnValueController.KeepCallbackCountConcurrencyReadQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientKeepCallbackControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientKeepCallbackController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>保持回调接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController">
@@ -2594,22 +2354,12 @@
             二阶段回调接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             二阶段回调接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2617,7 +2367,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2625,19 +2374,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2645,7 +2391,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2653,19 +2398,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2673,7 +2415,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2681,19 +2422,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2701,7 +2439,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2709,19 +2446,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String})">
             <summary>
@@ -2729,7 +2463,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2737,19 +2470,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2757,7 +2487,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2765,19 +2494,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2785,7 +2511,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2793,19 +2518,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2813,7 +2535,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2821,19 +2542,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2841,7 +2559,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2849,19 +2566,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReadWriteQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackReadWriteQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2869,7 +2583,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReadWriteQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2877,19 +2590,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReadWriteQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountReadWriteQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2897,7 +2607,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2905,19 +2614,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackConcurrencyReadQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackConcurrencyReadQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -2925,7 +2631,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountConcurrencyReadQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -2933,25 +2638,22 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountConcurrencyReadQueueReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackControllerReturnValueController.TwoStageCallbackCountConcurrencyReadQueueReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientTwoStageCallbackControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientTwoStageCallbackController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>二阶段回调接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskControllerReturnValueController">
@@ -2959,22 +2661,12 @@
             异步任务接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             异步任务接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskControllerReturnValueController.AsynchronousTaskReturnSocket(System.Int32,System.Int32)">
             <summary>
@@ -3132,7 +2824,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>异步任务接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskControllerReturnValueController">
@@ -3140,22 +2832,12 @@
             保持回调异步任务接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             保持回调异步任务接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskControllerReturnValueController.KeepCallbackTaskSocketReturn(System.Int32,System.Int32)">
             <summary>
@@ -3381,7 +3063,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientKeepCallbackTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>保持回调异步任务接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController">
@@ -3389,22 +3071,12 @@
             二阶段回调异步任务接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             二阶段回调异步任务接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3412,7 +3084,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3420,19 +3091,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3440,7 +3108,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3448,19 +3115,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3468,7 +3132,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3476,19 +3139,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3496,7 +3156,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3504,19 +3163,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String})">
             <summary>
@@ -3524,7 +3180,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3532,7 +3187,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3540,7 +3194,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackTaskQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3548,7 +3201,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskQueueSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3556,7 +3208,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskQueueSocketReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3564,7 +3215,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -3572,7 +3222,6 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTwoStageCallbackTaskControllerReturnValueController.TwoStageCallbackCountTaskQueueReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -3580,13 +3229,12 @@
             </summary>
             <param name="queueKey"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientTwoStageCallbackTaskControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientTwoStageCallbackTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>二阶段回调异步任务接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryControllerReturnValueController">
@@ -3594,22 +3242,12 @@
             定义对称接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             定义对称接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryControllerReturnValueController.SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -3755,7 +3393,7 @@
             <summary>
             Get the direct return value API encapsulation (DefinedSymmetryController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>定义对称接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueControllerReturnValueController">
@@ -3763,22 +3401,12 @@
             控制器异步队列接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             控制器异步队列接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueControllerReturnValueController.TaskQueue">
             <summary>
@@ -3840,7 +3468,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientTaskQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>控制器异步队列接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousControllerReturnValueController">
@@ -3848,22 +3476,12 @@
             同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousControllerReturnValueController.SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -3981,7 +3599,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientSynchronousController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyControllerReturnValueController">
@@ -3989,22 +3607,12 @@
             仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyControllerReturnValueController.SendOnly(System.Int32,System.Int32)">
             <summary>
@@ -4053,7 +3661,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientSendOnlyController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueControllerReturnValueController">
@@ -4061,22 +3669,12 @@
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueControllerReturnValueController.QueueReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -4194,7 +3792,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueControllerReturnValueController">
@@ -4202,22 +3800,12 @@
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueControllerReturnValueController.QueueReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -4335,7 +3923,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientConcurrencyReadQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueControllerReturnValueController">
@@ -4343,22 +3931,12 @@
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueControllerReturnValueController.QueueReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -4476,7 +4054,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientReadWriteQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController">
@@ -4484,22 +4062,12 @@
             回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4507,7 +4075,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4515,7 +4082,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4523,7 +4089,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4531,31 +4096,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.Callback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.Callback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4563,7 +4123,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4571,7 +4130,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4579,7 +4137,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4587,37 +4144,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackControllerReturnValueController.CallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetServerBindContextClientCallbackControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientCallbackController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController">
@@ -4625,22 +4177,12 @@
             回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4648,7 +4190,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4656,7 +4197,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4664,7 +4204,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.Callback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4672,31 +4211,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.Callback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.Callback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4704,7 +4238,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4712,7 +4245,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4720,7 +4252,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4728,37 +4259,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackTaskControllerReturnValueController.CallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetServerBindContextClientCallbackTaskControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientCallbackTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController">
@@ -4766,22 +4292,12 @@
             保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4789,7 +4305,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4797,7 +4312,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallback(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4805,7 +4319,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallback(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4813,31 +4326,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallback(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallback(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4845,7 +4353,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4853,7 +4360,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4861,7 +4367,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4869,31 +4374,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCount(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4901,7 +4401,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4909,7 +4408,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4917,7 +4415,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4925,31 +4422,26 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.String})">
             <summary>
@@ -4957,7 +4449,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4965,7 +4456,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Int32,System.Int32,System.Action)">
             <summary>
@@ -4973,7 +4463,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Int32,System.Int32,System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -4981,37 +4470,32 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueueReturn(System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Action)">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackControllerReturnValueController.KeepCallbackCountQueue(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetServerBindContextClientKeepCallbackControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientKeepCallbackController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskControllerReturnValueController">
@@ -5019,22 +4503,12 @@
             异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskControllerReturnValueController.AsynchronousTaskReturn(System.Int32,System.Int32)">
             <summary>
@@ -5120,7 +4594,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskControllerReturnValueController">
@@ -5128,22 +4602,12 @@
             保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskControllerReturnValueController.KeepCallbackTaskReturn(System.Int32,System.Int32)">
             <summary>
@@ -5259,7 +4723,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientKeepCallbackTaskController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryControllerReturnValueController">
@@ -5267,22 +4731,12 @@
             定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryControllerReturnValueController.SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
             <summary>
@@ -5428,7 +4882,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextDefinedSymmetryController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueControllerReturnValueController">
@@ -5436,22 +4890,12 @@
             控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueControllerReturnValueController.TaskQueue">
             <summary>
@@ -5485,7 +4929,7 @@
             <summary>
             Get the direct return value API encapsulation (ServerBindContextClientTaskQueueController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientRemoteExpressionDelegateControllerReturnValueController">
@@ -5493,22 +4937,12 @@
             远程表达式委托接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientRemoteExpressionDelegateControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientRemoteExpressionDelegateControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientRemoteExpressionDelegateControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             远程表达式委托接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientRemoteExpressionDelegateControllerReturnValueController.Action(System.Linq.Expressions.Expression{System.Action})">
             <summary>
@@ -5716,7 +5150,7 @@
             <summary>
             Get the direct return value API encapsulation (ClientRemoteExpressionDelegateController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>远程表达式委托接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController">
@@ -5724,22 +5158,12 @@
             代码生成客户端接口测试 (Direct return value API encapsulation)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.__client__">
-            <summary>
-            Command client socket event
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.__isIgnoreError__">
-            <summary>
-            Whether errors and exceptions are ignored
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.#ctor(AutoCSer.TestCase.CommandClientSocketEvent,System.Boolean)">
             <summary>
             代码生成客户端接口测试 (Direct return value API encapsulation)
             </summary>
             <param name="client">Command client socket event</param>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.CallbackSocket">
             <summary>
@@ -6035,7 +5459,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -6043,19 +5466,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountTaskSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -6063,7 +5483,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountTaskSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -6071,19 +5490,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackCountTaskSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -6091,7 +5507,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -6099,19 +5514,16 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackTaskSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{System.String})">
             <summary>
@@ -6119,7 +5531,6 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackTaskSocketInputReturn(System.Int32,System.Int32,System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
@@ -6127,25 +5538,22 @@
             </summary>
             <param name="Value"></param>
             <param name="Ref"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Action{System.Int64},System.Action{System.String})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.ClientCodeGeneratorControllerReturnValueController.TwoStageCallbackTaskSocketReturn(System.Action{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue},System.Action{System.String},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.GetClientCodeGeneratorControllerReturnValueController(System.Boolean)">
             <summary>
             Get the direct return value API encapsulation (ClientCodeGeneratorController)
             </summary>
-            <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
             <returns>代码生成客户端接口测试 (Direct return value API encapsulation)</returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientCallbackTaskController">

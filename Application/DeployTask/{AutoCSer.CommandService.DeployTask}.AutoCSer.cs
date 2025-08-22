@@ -497,6 +497,84 @@ namespace AutoCSer.CommandService.DeployTask
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.DeployTask.OperationStateEnum> Start(long identity, System.DateTime startTime);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.IDeployTaskNode)
+        /// </summary>
+        public sealed partial class IDeployTaskNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDeployTaskNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.IDeployTaskNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDeployTaskNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDeployTaskNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add a sub-task 
+///            添加子任务
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识ID</param>
+            /// <param name="task">The task of executing a program 
+///            执行程序任务</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.DeployTask.OperationStateEnum> AppendStepTask(long identity, AutoCSer.CommandService.DeployTask.StepTaskData task)
+            {
+                return base.node.AppendStepTask(identity, task).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Create a task 
+///            创建任务
+            /// </summary>
+            /// <returns>Task identity 
+///            任务标识ID</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> Create()
+            {
+                return base.node.Create().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the callback log of the status change of the published task 
+///            获取发布任务状态变更回调日志
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识ID</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<AutoCSer.CommandService.DeployTaskLog>> GetLog(long identity)
+            {
+                return base.node.GetLog(identity);
+            }
+            /// <summary>
+            /// Remove completed or un-started task 
+///            移除已结束或者未开始任务
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识ID</param>
+            /// <param name="closeTime">The Utc time for closing the task 
+///            关闭任务 Utc 时间</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.DeployTask.OperationStateEnum> Remove(long identity, System.DateTime closeTime)
+            {
+                return base.node.Remove(identity, closeTime).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Start the task 
+///            启动任务
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识ID</param>
+            /// <param name="startTime">The Utc time for running the task 
+///            运行任务 Utc 时间</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.DeployTask.OperationStateEnum> Start(long identity, System.DateTime startTime)
+            {
+                return base.node.Start(identity, startTime).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService
 {
         /// <summary>

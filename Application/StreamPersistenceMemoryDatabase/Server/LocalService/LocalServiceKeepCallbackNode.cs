@@ -37,7 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.clientNode = clientNode;
             this.methodIndex = methodIndex;
             this.callback = new LocalServiceKeepCallbackNodeCallback<T>(callback, clientNode.IsSynchronousCallback);
-            result = this.callback;
+            Result = this.callback;
             if (isWriteQueue) service.CommandServerCallQueue.AppendWriteOnly(this);
             else service.CommandServerCallQueue.AppendReadOnly(this);
         }

@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public override void RunTask()
         {
-            result = getResult();
+            Result = getResult();
             completed();
         }
     }

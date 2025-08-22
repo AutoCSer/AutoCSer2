@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="KT">Sort keyword type
     /// 排序关键字类型</typeparam>
     /// <typeparam name="VT">Data type</typeparam>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface ISortedDictionaryNode<KT, VT>
         where KT : IComparable<KT>
     {

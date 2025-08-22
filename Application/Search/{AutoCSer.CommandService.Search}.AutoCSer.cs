@@ -108,6 +108,158 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>[]> GetBlockIndexDataArray(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode{KT,VT})
+        /// </summary>
+        public sealed partial class IRemoveMarkHashIndexNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IRemoveMarkHashIndexNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IRemoveMarkHashIndexNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashIndexNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Append(KT key, VT value)
+            {
+                return base.node.Append(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendArray(KT[] keys, VT value)
+            {
+                return base.node.AppendArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>> GetBlockIndexData(KT key)
+            {
+                return base.node.GetBlockIndexData(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<KT> keepCallback)
+            {
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<KT>(keepCallback));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<KT> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<KT>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key, VT value)
+            {
+                return base.node.Remove(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RemoveArray(KT[] keys, VT value)
+            {
+                return base.node.RemoveArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// The operation of writing the disk block index information has been completed 
+///            磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="blockIndex">Disk block index information 
+///            磁盘块索引信息</param>
+            /// <param name="valueCount">The number of newly added data 
+///            新增数据数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue WriteCompleted(KT key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount)
+            {
+                return base.node.WriteCompleted(key, blockIndex, valueCount).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.node.AppendLeftArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.node.RemoveLeftArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>[]> GetBlockIndexDataArray(KT[] keys)
+            {
+                return base.node.GetBlockIndexDataArray(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
         /// <summary>
@@ -225,6 +377,182 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>[]> GetIntBlockIndexDataArray(T[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode{T})
+        /// </summary>
+        public sealed partial class IRemoveMarkHashKeyIndexNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IRemoveMarkHashKeyIndexNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IRemoveMarkHashKeyIndexNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Append(T key, uint value)
+            {
+                return base.node.Append(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendArray(T[] keys, uint value)
+            {
+                return base.node.AppendArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>> GetBlockIndexData(T key)
+            {
+                return base.node.GetBlockIndexData(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<T> keepCallback)
+            {
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T key, uint value)
+            {
+                return base.node.Remove(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RemoveArray(T[] keys, uint value)
+            {
+                return base.node.RemoveArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// The operation of writing the disk block index information has been completed 
+///            磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="blockIndex">Disk block index information 
+///            磁盘块索引信息</param>
+            /// <param name="valueCount">The number of newly added data 
+///            新增数据数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue WriteCompleted(T key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount)
+            {
+                return base.node.WriteCompleted(key, blockIndex, valueCount).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.node.AppendLeftArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.node.RemoveLeftArray(keys, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>[]> GetBlockIndexDataArray(T[] keys)
+            {
+                return base.node.GetBlockIndexDataArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>> GetIntBlockIndexData(T key)
+            {
+                return base.node.GetIntBlockIndexData(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>[]> GetIntBlockIndexDataArray(T[] keys)
+            {
+                return base.node.GetIntBlockIndexDataArray(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
@@ -263,6 +591,63 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            非索引条件查询数据</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter LoadCreate(VT value);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IConditionDataNode{KT,VT})
+        /// </summary>
+        public sealed partial class IConditionDataNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IConditionDataNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IConditionDataNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IConditionDataNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IConditionDataNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Create non-indexed conditional query data 
+///            创建非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Create(KT key)
+            {
+                return base.node.Create(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Update non-indexed condition query data 
+///            更新非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Update(KT key)
+            {
+                return base.node.Update(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete non-indexed condition query data 
+///            删除非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Delete(KT key)
+            {
+                return base.node.Delete(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Create non-indexed conditional query data 
+///            创建非索引条件查询数据
+            /// </summary>
+            /// <param name="value">Non-indexed condition query data 
+///            非索引条件查询数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue LoadCreate(VT value)
+            {
+                return base.node.LoadCreate(value).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
@@ -299,6 +684,54 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode)
+        /// </summary>
+        public sealed partial class IDiskBlockIndexServiceNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDiskBlockIndexServiceNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDiskBlockIndexServiceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDiskBlockIndexServiceNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="keyType">索引关键字类型</param>
+            /// <param name="valueType">数据关键字类型</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
+            {
+                return base.node.CreateRemoveMarkHashIndexNode(index, key, nodeInfo, keyType, valueType).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="keyType">索引关键字类型</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+            {
+                return base.node.CreateRemoveMarkHashKeyIndexNode(index, key, nodeInfo, keyType).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
@@ -323,6 +756,39 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns>Node identifier, there have been a node is returned directly 
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte maxTrieWordSize, byte maxWordSize, AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags, string replaceChars);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IStaticTrieGraphServiceNode)
+        /// </summary>
+        public sealed partial class IStaticTrieGraphServiceNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IStaticTrieGraphServiceNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IStaticTrieGraphServiceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStaticTrieGraphServiceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphServiceNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 创建字符串 Trie 图节点 IStaticTrieGraphNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            /// <param name="maxWordSize">未知词语最大文字长度</param>
+            /// <param name="wordSegmentFlags">分词选项</param>
+            /// <param name="replaceChars">替换文字集合</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte maxTrieWordSize, byte maxWordSize, AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags, string replaceChars)
+            {
+                return base.node.CreateStaticTrieGraphNode(index, key, nodeInfo, maxTrieWordSize, maxWordSize, wordSegmentFlags, replaceChars).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -367,6 +833,69 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            分词文本数据</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> LoadCreate(T key, string text);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode{T})
+        /// </summary>
+        public sealed partial class IWordIdentityBlockIndexNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IWordIdentityBlockIndexNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IWordIdentityBlockIndexNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Create the disk block index information of the word segmentation result 
+///            创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Create(T key)
+            {
+                return base.node.Create(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the disk block index information of the word segmentation result 
+///            删除分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Delete(T key)
+            {
+                return base.node.Delete(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Update the disk block index information of the word segmentation result 
+///            更新分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Update(T key)
+            {
+                return base.node.Update(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Create the disk block index information of the word segmentation result 
+///            创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <param name="text">Word segmentation text data 
+///            分词文本数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> LoadCreate(T key, string text)
+            {
+                return base.node.LoadCreate(key, text).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
@@ -427,6 +956,97 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns>The number of words in the trie graph 
 ///            Trie 图词语数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetWordCount();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode)
+        /// </summary>
+        public sealed partial class IStaticTrieGraphNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IStaticTrieGraphNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStaticTrieGraphNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add trie graph word 
+///            添加 Trie 图词语
+            /// </summary>
+            /// <param name="word"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum> AppendWord(string word)
+            {
+                return base.node.AppendWord(word).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Create the trie graph 
+///            创建 Trie 图
+            /// </summary>
+            /// <returns>The number of words in the trie graph 
+///            Trie 图词语数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> BuildGraph()
+            {
+                return base.node.BuildGraph().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Adds text and returns a collection of word numbers 
+///            添加文本并返回词语编号集合
+            /// </summary>
+            /// <param name="text"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int[]> GetAddTextIdentity(string text)
+            {
+                return base.node.GetAddTextIdentity(text).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the collection of query word numbers (ignore unmatched words) 
+///            获取查询词语编号集合（忽略未匹配词语）
+            /// </summary>
+            /// <param name="text">The text content of the search 
+///            搜索文本内容</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int[]> GetWordSegmentIdentity(string text)
+            {
+                return base.node.GetWordSegmentIdentity(text).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the query word segmentation result 
+///            获取查询分词结果
+            /// </summary>
+            /// <param name="text">The text content of the search 
+///            搜索文本内容</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult[]> GetWordSegmentResult(string text)
+            {
+                return base.node.GetWordSegmentResult(text).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Has the trie graph been created 
+///            是否已经创建 Trie 图
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> IsGraph()
+            {
+                return base.node.IsGraph().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of words in the trie graph 
+///            获取 Trie 图词语数量
+            /// </summary>
+            /// <returns>The number of words in the trie graph 
+///            Trie 图词语数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetWordCount()
+            {
+                return base.node.GetWordCount().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
@@ -528,6 +1148,160 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            索引关键字集合</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>[]>> GetBlockIndexDataArray(KT[] keys);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode{KT,VT})
+        /// </summary>
+        public sealed partial class IRemoveMarkHashIndexNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IRemoveMarkHashIndexNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IRemoveMarkHashIndexNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashIndexNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Append(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Append(key, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendArray(KT[] keys, VT value)
+            {
+                return base.getReturnValue(base.node.AppendArray(keys, value));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>> GetBlockIndexData(KT key)
+            {
+                return base.getReturnValue(base.node.GetBlockIndexData(key));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<KT> keepCallback)
+            {
+                
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<KT>(keepCallback));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<KT> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<KT>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Remove(key, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveArray(KT[] keys, VT value)
+            {
+                return base.getReturnValue(base.node.RemoveArray(keys, value));
+            }
+            /// <summary>
+            /// The operation of writing the disk block index information has been completed 
+///            磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="blockIndex">Disk block index information 
+///            磁盘块索引信息</param>
+            /// <param name="valueCount">The number of newly added data 
+///            新增数据数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue WriteCompleted(KT key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount)
+            {
+                return base.getReturnValue(base.node.WriteCompleted(key, blockIndex, valueCount));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.getReturnValue(base.node.AppendLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.getReturnValue(base.node.RemoveLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>[]> GetBlockIndexDataArray(KT[] keys)
+            {
+                return base.getReturnValue(base.node.GetBlockIndexDataArray(keys));
+            }
         }
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
@@ -646,6 +1420,184 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>[]>> GetIntBlockIndexDataArray(T[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode{T})
+        /// </summary>
+        public sealed partial class IRemoveMarkHashKeyIndexNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IRemoveMarkHashKeyIndexNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IRemoveMarkHashKeyIndexNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashKeyIndexNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Append(T key, uint value)
+            {
+                return base.getReturnValue(base.node.Append(key, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendArray(T[] keys, uint value)
+            {
+                return base.getReturnValue(base.node.AppendArray(keys, value));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>> GetBlockIndexData(T key)
+            {
+                return base.getReturnValue(base.node.GetBlockIndexData(key));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<T> keepCallback)
+            {
+                
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// Gets the collection of updated keyword 
+///            获取更新关键字集合
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetChangeKeys(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T key, uint value)
+            {
+                return base.getReturnValue(base.node.Remove(key, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveArray(T[] keys, uint value)
+            {
+                return base.getReturnValue(base.node.RemoveArray(keys, value));
+            }
+            /// <summary>
+            /// The operation of writing the disk block index information has been completed 
+///            磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="blockIndex">Disk block index information 
+///            磁盘块索引信息</param>
+            /// <param name="valueCount">The number of newly added data 
+///            新增数据数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue WriteCompleted(T key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount)
+            {
+                return base.getReturnValue(base.node.WriteCompleted(key, blockIndex, valueCount));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.getReturnValue(base.node.AppendLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.getReturnValue(base.node.RemoveLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>[]> GetBlockIndexDataArray(T[] keys)
+            {
+                return base.getReturnValue(base.node.GetBlockIndexDataArray(keys));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>> GetIntBlockIndexData(T key)
+            {
+                return base.getReturnValue(base.node.GetIntBlockIndexData(key));
+            }
+            /// <summary>
+            /// Get the index information of the index data disk block 
+///            获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>[]> GetIntBlockIndexDataArray(T[] keys)
+            {
+                return base.getReturnValue(base.node.GetIntBlockIndexDataArray(keys));
+            }
+        }
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
@@ -683,6 +1635,63 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="value">Non-indexed condition query data 
 ///            非索引条件查询数据</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> LoadCreate(VT value);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IConditionDataNode{KT,VT})
+        /// </summary>
+        public sealed partial class IConditionDataNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IConditionDataNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IConditionDataNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IConditionDataNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IConditionDataNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Create non-indexed conditional query data 
+///            创建非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Create(KT key)
+            {
+                return base.getReturnValue(base.node.Create(key));
+            }
+            /// <summary>
+            /// Update non-indexed condition query data 
+///            更新非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Update(KT key)
+            {
+                return base.getReturnValue(base.node.Update(key));
+            }
+            /// <summary>
+            /// Delete non-indexed condition query data 
+///            删除非索引条件查询数据
+            /// </summary>
+            /// <param name="key">Data keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Delete(KT key)
+            {
+                return base.getReturnValue(base.node.Delete(key));
+            }
+            /// <summary>
+            /// Create non-indexed conditional query data 
+///            创建非索引条件查询数据
+            /// </summary>
+            /// <param name="value">Non-indexed condition query data 
+///            非索引条件查询数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue LoadCreate(VT value)
+            {
+                return base.getReturnValue(base.node.LoadCreate(value));
+            }
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -727,6 +1736,69 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            分词文本数据</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> LoadCreate(T key, string text);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode{T})
+        /// </summary>
+        public sealed partial class IWordIdentityBlockIndexNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IWordIdentityBlockIndexNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IWordIdentityBlockIndexNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IWordIdentityBlockIndexNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Create the disk block index information of the word segmentation result 
+///            创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Create(T key)
+            {
+                return base.getReturnValue(base.node.Create(key));
+            }
+            /// <summary>
+            /// Delete the disk block index information of the word segmentation result 
+///            删除分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Delete(T key)
+            {
+                return base.getReturnValue(base.node.Delete(key));
+            }
+            /// <summary>
+            /// Update the disk block index information of the word segmentation result 
+///            更新分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Update(T key)
+            {
+                return base.getReturnValue(base.node.Update(key));
+            }
+            /// <summary>
+            /// Create the disk block index information of the word segmentation result 
+///            创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">The keyword of the word segmentation data 
+///            分词数据关键字</param>
+            /// <param name="text">Word segmentation text data 
+///            分词文本数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> LoadCreate(T key, string text)
+            {
+                return base.getReturnValue(base.node.LoadCreate(key, text));
+            }
         }
 }namespace AutoCSer.CommandService.Search.MemoryIndex
 {
@@ -796,6 +1868,101 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            匹配数据关键字</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode{T})
+        /// </summary>
+        public sealed partial class IHashCodeKeyIndexNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IHashCodeKeyIndexNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashCodeKeyIndexNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashCodeKeyIndexNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Append(T key, uint value)
+            {
+                return base.getReturnValue(base.node.Append(key, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendArray(T[] keys, uint value)
+            {
+                return base.getReturnValue(base.node.AppendArray(keys, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.getReturnValue(base.node.AppendLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T key, uint value)
+            {
+                return base.getReturnValue(base.node.Remove(key, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveArray(T[] keys, uint value)
+            {
+                return base.getReturnValue(base.node.RemoveArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value)
+            {
+                return base.getReturnValue(base.node.RemoveLeftArray(keys, value));
+            }
+        }
 }namespace AutoCSer.CommandService.Search.MemoryIndex
 {
         /// <summary>
@@ -864,6 +2031,101 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            匹配数据关键字</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode{KT,VT})
+        /// </summary>
+        public sealed partial class IHashIndexNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IHashIndexNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashIndexNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashIndexNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null 
+///            返回 false 表示关键字数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Append(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Append(key, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendArray(KT[] keys, VT value)
+            {
+                return base.getReturnValue(base.node.AppendArray(keys, value));
+            }
+            /// <summary>
+            /// Add matching data keyword 
+///            添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.getReturnValue(base.node.AppendLeftArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">Index keyword 
+///            索引关键字</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found 
+///            返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Remove(key, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveArray(KT[] keys, VT value)
+            {
+                return base.getReturnValue(base.node.RemoveArray(keys, value));
+            }
+            /// <summary>
+            /// Delete the matching data keyword 
+///            删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">Index keyword collection 
+///            索引关键字集合</param>
+            /// <param name="value">Matching data keyword 
+///            匹配数据关键字</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value)
+            {
+                return base.getReturnValue(base.node.RemoveLeftArray(keys, value));
+            }
+        }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
         /// <summary>
@@ -924,6 +2186,97 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            Trie 图词语数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetWordCount();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode)
+        /// </summary>
+        public sealed partial class IStaticTrieGraphNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStaticTrieGraphNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStaticTrieGraphNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add trie graph word 
+///            添加 Trie 图词语
+            /// </summary>
+            /// <param name="word"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum> AppendWord(string word)
+            {
+                return base.getReturnValue(base.node.AppendWord(word));
+            }
+            /// <summary>
+            /// Create the trie graph 
+///            创建 Trie 图
+            /// </summary>
+            /// <returns>The number of words in the trie graph 
+///            Trie 图词语数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> BuildGraph()
+            {
+                return base.getReturnValue(base.node.BuildGraph());
+            }
+            /// <summary>
+            /// Adds text and returns a collection of word numbers 
+///            添加文本并返回词语编号集合
+            /// </summary>
+            /// <param name="text"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int[]> GetAddTextIdentity(string text)
+            {
+                return base.getReturnValue(base.node.GetAddTextIdentity(text));
+            }
+            /// <summary>
+            /// Get the collection of query word numbers (ignore unmatched words) 
+///            获取查询词语编号集合（忽略未匹配词语）
+            /// </summary>
+            /// <param name="text">The text content of the search 
+///            搜索文本内容</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int[]> GetWordSegmentIdentity(string text)
+            {
+                return base.getReturnValue(base.node.GetWordSegmentIdentity(text));
+            }
+            /// <summary>
+            /// Get the query word segmentation result 
+///            获取查询分词结果
+            /// </summary>
+            /// <param name="text">The text content of the search 
+///            搜索文本内容</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult[]> GetWordSegmentResult(string text)
+            {
+                return base.getReturnValue(base.node.GetWordSegmentResult(text));
+            }
+            /// <summary>
+            /// Has the trie graph been created 
+///            是否已经创建 Trie 图
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> IsGraph()
+            {
+                return base.getReturnValue(base.node.IsGraph());
+            }
+            /// <summary>
+            /// Get the number of words in the trie graph 
+///            获取 Trie 图词语数量
+            /// </summary>
+            /// <returns>The number of words in the trie graph 
+///            Trie 图词语数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetWordCount()
+            {
+                return base.getReturnValue(base.node.GetWordCount());
+            }
+        }
 }namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
 {
         /// <summary>
@@ -958,6 +2311,60 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> Update(T key);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNode{T})
+        /// </summary>
+        public sealed partial class ILocalNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILocalNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILocalNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILocalNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Create(T key)
+            {
+                return base.getReturnValue(base.node.Create(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Delete(T key)
+            {
+                return base.getReturnValue(base.node.Delete(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="text"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> LoadCreate(T key, string text)
+            {
+                return base.getReturnValue(base.node.LoadCreate(key, text));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Update(T key)
+            {
+                return base.getReturnValue(base.node.Update(key));
+            }
         }
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {

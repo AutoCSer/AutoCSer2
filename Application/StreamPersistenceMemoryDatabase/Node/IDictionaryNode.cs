@@ -126,7 +126,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="KT">Keyword type
     /// 关键字类型</typeparam>
     /// <typeparam name="VT">Data type</typeparam>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IDictionaryNode<KT, VT> : IDictionaryNode<KT, VT, KeyValue<KT, VT>>
         where KT : IEquatable<KT>
     {

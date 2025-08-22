@@ -78,6 +78,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nodeIndex = node.Index;
         }
         /// <summary>
+        /// Keep the callback output
+        /// 保持回调输出
+        /// </summary>
+        /// <param name="enumeratorCommand">Callback command
+        /// 回调命令</param>
+        internal KeepCallbackResponse(AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand)
+        {
+            this.EnumeratorCommand = enumeratorCommand;
+        }
+        /// <summary>
         /// Release resources
         /// </summary>
         public void Dispose()

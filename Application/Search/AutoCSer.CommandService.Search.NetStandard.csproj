@@ -30,8 +30,14 @@
   <ItemGroup>
     <Compile Include="ConditionData\ConditionDataLocalNode.cs" />
     <Compile Include="ConditionData\LocalLoadCallback.cs" />
-    <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNodeLocalClientNode.cs" />
-    <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNodeLocalClientNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashIndexNodeClientNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashIndexNodeLocalClientNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashIndexNodeReturnValueLocalNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashIndexNodeReturnValueNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashKeyIndexNodeClientNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashKeyIndexNodeLocalClientNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashKeyIndexNodeReturnValueLocalNode.cs" />
+    <Compile Include="DiskBlockIndex\CLientNode\IRemoveMarkHashKeyIndexNodeReturnValueNode.cs" />
     <Compile Include="IndexQuery\Index\IIndex.cs" />
     <Compile Include="IndexQuery\Index\ArrayIndex.cs" />
     <Compile Include="IndexQuery\Index\HashSetIndex.cs" />
@@ -89,8 +95,6 @@
     <Compile Include="ConditionData\IConditionDataNode.cs" />
     <Compile Include="ConditionData\LoadCallback.cs" />
     <Compile Include="DiskBlockIndex\BlockIndexData.cs" />
-    <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNodeClientNode.cs" />
-    <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNodeClientNode.cs" />
     <Compile Include="DiskBlockIndex\IDiskBlockIndexServiceNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNode.cs" />

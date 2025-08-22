@@ -6,6 +6,7 @@ namespace AutoCSer.Net.CommandServer
     /// A client callback delegate that directly retrieves the return value
     /// 直接获取返回值的客户端回调委托
     /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ClientReturnValueCallback
     {
         /// <summary>
@@ -102,6 +103,7 @@ namespace AutoCSer.Net.CommandServer
     /// 直接获取返回值的客户端回调委托
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ClientReturnValueCallback<T>
     {
         /// <summary>

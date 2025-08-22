@@ -46,27 +46,15 @@ namespace AutoCSer.Document.NativeAOT.Service
         /// Client interface example 
 ///            客户端接口示例 (Direct return value API encapsulation)
         /// </summary>
-        public sealed class ServiceControllerClientControllerReturnValueController
+        public sealed class ServiceControllerClientControllerReturnValueController : AutoCSer.Net.CommandServer.ClientReturnValueController<AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent>
         {
-            /// <summary>
-            /// Command client socket event
-            /// </summary>
-            private readonly AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent __client__;
-            /// <summary>
-            /// Whether errors and exceptions are ignored
-            /// </summary>
-            private readonly bool __isIgnoreError__;
             /// <summary>
             /// Client interface example 
 ///            客户端接口示例 (Direct return value API encapsulation)
             /// </summary>
             /// <param name="client">Command client socket event</param>
-            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
-            public ServiceControllerClientControllerReturnValueController(AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent client, bool isIgnoreError = false)
-            {
-                __client__ = client;
-                __isIgnoreError__ = isIgnoreError;
-            }
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            public ServiceControllerClientControllerReturnValueController(AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent client, bool isIgnoreError = false) : base(client, isIgnoreError) { }
             /// <summary>
             /// One-time response API example  
 ///                       一次性响应 API 示例
@@ -78,33 +66,31 @@ namespace AutoCSer.Document.NativeAOT.Service
             public AutoCSer.Net.CommandServer.CommandReturnValue<int> OneTimeResponse(int left, int right)
             {
                 
-                return this.__client__.ServiceControllerClientController/**/.OneTimeResponse(left, right).GetValue(__isIgnoreError__);
+                return base.client.ServiceControllerClientController/**/.OneTimeResponse(left, right).GetValue(base.isIgnoreError);
             }
             /// <summary>
             /// Two-stage response API example  
 ///                       二阶段响应 API 示例
             /// </summary>
-            /// <returns></returns>
             [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public AutoCSer.Net.KeepCallbackCommand TwoStageResponse(System.Action<string> callback, System.Action<int> keepCallback)
             {
-                return this.__client__.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback));
+                return base.client.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback));
             }
             /// <summary>
             /// Two-stage response API example  
 ///                       二阶段响应 API 示例
             /// </summary>
-            /// <returns></returns>
             [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public AutoCSer.Net.KeepCallbackCommand TwoStageResponse(System.Action<string> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<int> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
             {
-                return this.__client__.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+                return base.client.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback, error_keepCallback));
             }
         }
         /// <summary>
         /// Get the direct return value API encapsulation (ServiceControllerClientController)
         /// </summary>
-        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
         /// <returns>Client interface example 
 ///            客户端接口示例 (Direct return value API encapsulation)</returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -160,6 +146,30 @@ namespace AutoCSer.Document.NativeAOT.Service
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> Add(int left, int right);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.CodeGenerator.MemoryDatabase.IServerNode)
+        /// </summary>
+        public sealed partial class IServerNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IServerNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.CodeGenerator.MemoryDatabase.IServerNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IServerNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IServerNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Test API
+            /// </summary>
+            /// <param name="left"></param>
+            /// <param name="right"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Add(int left, int right)
+            {
+                return base.node.Add(left, right).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.Document.CodeGenerator.MemoryDatabase
 {
         /// <summary>
@@ -176,6 +186,30 @@ namespace AutoCSer.Document.NativeAOT.Service
             /// <param name="right"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Add(int left, int right);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.CodeGenerator.MemoryDatabase.ILocalNode)
+        /// </summary>
+        public sealed partial class ILocalNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILocalNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.CodeGenerator.MemoryDatabase.ILocalNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILocalNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILocalNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Test API
+            /// </summary>
+            /// <param name="left"></param>
+            /// <param name="right"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Add(int left, int right)
+            {
+                return base.getReturnValue(base.node.Add(left, right));
+            }
         }
 }namespace AutoCSer.Document.CodeGenerator.MemoryDatabase
 {

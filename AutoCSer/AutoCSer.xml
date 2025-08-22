@@ -27059,6 +27059,57 @@
             Linux
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.ClientReturnValueController`1">
+            <summary>
+            直接获取返回值的客户端 API 封装
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueController`1.client">
+            <summary>
+            Command client socket event
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueController`1.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略异常与错误
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueController`1.#ctor(`0,System.Boolean)">
+            <summary>
+            直接获取返回值的客户端 API 封装
+            </summary>
+            <param name="client">Command client socket event
+            命令客户端套接字事件</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略异常与错误</param>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.ClientReturnValueController`2">
+            <summary>
+            代码生成模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueController`2.client">
+            <summary>
+            代码生成模板
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueController`2.isIgnoreError">
+            <summary>
+            代码生成模板
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueController`2.#ctor(`0,System.Boolean)">
+            <summary>
+            代码生成模板
+            </summary>
+            <param name="client"></param>
+            <param name="isIgnoreError"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientReturnValueCallback">
             <summary>
             A client callback delegate that directly retrieves the return value
@@ -27597,7 +27648,8 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandReturnValue">
             <summary>
-            命令返回值 await
+            Used for await
+            用于 await
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue.Command">
@@ -27637,7 +27689,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.#ctor(AutoCSer.Net.ReturnCommand,System.Boolean)">
             <summary>
-            命令返回值
+            Used for await
+            用于 await
             </summary>
             <param name="command">The return value command
             返回值命令</param>
@@ -27646,6 +27699,7 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.onCompleted">
             <summary>
+            Complete the callback operation
             完成回调操作
             </summary>
         </member>
@@ -27677,7 +27731,8 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandReturnValue`1">
             <summary>
-            命令返回值 await T
+            Command return value (await T)
+            命令返回值（await T）
             </summary>
             <typeparam name="T"></typeparam>
         </member>
@@ -27723,7 +27778,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.#ctor(AutoCSer.Net.ReturnCommand{`0},System.Boolean)">
             <summary>
-            命令返回值
+            Command return value (await T)
+            命令返回值（await T）
             </summary>
             <param name="command">The return value command
             返回值命令</param>
@@ -27732,6 +27788,7 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.onCompleted">
             <summary>
+            Complete the callback operation
             完成回调操作
             </summary>
         </member>
@@ -50110,6 +50167,12 @@
             客户端未知错误，可能是没有连接上服务器或者验证未通过
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.ClientDisposed">
+            <summary>
+            The client has released resources
+            客户端已释放资源
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerCallback">
             <summary>
             TCP server-side asynchronous callback
@@ -55493,6 +55556,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Reflection.TypeNameBuilder.genericParameter(System.Type,System.Type[],System.Boolean)">
+            <summary>
+            泛型参数处理
+            </summary>
+            <param name="type"></param>
+            <param name="genericArguments">泛型类型参数集合</param>
+            <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
+        </member>
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.GenericParameterString(System.Type,System.Type[],System.Boolean)">
             <summary>
             泛型参数处理
             </summary>

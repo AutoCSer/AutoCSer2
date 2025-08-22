@@ -29,6 +29,39 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Increment();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseLocalService.CustomNode.ICounterNode)
+        /// </summary>
+        public sealed partial class ICounterNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ICounterNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseLocalService.CustomNode.ICounterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ICounterNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ICounterNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <returns>Current count 
+///            当前计数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> GetCount()
+            {
+                return base.getReturnValue(base.node.GetCount());
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Increment()
+            {
+                return base.getReturnValue(base.node.Increment());
+            }
+        }
 }namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
 {
         /// <summary>

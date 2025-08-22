@@ -105,6 +105,40 @@ namespace AutoCSer.CodeGenerator.Extensions
             }
         }
         /// <summary>
+        /// 获取带后缀的类型名称
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="nameSuffix"></param>
+        /// <returns></returns>
+        internal static string getName(this Type type, string nameSuffix)
+        {
+            TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
+            using (CharStream nameStream = typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
+            {
+                if (type.IsGenericType) typeNameBuilder.GenericName(type, nameSuffix);
+                else
+                {
+                    nameStream.SimpleWrite(type.Name);
+                    nameStream.SimpleWrite(nameSuffix);
+                }
+                return typeNameBuilder.NameStream.ToString();
+            }
+        }
+        /// <summary>
+        /// 获取泛型类型字符串
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal static string getGenericTypeString(this Type type)
+        {
+            TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
+            using (CharStream nameStream = typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
+            {
+                typeNameBuilder.GenericParameterString(type, EmptyArray<Type>.Array);
+                return typeNameBuilder.NameStream.ToString();
+            }
+        }
+        /// <summary>
         /// 是否包含泛型参数
         /// </summary>
         /// <param name="type"></param>

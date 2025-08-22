@@ -117,6 +117,19 @@ namespace AutoCSer.Net
             IsCompleted = true;
             continuation = Common.EmptyAction;
         }
+        ///// <summary>
+        ///// The return value command has been completed
+        ///// 已完成返回值命令
+        ///// </summary>
+        ///// <param name="returnType"></param>
+        ///// <param name="errorMessage"></param>
+        //internal ReturnCommand(CommandClientReturnTypeEnum returnType, string? errorMessage)
+        //{
+        //    ReturnType = returnType;
+        //    ErrorMessage = errorMessage;
+        //    IsCompleted = true;
+        //    continuation = Common.EmptyAction;
+        //}
         /// <summary>
         /// The return value command
         /// 返回值命令

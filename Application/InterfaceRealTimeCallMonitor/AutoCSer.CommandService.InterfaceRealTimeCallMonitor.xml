@@ -813,6 +813,16 @@
             默认空命令服务套接字会话对象
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent">
+            <summary>
+            接口实时调用监视服务客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent.InterfaceRealTimeCallMonitor">
+            <summary>
+            接口实时调用监视服务接口
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode">
             <summary>
             The interface of the statistical information node for exception calls 
@@ -882,12 +892,116 @@
                        移除当前节点
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode)
+            </summary>
+            <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.Append(System.String,System.String,System.DateTime)">
+            <summary>
+            Add exception call time 
+                       添加异常调用时间
+            </summary>
+            <param name="callType">Call interface type 
+                       调用接口类型</param>
+            <param name="callName">The name of the interface method to be called 
+                       调用接口方法名称</param>
+            <param name="callTime">Exception call time 
+                       异常调用时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.GetCount">
+            <summary>
+            Get the total number of exception calls 
+                       获取异常调用总次数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.GetManyStatistics(System.Int32)">
+            <summary>
+            Get the statistics of the specified number of call exceptions 
+                       获取指定数量调用异常统计信息
+            </summary>
+            <param name="count">The number of get the statistical information of call exceptions 
+                       获取调用异常统计信息数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.GetStatistics(System.String,System.String)">
+            <summary>
+            Get the statistical information of call exceptions 
+                       获取调用异常统计信息
+            </summary>
+            <param name="callType">Call interface type 
+                       调用接口类型</param>
+            <param name="callName">The name of the interface method to be called 
+                       调用接口方法名称</param>
+            <returns>Exception statistical information, failure returns null 
+                       异常统计信息，失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.GetStatisticsCount">
+            <summary>
+            Get the quantity of exception statistical information 
+                       获取异常统计信息数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.Remove(System.String,System.String)">
+            <summary>
+            Remove exception statistics 
+                       移除异常统计信息
+            </summary>
+            <param name="callType">Call interface type 
+                       调用接口类型</param>
+            <param name="callName">The name of the interface method to be called 
+                       调用接口方法名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeReturnValueNode.RemoveNode">
+            <summary>
+            Remove the current node 
+                       移除当前节点
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeClientNode">
             <summary>
             创建异常调用统计信息节点的自定义基础服务接口 client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeClientNode.CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.DateTime,System.Int32)">
+            <summary>
+            创建异常调用统计信息节点 IExceptionStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="removeTime">节点自动移除时间</param>
+            <param name="callTimeCount">保存调用时间数量</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeReturnValueNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeReturnValueNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode)
+            </summary>
+            <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeReturnValueNode.CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.DateTime,System.Int32)">
             <summary>
             创建异常调用统计信息节点 IExceptionStatisticsNode
             </summary>
@@ -1553,16 +1667,6 @@
             int callTimeCount 保存调用时间数量
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent">
-            <summary>
-            接口实时调用监视服务客户端接口
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent.InterfaceRealTimeCallMonitor">
-            <summary>
-            接口实时调用监视服务接口
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService">

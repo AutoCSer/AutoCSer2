@@ -168,6 +168,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="NetStandard\IAsyncDisposable.cs" />
     <Compile Include="NetStandard\MethodImpl.cs" />
     <Compile Include="Net\CommandServer\ClientMethod.cs" />
+    <Compile Include="Net\CommandServer\ClientReturnValueController.cs" />
     <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandClientControllerTypeAttribute.cs" />

@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">Keyword type
     /// 关键字类型</typeparam>
-    [ServerNode]
+    [ServerNode(IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IByteArrayDictionaryNode<KT> where KT : IEquatable<KT>
     {
         /// <summary>

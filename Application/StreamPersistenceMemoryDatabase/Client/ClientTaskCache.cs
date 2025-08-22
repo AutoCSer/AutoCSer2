@@ -13,6 +13,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public abstract class ClientTaskCache<T> where T : class, IServiceNodeClientNode
     {
         /// <summary>
+        /// Has the client released the resources
+        /// 客户端是否已经释放资源
+        /// </summary>
+        public abstract bool IsDisposed { get; }
+        /// <summary>
         /// Log stream persistence in-memory database client
         /// 日志流持久化内存数据库客户端
         /// </summary>

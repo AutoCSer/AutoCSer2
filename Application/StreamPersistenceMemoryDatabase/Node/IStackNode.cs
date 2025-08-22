@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 栈节点接口（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IStackNode<T>
     {
         /// <summary>

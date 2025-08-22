@@ -56,7 +56,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.clientNode = clientNode;
             nodeIndex = clientNode.Index;
-            this.result = new LocalResult<T>(result);
+            this.Result = new LocalResult<T>(result);
             IsCompleted = true;
             continuation = Common.EmptyAction;
         }
@@ -75,8 +75,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool Callback(ResponseParameter result)
         {
-            if (result.State == CallStateEnum.Success) this.result = ((ResponseParameter<T>)result).Value.ReturnValue;
-            else this.result = new LocalResult<T>(result.State);
+            if (result.State == CallStateEnum.Success) this.Result = ((ResponseParameter<T>)result).Value.ReturnValue;
+            else this.Result = new LocalResult<T>(result.State);
             completed(clientNode.IsSynchronousCallback);
             if (result.State != CallStateEnum.Success) clientNode.CheckState(nodeIndex, result.State);
             return true;

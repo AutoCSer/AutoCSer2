@@ -54,5 +54,41 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             }
             return true;
         }
+        /// <summary>
+        /// The client node singleton of the API that directly returns the value
+        /// 直接返回值的 API 的客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeReturnValueNode<string, string> returnValueNode = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeReturnValueNode<string, string>(nodeCache);
+        /// <summary>
+        /// Example of a generic dictionary client node
+        /// 泛型字典客户端节点示例
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ReturnValueTest()
+        {
+            await returnValueNode.Clear();
+
+            bool boolResult = await returnValueNode.Set("3A", "AAA");
+            if (!boolResult)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            var valueResult = await returnValueNode.TryGetValue("3A");
+            if (valueResult.Value != "AAA")
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            valueResult = await returnValueNode.TryGetValue("3B");
+            if (valueResult.IsValue)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            boolResult = await returnValueNode.Remove("3A");
+            if (!boolResult)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
     }
 }

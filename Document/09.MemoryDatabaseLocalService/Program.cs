@@ -31,6 +31,8 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService
 
             Console.WriteLine($"{nameof(OnlyPersistenceNode)} {await OnlyPersistenceNode.Test()}");
 
+            Console.WriteLine($"{nameof(DictionaryNode)} {await DictionaryNode.ReturnValueTest()}");
+
             Console.WriteLine("Completed");
             Console.ReadKey();
         }

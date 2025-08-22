@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 消息处理节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IMessageNode<T>
     {
         /// <summary>

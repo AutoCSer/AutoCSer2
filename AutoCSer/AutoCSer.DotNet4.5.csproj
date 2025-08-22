@@ -212,6 +212,7 @@
     <Compile Include="Net\CommandServer\CancelKeepCallbackData.cs" />
     <Compile Include="Net\CommandServer\ClientBuildInfo.cs" />
     <Compile Include="Net\CommandServer\ClientCallbackTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\ClientReturnValueController.cs" />
     <Compile Include="Net\CommandServer\ClientTaskQueueInterfaceController.cs" />
     <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\ClientReturnValueCallback.cs" />

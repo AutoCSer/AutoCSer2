@@ -40,6 +40,11 @@ namespace AutoCSer.CommandService
         /// </summary>
         protected readonly System.Threading.SemaphoreSlim nodeLock = new System.Threading.SemaphoreSlim(1, 1);
         /// <summary>
+        /// Has the client released the resources
+        /// 客户端是否已经释放资源
+        /// </summary>
+        public abstract bool IsDisposed { get; }
+        /// <summary>
         /// Get the client node
         /// 获取客户端节点
         /// </summary>
@@ -99,6 +104,11 @@ namespace AutoCSer.CommandService
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例
         /// </summary>
         public readonly ClientTaskCache<ST> Client;
+        /// <summary>
+        /// Has the client released the resources
+        /// 客户端是否已经释放资源
+        /// </summary>
+        public override bool IsDisposed { get { return Client.IsDisposed; } }
         /// <summary>
         /// Get client node delegate
         /// 获取客户端节点委托

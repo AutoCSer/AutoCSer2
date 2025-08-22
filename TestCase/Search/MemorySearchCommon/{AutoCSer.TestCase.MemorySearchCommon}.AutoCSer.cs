@@ -176,6 +176,36 @@ namespace AutoCSer.TestCase.SearchDataSource
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int timeoutSeconds);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNode)
+        /// </summary>
+        public sealed partial class ITimeoutMessageServiceNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ITimeoutMessageServiceNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ITimeoutMessageServiceNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ITimeoutMessageServiceNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="timeoutSeconds">触发任务执行超时秒数</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int timeoutSeconds)
+            {
+                return base.getReturnValue(base.node.CreateSearchUserMessageNode(index, key, nodeInfo, timeoutSeconds));
+            }
+        }
 }namespace AutoCSer.TestCase.SearchQueryService
 {
         /// <summary>
@@ -264,6 +294,122 @@ namespace AutoCSer.TestCase.SearchDataSource
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateUserRemarkWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.IQueryServiceNode)
+        /// </summary>
+        public sealed partial class IQueryServiceNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IQueryServiceNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.IQueryServiceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IQueryServiceNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IQueryServiceNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 创建哈希索引节点 IHashIndexNode{KT,VT}
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="keyType">索引关键字类型</param>
+            /// <param name="valueType">数据关键字类型</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
+            {
+                return base.getReturnValue(base.node.CreateHashIndexNode(index, key, nodeInfo, keyType, valueType));
+            }
+            /// <summary>
+            /// 创建哈希索引节点 IHashCodeKeyIndexNode{T}
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="keyType">索引关键字类型</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashCodeKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+            {
+                return base.getReturnValue(base.node.CreateHashCodeKeyIndexNode(index, key, nodeInfo, keyType));
+            }
+            /// <summary>
+            /// 创建非索引条件查询数据节点 ISearchUserNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo)
+            {
+                return base.getReturnValue(base.node.CreateSearchUserNode(index, key, nodeInfo));
+            }
+            /// <summary>
+            /// 创建字符串 Trie 图节点 IStaticTrieGraphNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            /// <param name="maxWordSize">未知词语最大文字长度</param>
+            /// <param name="wordSegmentFlags">分词选项</param>
+            /// <param name="replaceChars">替换文字集合</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte maxTrieWordSize, byte maxWordSize, AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags, string replaceChars)
+            {
+                return base.getReturnValue(base.node.CreateStaticTrieGraphNode(index, key, nodeInfo, maxTrieWordSize, maxWordSize, wordSegmentFlags, replaceChars));
+            }
+            /// <summary>
+            /// 创建用户名称分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateUserNameWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo)
+            {
+                return base.getReturnValue(base.node.CreateUserNameWordIdentityBlockIndexNode(index, key, nodeInfo));
+            }
+            /// <summary>
+            /// 创建用户备注分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateUserRemarkWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo)
+            {
+                return base.getReturnValue(base.node.CreateUserRemarkWordIdentityBlockIndexNode(index, key, nodeInfo));
+            }
+        }
 }namespace AutoCSer.TestCase.SearchQueryService
 {
         /// <summary>
@@ -304,6 +450,70 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <param name="userRemarkWordIdentitys">用户备注查询分词编号集合</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<int>>> GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserNode)
+        /// </summary>
+        public sealed partial class ISearchUserNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISearchUserNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISearchUserNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISearchUserNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Create(int key)
+            {
+                return base.getReturnValue(base.node.Create(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Delete(int key)
+            {
+                return base.getReturnValue(base.node.Delete(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue LoadCreate(AutoCSer.BinarySerializeKeyValue<int,AutoCSer.TestCase.SearchDataSource.SearchUser> value)
+            {
+                return base.getReturnValue(base.node.LoadCreate(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Update(int key)
+            {
+                return base.getReturnValue(base.node.Update(key));
+            }
+            /// <summary>
+            /// 获取非索引条件数据用户分页数据
+            /// </summary>
+            /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
+            /// <param name="userNameWordIdentitys">用户名称查询分词编号集合</param>
+            /// <param name="userRemarkWordIdentitys">用户备注查询分词编号集合</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<int>> GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys)
+            {
+                return base.getReturnValue(base.node.GetPage(queryParameter, userNameWordIdentitys, userRemarkWordIdentitys));
+            }
         }
 }namespace AutoCSer.TestCase.SearchDataSource
 {

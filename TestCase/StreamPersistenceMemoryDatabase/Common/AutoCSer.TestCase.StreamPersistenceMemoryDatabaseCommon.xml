@@ -85,6 +85,49 @@
             </summary>
             <param name="speeds"></param>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+            <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[])">
+            <summary>
+            
+            </summary>
+            <param name="monsters"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.SetSpeed(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="speed"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueNode.SetSpeeds(AutoCSer.KeyValue{System.Int32,System.Int32}[])">
+            <summary>
+            
+            </summary>
+            <param name="speeds"></param>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode">
             <summary>
              local client node interface
@@ -115,6 +158,49 @@
             <param name="speed"></param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode.SetSpeeds(AutoCSer.KeyValue{System.Int32,System.Int32}[])">
+            <summary>
+            
+            </summary>
+            <param name="speeds"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[])">
+            <summary>
+            
+            </summary>
+            <param name="monsters"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.SetSpeed(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="speed"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.SetSpeeds(AutoCSer.KeyValue{System.Int32,System.Int32}[])">
             <summary>
             
             </summary>
@@ -367,6 +453,187 @@
             消息数据
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+            <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CallCustomPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.Callback">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.Enumerable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.GetJsonValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.GetServerByteArray">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.GetValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.InputEnumerable(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.InputKeepCallback(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.KeepCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.PersistenceCallbackException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetCallbackPersistence">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetJsonValue(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValueCallback(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValueCallbackPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValuePersistenceSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValueSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CheckSnapshot">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CallbackCommand(System.Action)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.CallbackCommand(System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.GetValueCommand(System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.GetValueCommand(System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValueCommand(System.Int32,System.Action)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueNode.SetValueCommand(System.Int32,System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode">
             <summary>
             Customize the basic service node interface 
@@ -547,6 +814,187 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.SetValueCommand(System.Int32,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallCustomPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.Callback">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.Enumerable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetJsonValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetServerByteArray">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.InputEnumerable(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.InputKeepCallback(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.KeepCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.PersistenceCallbackException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetCallbackPersistence">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetJsonValue(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCallback(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCallbackPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValuePersistenceSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CheckSnapshot">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallbackCommand(System.Action)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallbackCommand(System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValueCommand(System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValueCommand(System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCommand(System.Int32,System.Action)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCommand(System.Int32,System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
             <summary>
             
             </summary>

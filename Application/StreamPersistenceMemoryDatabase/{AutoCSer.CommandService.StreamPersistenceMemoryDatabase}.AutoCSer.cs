@@ -518,6 +518,110 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode{T})
+        /// </summary>
+        public sealed partial class ITimeoutMessageNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ITimeoutMessageNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ITimeoutMessageNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ITimeoutMessageNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add the task node 
+///            添加任务节点
+            /// </summary>
+            /// <param name="task"></param>
+            /// <returns>Task identifier. Return 0 upon failure 
+///            任务标识，失败返回 0</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task)
+            {
+                return base.node.Append(task).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Cancel the task 
+///            取消任务
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Cancel(long identity)
+            {
+                return base.node.Cancel(identity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the total number of tasks 
+///            获取任务总数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetCount()
+            {
+                return base.node.GetCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of failed tasks executed 
+///            获取执行失败任务数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetFailedCount()
+            {
+                return base.node.GetFailedCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Failed task retry 
+///            失败任务重试
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RetryFailed()
+            {
+                return base.node.RetryFailed().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Trigger task execution 
+///            触发任务执行
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue RunTask(long identity)
+            {
+                return base.node.RunTask(identity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add immediate execution tasks 
+///            添加立即执行任务
+            /// </summary>
+            /// <param name="task"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendRun(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task)
+            {
+                return base.node.AppendRun(task).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the execution task message data 
+///            获取执行任务消息数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<T> keepCallback)
+            {
+                return base.node.GetRunTask(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// Get the execution task message data 
+///            获取执行任务消息数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.GetRunTask(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -669,6 +773,224 @@ namespace AutoCSer.CommandService
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SortArray();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode{T})
+        /// </summary>
+        public sealed partial class IArrayNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IArrayNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IArrayNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IArrayNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data at the specified location 
+///            清除指定位置数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Clear data quantity 
+///            清除数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.node.Clear(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearArray()
+            {
+                return base.node.ClearArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Fill the array with data to specify the position 
+///            用数据填充数组指定位置
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The number of filled data 
+///            填充数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Fill(T value, int startIndex, int count)
+            {
+                return base.node.Fill(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Fill the entire array with data 
+///            用数据填充整个数组
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue FillArray(T value)
+            {
+                return base.node.FillArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the array length 
+///            获取数组长度
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetLength()
+            {
+                return base.node.GetLength().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on index location 
+///            根据索引位置获取数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <returns>If the return exceeds the index, there will be no return value 
+///            超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValue(int index)
+            {
+                return base.node.GetValue(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set the data according to the index position and return the data before the setting 
+///            根据索引位置设置数据并返回设置之前的数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Set the previous data. If it exceeds the index and returns, there will be no return value 
+///            设置之前的数据，超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueSet(int index, T value)
+            {
+                return base.node.GetValueSet(index, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOf(T value, int startIndex, int count)
+            {
+                return base.node.IndexOf(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOfArray(T value)
+            {
+                return base.node.IndexOfArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">The last matching position (the starting position) 
+///            最后一个匹配位置（起始位置）</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> LastIndexOf(T value, int startIndex, int count)
+            {
+                return base.node.LastIndexOf(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> LastIndexOfArray(T value)
+            {
+                return base.node.LastIndexOfArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the array data at the specified position 
+///            反转指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Reverse the amount of data 
+///            反转数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.node.Reverse(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the entire array data 
+///            反转整个数组数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReverseArray()
+            {
+                return base.node.ReverseArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set the data according to the index position 
+///            根据索引位置设置数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> SetValue(int index, T value)
+            {
+                return base.node.SetValue(index, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Sort the array data at the specified position 
+///            排序指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The quantity of data to be sorted 
+///            排序数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.node.Sort(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Array sorting 
+///            数组排序
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue SortArray()
+            {
+                return base.node.SortArray().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -752,6 +1074,129 @@ namespace AutoCSer.CommandService
             /// <returns>Returning false indicates that the index is out of range 
 ///            返回 false 表示索引超出范围</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> SetBit(uint index);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+        /// </summary>
+        public sealed partial class IBitmapNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IBitmapNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IBitmapNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IBitmapNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear bit status 
+///            清除位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ClearBit(uint index)
+            {
+                return base.node.ClearBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearMap()
+            {
+                return base.node.ClearMap().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Read bit status 
+///            读取位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>A non-0 indicates that the binary bit is in the set state. If the index exceeds, there will be no return value 
+///            非 0 表示二进制位为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBit(uint index)
+            {
+                return base.node.GetBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear the bit state and return to the state before setting 
+///            清除位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Clear the state before the operation. A non-0 state indicates that the binary bit was in the set state before. If the index exceeds, there will be no return value 
+///            清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitClearBit(uint index)
+            {
+                return base.node.GetBitClearBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the bit state and return the state before the operation 
+///            位状态取反并返回操作之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Take the state before the reverse operation. If it is not 0, it indicates that the binary bit is in the set state before. If the index exceeds, there will be no return value 
+///            取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitInvertBit(uint index)
+            {
+                return base.node.GetBitInvertBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set the bit state and return the state before setting 
+///            设置位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>The state before setting: A non-0 indicates that the binary bit was in the set state before, and there is no return value if the index exceeds 
+///            设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitSetBit(uint index)
+            {
+                return base.node.GetBitSetBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of bitmap binary bits 
+///            获取位图二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<uint> GetCapacity()
+            {
+                return base.node.GetCapacity().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the bit state 
+///            位状态取反
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> InvertBit(uint index)
+            {
+                return base.node.InvertBit(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set bit status 
+///            设置位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> SetBit(uint index)
+            {
+                return base.node.SetBit(index).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -858,6 +1303,166 @@ namespace AutoCSer.CommandService
 ///            删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNode{KT})
+        /// </summary>
+        public sealed partial class IByteArrayDictionaryNodeReturnValueNode<KT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IByteArrayDictionaryNodeClientNode<KT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNode{KT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IByteArrayDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayDictionaryNodeClientNode<KT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> GetRemoveResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, KT key)
+            {
+                return base.node.GetRemoveResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data and rebuild the container (to solve the problem of low performance of the clear call when the data volume is large) 
+///            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            /// <param name="capacity">Initialize the size of the new container 
+///            新容器初始化大小</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Renew(int capacity)
+            {
+                return base.node.Renew(capacity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(KT key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Try to add data 
+///            尝试添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryGetResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, KT key)
+            {
+                return base.node.TryGetResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<byte[][]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -961,6 +1566,164 @@ namespace AutoCSer.CommandService
 ///            删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNode{KT})
+        /// </summary>
+        public sealed partial class IByteArrayFragmentDictionaryNodeReturnValueNode<KT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IByteArrayFragmentDictionaryNodeClientNode<KT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNode{KT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IByteArrayFragmentDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayFragmentDictionaryNodeClientNode<KT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearArray()
+            {
+                return base.node.ClearArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> GetRemoveResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, KT key)
+            {
+                return base.node.GetRemoveResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(KT key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryGetResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, KT key)
+            {
+                return base.node.TryGetResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<byte[][]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1016,6 +1779,92 @@ namespace AutoCSer.CommandService
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryPeekResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayQueueNode)
+        /// </summary>
+        public sealed partial class IByteArrayQueueNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IByteArrayQueueNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayQueueNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IByteArrayQueueNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayQueueNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of queue data 
+///            获取队列数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add the data to the queue 
+///            将数据添加到队列
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Enqueue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Enqueue(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the queue 
+///            从队列中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryDequeue()
+            {
+                return base.node.TryDequeue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the queue 
+///            从队列中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryDequeueResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue)
+            {
+                return base.node.TryDequeueResponseParameter(returnValue).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next pop-up data in the queue (no pop-up data, only view) 
+///            获取队列中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryPeek()
+            {
+                return base.node.TryPeek().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next pop-up data in the queue (no pop-up data, only view) 
+///            获取队列中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryPeekResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue)
+            {
+                return base.node.TryPeekResponseParameter(returnValue).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1070,6 +1919,92 @@ namespace AutoCSer.CommandService
             /// <returns>If there is no pop-up data, no data will be returned 
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryPopResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNode)
+        /// </summary>
+        public sealed partial class IByteArrayStackNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IByteArrayStackNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IByteArrayStackNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayStackNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add the data to the stack 
+///            将数据添加到栈
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Push(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Push(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next popped data in the stack (no popped data, only view) 
+///            获取栈中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryPeek()
+            {
+                return base.node.TryPeek().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next popped data in the stack (no popped data, only view) 
+///            获取栈中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryPeekResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue)
+            {
+                return base.node.TryPeekResponseParameter(returnValue).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the stack 
+///            从栈中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryPop()
+            {
+                return base.node.TryPop().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the stack 
+///            从栈中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryPopResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue)
+            {
+                return base.node.TryPopResponseParameter(returnValue).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1149,6 +2084,135 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class IDictionaryNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDictionaryNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReusableClear()
+            {
+                return base.node.ReusableClear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="capacity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Renew(int capacity)
+            {
+                return base.node.Renew(capacity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1188,6 +2252,61 @@ namespace AutoCSer.CommandService
             /// <returns>Lock request identity. Return 0 if failed 
 ///            锁请求标识，失败返回 0</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<long> TryEnter(T key, ushort timeoutSeconds);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode{T})
+        /// </summary>
+        public sealed partial class IDistributedLockNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDistributedLockNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDistributedLockNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDistributedLockNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Apply for a lock 
+///            申请锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="timeoutSeconds">Timeout seconds 
+///            超时秒数</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> Enter(T key, ushort timeoutSeconds)
+            {
+                return base.node.Enter(key, timeoutSeconds).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Release the lock 
+///            释放锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="identity">Lock request identity 
+///            锁请求标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.SendOnlyCommand Release(T key, long identity)
+            {
+                return base.node.Release(key, identity);
+            }
+            /// <summary>
+            /// Try to apply for a lock 
+///            尝试申请锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="timeoutSeconds">Timeout seconds 
+///            超时秒数</param>
+            /// <returns>Lock request identity. Return 0 if failed 
+///            锁请求标识，失败返回 0</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> TryEnter(T key, ushort timeoutSeconds)
+            {
+                return base.node.TryEnter(key, timeoutSeconds).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1281,6 +2400,149 @@ namespace AutoCSer.CommandService
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class IFragmentDictionaryNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IFragmentDictionaryNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IFragmentDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IFragmentDictionaryNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearArray()
+            {
+                return base.node.ClearArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reusable dictionaries reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReusableClear()
+            {
+                return base.node.ReusableClear().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1350,6 +2612,115 @@ namespace AutoCSer.CommandService
 ///            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode{T})
+        /// </summary>
+        public sealed partial class IFragmentHashSetNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IFragmentHashSetNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IFragmentHashSetNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IFragmentHashSetNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Add(T value)
+            {
+                return base.node.Add(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearArray()
+            {
+                return base.node.ClearArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T value)
+            {
+                return base.node.Remove(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> AddValues(T[] values)
+            {
+                return base.node.AddValues(values).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.node.RemoveValues(values).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reusable hash tables reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReusableClear()
+            {
+                return base.node.ReusableClear().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1441,6 +2812,143 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesDictionaryNode)
+        /// </summary>
+        public sealed partial class IHashBytesDictionaryNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IHashBytesDictionaryNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashBytesDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IHashBytesDictionaryNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> GetRemove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> GetRemoveResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.GetRemoveResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data and rebuild the container (to solve the problem of low performance of the clear call when the data volume is large) 
+///            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            /// <param name="capacity">Initialize the size of the new container 
+///            新容器初始化大小</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Renew(int capacity)
+            {
+                return base.node.Renew(capacity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Try to add data 
+///            尝试添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryGetResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.TryGetResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1529,6 +3037,141 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesFragmentDictionaryNode)
+        /// </summary>
+        public sealed partial class IHashBytesFragmentDictionaryNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IHashBytesFragmentDictionaryNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesFragmentDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashBytesFragmentDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IHashBytesFragmentDictionaryNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearArray()
+            {
+                return base.node.ClearArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> GetRemove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Deleted data and no returned data indicate that the keyword does not exist 
+///            被删除数据，无返回数据表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> GetRemoveResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.GetRemoveResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> TryGetResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter returnValue, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.TryGetResponseParameter(returnValue, key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1600,6 +3243,116 @@ namespace AutoCSer.CommandService
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode{T})
+        /// </summary>
+        public sealed partial class IHashSetNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IHashSetNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashSetNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IHashSetNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Add(T value)
+            {
+                return base.node.Add(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T value)
+            {
+                return base.node.Remove(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data and rebuild the container (to solve the problem of low performance of the clear call when the data volume is large) 
+///            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            /// <param name="capacity">Container initialization size 
+///            容器初始化大小</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Renew(int capacity)
+            {
+                return base.node.Renew(capacity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reusable dictionaries reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReusableClear()
+            {
+                return base.node.ReusableClear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> AddValues(T[] values)
+            {
+                return base.node.AddValues(values).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.node.RemoveValues(values).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1625,6 +3378,43 @@ namespace AutoCSer.CommandService
             /// <returns>Auto-increment identity segment 
 ///            自增 ID 分段</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment> NextFragment(int count);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+        /// </summary>
+        public sealed partial class IIdentityGeneratorNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IIdentityGeneratorNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IIdentityGeneratorNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IIdentityGeneratorNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the next increment identity 
+///            获取下一个自增ID
+            /// </summary>
+            /// <returns>The next increment identity returns a negative number on failure 
+///            下一个自增ID，失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> Next()
+            {
+                return base.node.Next().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Gets the auto-increment identity segment 
+///            获取自增 ID 分段
+            /// </summary>
+            /// <param name="count">Get the quantity of data 
+///            获取数据数量</param>
+            /// <returns>Auto-increment identity segment 
+///            自增 ID 分段</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment> NextFragment(int count)
+            {
+                return base.node.NextFragment(count).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1873,6 +3663,372 @@ namespace AutoCSer.CommandService
 ///            是否存在可移除数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> TryPop();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode{T})
+        /// </summary>
+        public sealed partial class ILeftArrayNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ILeftArrayNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILeftArrayNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ILeftArrayNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value">data</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Add(T value)
+            {
+                return base.node.Add(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear the data at the specified location 
+///            清除指定位置数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Clear data quantity 
+///            清除数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.node.Clear(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all the data and set the valid length of the data to 0 
+///            清除所有数据并将数据有效长度设置为 0
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearLength()
+            {
+                return base.node.ClearLength().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Fill the array with data to specify the position 
+///            用数据填充数组指定位置
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The number of filled data 
+///            填充数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Fill(T value, int startIndex, int count)
+            {
+                return base.node.Fill(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Fill the entire array with data 
+///            用数据填充整个数组
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue FillArray(T value)
+            {
+                return base.node.FillArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the size of the array container 
+///            获取数组容器大小
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetCapacity()
+            {
+                return base.node.GetCapacity().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of containers free 
+///            获取容器空闲数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetFreeCount()
+            {
+                return base.node.GetFreeCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the valid length of the array 
+///            获取数组有效长度
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetLength()
+            {
+                return base.node.GetLength().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the last data and return it 
+///            移除最后一个数据并返回该数据
+            /// </summary>
+            /// <returns>No data will be returned if there is no removable data 
+///            没有可移除数据则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetTryPopValue()
+            {
+                return base.node.GetTryPopValue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on index location 
+///            根据索引位置获取数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <returns>If the return exceeds the index, there will be no return value 
+///            超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValue(int index)
+            {
+                return base.node.GetValue(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the data at the specified index position and return the removed data 
+///            移除指定索引位置数据并返回被移除的数据
+            /// </summary>
+            /// <param name="index">Data location 
+///            数据位置</param>
+            /// <returns>No data will be returned if the index range is exceeded 
+///            超出索引范围则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueRemoveAt(int index)
+            {
+                return base.node.GetValueRemoveAt(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the data at the specified index position, move the last data to the specified position, and return the removed data 
+///            移除指定索引位置数据，将最后一个数据移动到该指定位置，并返回被移除的数据
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>No data will be returned if the index range is exceeded 
+///            超出索引范围则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueRemoveToEnd(int index)
+            {
+                return base.node.GetValueRemoveToEnd(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set the data according to the index position and return the data before the setting 
+///            根据索引位置设置数据并返回设置之前的数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Set the previous data. If it exceeds the index and returns, there will be no return value 
+///            设置之前的数据，超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueSet(int index, T value)
+            {
+                return base.node.GetValueSet(index, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOf(T value, int startIndex, int count)
+            {
+                return base.node.IndexOf(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOfArray(T value)
+            {
+                return base.node.IndexOfArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Insert data 
+///            插入数据
+            /// </summary>
+            /// <param name="index">Insert position 
+///            插入位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Insert(int index, T value)
+            {
+                return base.node.Insert(index, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">The last matching position (the starting position) 
+///            最后一个匹配位置（起始位置）</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> LastIndexOf(T value, int startIndex, int count)
+            {
+                return base.node.LastIndexOf(value, startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> LastIndexOfArray(T value)
+            {
+                return base.node.LastIndexOfArray(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the first matching data (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            移除第一个匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">data</param>
+            /// <returns>Returning false indicates that there is no data match 
+///            返回 false 表示不存在数据匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T value)
+            {
+                return base.node.Remove(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the data at the specified index position 
+///            移除指定索引位置数据
+            /// </summary>
+            /// <param name="index">Data location 
+///            数据位置</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> RemoveAt(int index)
+            {
+                return base.node.RemoveAt(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove the data at the specified index position and move the last data to that specified position 
+///            移除指定索引位置数据并将最后一个数据移动到该指定位置
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> RemoveToEnd(int index)
+            {
+                return base.node.RemoveToEnd(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the array data at the specified position 
+///            反转指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Reverse the amount of data 
+///            反转数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.node.Reverse(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Reverse the entire array data 
+///            反转整个数组数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ReverseArray()
+            {
+                return base.node.ReverseArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Empty and release the array 
+///            置空并释放数组
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue SetEmpty()
+            {
+                return base.node.SetEmpty().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set the data according to the index position 
+///            根据索引位置设置数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> SetValue(int index, T value)
+            {
+                return base.node.SetValue(index, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Sort the array data at the specified position 
+///            排序指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The quantity of data to be sorted 
+///            排序数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.node.Sort(startIndex, count).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Array sorting 
+///            数组排序
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue SortArray()
+            {
+                return base.node.SortArray().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add data when there is a free place 
+///            当有空闲位置时添加数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the array is full and the addition failed 
+///            返回 false 表示数组已满，添加失败</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(T value)
+            {
+                return base.node.TryAdd(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Try to remove the last data 
+///            尝试移除最后一个数据
+            /// </summary>
+            /// <returns>Is there any removable data 
+///            是否存在可移除数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryPop()
+            {
+                return base.node.TryPop().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1901,6 +4057,58 @@ namespace AutoCSer.CommandService
             /// <param name="bit">The set binary bit 
 ///            设置的二进制位</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetBit(int bit);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+        /// </summary>
+        public sealed partial class IManyHashBitMapClientFilterNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IManyHashBitMapClientFilterNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IManyHashBitMapClientFilterNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapClientFilterNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap> callback, System.Action<int> keepCallback)
+            {
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>(callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<int>(keepCallback));
+            }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback, System.Action<int> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_keepCallback)
+            {
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>(callback, error_callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetSize()
+            {
+                return base.node.GetSize().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set bit 
+///            设置位
+            /// </summary>
+            /// <param name="bit">The set binary bit 
+///            设置的二进制位</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue SetBit(int bit)
+            {
+                return base.node.SetBit(bit).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1939,6 +4147,59 @@ namespace AutoCSer.CommandService
             /// <returns>Returning Null indicates that the bitmap does not match 
 ///            返回 Null 表示位图不匹配</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.NullableBoolEnum> CheckBits(int size, uint[] bits);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+        /// </summary>
+        public sealed partial class IManyHashBitMapFilterNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IManyHashBitMapFilterNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IManyHashBitMapFilterNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetSize()
+            {
+                return base.node.GetSize().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Set bit 
+///            设置位
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning false indicates that the bitmap size does not match 
+///            返回 false 表示位图大小不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> SetBits(int size, uint[] bits)
+            {
+                return base.node.SetBits(size, bits).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Binary bit set matching 
+///            位置集合匹配
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning Null indicates that the bitmap does not match 
+///            返回 Null 表示位图不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.NullableBoolEnum> CheckBits(int size, uint[] bits)
+            {
+                return base.node.CheckBits(size, bits).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2016,6 +4277,139 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetTotalCount();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode{T})
+        /// </summary>
+        public sealed partial class IMessageNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IMessageNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IMessageNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IMessageNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Producers add new message 
+///            生产者添加新消息
+            /// </summary>
+            /// <param name="message"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue AppendMessage(T message)
+            {
+                return base.node.AppendMessage(message).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all messages 
+///            清除所有消息
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all failure messages (including handling timeout messages) 
+///            清除所有失败消息（包括处理超时消息）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue ClearFailed()
+            {
+                return base.node.ClearFailed().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// The message has been processed 
+///            消息完成处理
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.SendOnlyCommand Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Completed(identity);
+            }
+            /// <summary>
+            /// Message failed processing 
+///            消息失败处理
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.SendOnlyCommand Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Failed(identity);
+            }
+            /// <summary>
+            /// Get the number of consumer callbacks 
+///            获取消费者回调数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetCallbackCount()
+            {
+                return base.node.GetCallbackCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of uncompleted messages (excluding failed messages) 
+///            获取未完成消息数量（不包括失败消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetCount()
+            {
+                return base.node.GetCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of failed messages (Including handling timeout messages) 
+///            获取失败消息数量（包括处理超时消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetFailedCount()
+            {
+                return base.node.GetFailedCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// The consumer client gets the message 
+///            消费客户端获取消息
+            /// </summary>
+            /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
+///            当前客户端最大并发消息数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<T> keepCallback)
+            {
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// The consumer client gets the message 
+///            消费客户端获取消息
+            /// </summary>
+            /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
+///            当前客户端最大并发消息数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Get the number of unfinished timeout messages 
+///            获取未完成的超时消息数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetTimeoutCount()
+            {
+                return base.node.GetTimeoutCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of uncompleted messages (including failed messages) 
+///            获取未完成消息数量（包括失败消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetTotalCount()
+            {
+                return base.node.GetTotalCount().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -2039,6 +4433,41 @@ namespace AutoCSer.CommandService
             /// <param name="value">Data to be archive 
 ///            待存档数据</param>
             AutoCSer.Net.SendOnlyCommand SaveSendOnly(T value);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode{T})
+        /// </summary>
+        public sealed partial class IOnlyPersistenceNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IOnlyPersistenceNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IOnlyPersistenceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IOnlyPersistenceNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Data archiving 
+///            数据存档
+            /// </summary>
+            /// <param name="value">Data to be archive 
+///            待存档数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Save(T value)
+            {
+                return base.node.Save(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Data archiving (The server does not respond) 
+///            数据存档（服务端不响应）
+            /// </summary>
+            /// <param name="value">Data to be archive 
+///            待存档数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.SendOnlyCommand SaveSendOnly(T value)
+            {
+                return base.node.SaveSendOnly(value);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2077,6 +4506,59 @@ namespace AutoCSer.CommandService
 ///            切换进程关键字</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Switch(string key);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode)
+        /// </summary>
+        public sealed partial class IProcessGuardNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IProcessGuardNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IProcessGuardNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IProcessGuardNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add the process to be daemon 
+///            添加待守护进程
+            /// </summary>
+            /// <param name="processInfo">Process information 
+///            进程信息</param>
+            /// <returns>Add failed and return false 
+///            添加失败返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo)
+            {
+                return base.node.Guard(processInfo).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the daemon process 
+///            删除被守护进程
+            /// </summary>
+            /// <param name="processId">Process identity 
+///            进程标识</param>
+            /// <param name="startTime">Process startup time 
+///            进程启动时间</param>
+            /// <param name="processName">Process name 
+///            进程名称</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Remove(int processId, System.DateTime startTime, string processName)
+            {
+                return base.node.Remove(processId, startTime, processName).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Switch processes 
+///            切换进程
+            /// </summary>
+            /// <param name="key">The key words of the switched process 
+///            切换进程关键字</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Switch(string key)
+            {
+                return base.node.Switch(key).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2126,6 +4608,82 @@ namespace AutoCSer.CommandService
             /// <returns>If there is no pop-up data, no data will be returned 
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPeek();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode{T})
+        /// </summary>
+        public sealed partial class IQueueNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IQueueNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IQueueNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IQueueNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether there is matching data in the queue (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断队列中是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">Data to be matched 
+///            待匹配数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of queue data 
+///            获取队列数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add the data to the queue 
+///            将数据添加到队列
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Enqueue(T value)
+            {
+                return base.node.Enqueue(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the queue 
+///            从队列中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryDequeue()
+            {
+                return base.node.TryDequeue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next pop-up data in the queue (no pop-up data, only view) 
+///            获取队列中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPeek()
+            {
+                return base.node.TryPeek().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2268,6 +4826,242 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISearchTreeDictionaryNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ISearchTreeDictionaryNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISearchTreeDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchTreeDictionaryNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> CountLess(KT key)
+            {
+                return base.node.CountLess(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> CountThan(KT key)
+            {
+                return base.node.CountThan(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetHeight()
+            {
+                return base.node.GetHeight().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="skipCount"></param>
+            /// <param name="getCount"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetValues(int skipCount, byte getCount)
+            {
+                return base.node.GetValues(skipCount, getCount);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOf(KT key)
+            {
+                return base.node.IndexOf(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.node.Set(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>> TryGetFirstKey()
+            {
+                return base.node.TryGetFirstKey().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetFirstKeyValue()
+            {
+                return base.node.TryGetFirstKeyValue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetFirstValue()
+            {
+                return base.node.TryGetFirstValue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetKeyValueByIndex(int index)
+            {
+                return base.node.TryGetKeyValueByIndex(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>> TryGetLastKey()
+            {
+                return base.node.TryGetLastKey().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetLastKeyValue()
+            {
+                return base.node.TryGetLastKeyValue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetLastValue()
+            {
+                return base.node.TryGetLastValue().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValueByIndex(int index)
+            {
+                return base.node.TryGetValueByIndex(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -2373,6 +5167,166 @@ namespace AutoCSer.CommandService
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode{T})
+        /// </summary>
+        public sealed partial class ISearchTreeSetNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ISearchTreeSetNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISearchTreeSetNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchTreeSetNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Add(T value)
+            {
+                return base.node.Add(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of nodes smaller than the specified keyword 
+///            获取比指定关键字小的节点数量
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates that the data to be matched is null 
+///            返回 -1 表示待匹配数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> CountLess(T value)
+            {
+                return base.node.CountLess(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of nodes larger than the specified keyword 
+///            获取比指定关键字大的节点数量
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates that the data to be matched is null 
+///            返回 -1 表示待匹配数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> CountThan(T value)
+            {
+                return base.node.CountThan(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on the node position 
+///            根据节点位置获取数据
+            /// </summary>
+            /// <param name="index">Node position 
+///            节点位置</param>
+            /// <returns>data</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetByIndex(int index)
+            {
+                return base.node.GetByIndex(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the first data 
+///            获取第一个数据
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetFrist()
+            {
+                return base.node.GetFrist().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the last data 
+///            获取最后一个数据
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetLast()
+            {
+                return base.node.GetLast().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the matching node location based on the keyword 
+///            根据关键字获取匹配节点位置
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates a failed match 
+///            返回 -1 表示失败匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOf(T value)
+            {
+                return base.node.IndexOf(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T value)
+            {
+                return base.node.Remove(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> AddValues(T[] values)
+            {
+                return base.node.AddValues(values).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.node.RemoveValues(values).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -2430,6 +5384,111 @@ namespace AutoCSer.CommandService
             /// <param name="serverName">Server name 
 ///            服务名称</param>
             AutoCSer.Net.SendOnlyCommand Check(long sessionID, string serverName);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode)
+        /// </summary>
+        public sealed partial class IServerRegistryNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IServerRegistryNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IServerRegistryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add the server registration log 
+///            添加服务注册日志
+            /// </summary>
+            /// <param name="log"></param>
+            /// <returns>Server registration status 
+///            服务注册状态</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum> Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log)
+            {
+                return base.node.Append(log).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the server session identity 
+///            获取服务会话标识
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetSessionID()
+            {
+                return base.node.GetSessionID().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Gets the server registration log 
+///            获取服务注册日志
+            /// </summary>
+            /// <param name="serverName">Monitor the server name. An empty string represents all servers 
+///            监视服务名称，空字符串表示所有服务</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog> keepCallback)
+            {
+                return base.node.LogCallback(serverName, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>(keepCallback));
+            }
+            /// <summary>
+            /// Gets the server registration log 
+///            获取服务注册日志
+            /// </summary>
+            /// <param name="serverName">Monitor the server name. An empty string represents all servers 
+///            监视服务名称，空字符串表示所有服务</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.LogCallback(serverName, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// The server registration callback delegate is mainly used to register components to check the online state of the server 
+///            服务注册回调委托，主要用于注册组件检查服务的在线状态
+            /// </summary>
+            /// <param name="sessionID">Server session identity 
+///            服务会话标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand ServerCallback(long sessionID, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum> keepCallback)
+            {
+                return base.node.ServerCallback(sessionID, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum>(keepCallback));
+            }
+            /// <summary>
+            /// The server registration callback delegate is mainly used to register components to check the online state of the server 
+///            服务注册回调委托，主要用于注册组件检查服务的在线状态
+            /// </summary>
+            /// <param name="sessionID">Server session identity 
+///            服务会话标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand ServerCallback(long sessionID, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback)
+            {
+                return base.node.ServerCallback(sessionID, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Get the main log of the server 
+///            获取服务主日志
+            /// </summary>
+            /// <param name="serverName">Server name 
+///            服务名称</param>
+            /// <returns>Returning null indicates that the server main log was not found 
+///            返回 null 表示没有找到服务主日志</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog> GetLog(string serverName)
+            {
+                return base.node.GetLog(serverName).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Check the online status of the server 
+///            检查服务在线状态
+            /// </summary>
+            /// <param name="sessionID">Server session identity 
+///            服务会话标识</param>
+            /// <param name="serverName">Server name 
+///            服务名称</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.SendOnlyCommand Check(long sessionID, string serverName)
+            {
+                return base.node.Check(sessionID, serverName);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3038,6 +6097,129 @@ namespace AutoCSer.CommandService
 ///            删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISortedDictionaryNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ISortedDictionaryNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedDictionaryNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISortedDictionaryNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// To determine whether the data exists, the time complexity is O(n). It is not recommended to call (since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsValue(VT value)
+            {
+                return base.node.ContainsValue(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.node.GetValueArray(keys).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.node.RemoveKeys(keys).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3133,6 +6315,152 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISortedListNodeReturnValueNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ISortedListNodeClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedListNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISortedListNodeClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.node.ContainsKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// To determine whether the data exists, the time complexity is O(n). It is not recommended to call (since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> ContainsValue(VT value)
+            {
+                return base.node.ContainsValue(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the container size 
+///            获取容器大小
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> GetCapacity()
+            {
+                return base.node.GetCapacity().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.node.GetRemove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the ranking position of the key word 
+///            获取关键字排序位置
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>A negative number indicates that the keyword was not found 
+///            负数表示没有找到关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOfKey(KT key)
+            {
+                return base.node.IndexOfKey(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the first matching data sort position (since cached data is a serialized copy of the object, the equality test is done by implementing IEquatable{VT}) 
+///            获取第一个匹配数据排序位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>A negative number indicates that no matching data was found 
+///            负数表示没有找到匹配数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> IndexOfValue(VT value)
+            {
+                return base.node.IndexOfValue(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(KT key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the data at the specified sort index position 
+///            删除指定排序索引位置数据
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> RemoveAt(int index)
+            {
+                return base.node.RemoveAt(index).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.node.TryAdd(key, value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.node.TryGetValue(key).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3206,6 +6534,118 @@ namespace AutoCSer.CommandService
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode{T})
+        /// </summary>
+        public sealed partial class ISortedSetNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ISortedSetNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedSetNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISortedSetNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Add(T value)
+            {
+                return base.node.Add(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the maximum value 
+///            获取最大值
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetMax()
+            {
+                return base.node.GetMax().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the minimum value 
+///            获取最小值
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetMin()
+            {
+                return base.node.GetMin().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T value)
+            {
+                return base.node.Remove(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> AddValues(T[] values)
+            {
+                return base.node.AddValues(values).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.node.RemoveValues(values).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3255,6 +6695,82 @@ namespace AutoCSer.CommandService
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPop();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode{T})
+        /// </summary>
+        public sealed partial class IStackNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IStackNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStackNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStackNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Clear()
+            {
+                return base.node.Clear().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Determine whether there is matching data (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">Data to be matched 
+///            待匹配数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Contains(T value)
+            {
+                return base.node.Contains(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<int> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Add the data to the stack 
+///            将数据添加到栈
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Push(T value)
+            {
+                return base.node.Push(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the next popped data in the stack (no popped data, only view) 
+///            获取栈中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPeek()
+            {
+                return base.node.TryPeek().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Pop a piece of data from the stack 
+///            从栈中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPop()
+            {
+                return base.node.TryPop().GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3279,6 +6795,50 @@ namespace AutoCSer.CommandService
             /// <param name="bits">The number of the last consecutive binary bits 1 
 ///            最后连续的二进制位 1 的数量</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetIndexBit(int index, byte bits);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+        /// </summary>
+        public sealed partial class IUniformProbabilityClientStatisticsNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IUniformProbabilityClientStatisticsNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IUniformProbabilityClientStatisticsNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IUniformProbabilityClientStatisticsNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetData(System.Action<byte[]> callback, System.Action<int> keepCallback)
+            {
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<byte[]>(callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<int>(keepCallback));
+            }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand GetData(System.Action<byte[]> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_callback, System.Action<int> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> error_keepCallback)
+            {
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<byte[]>(callback, error_callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="bits">The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue SetIndexBit(int index, byte bits)
+            {
+                return base.node.SetIndexBit(index, bits).GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3307,6 +6867,49 @@ namespace AutoCSer.CommandService
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<byte> GetIndexBits();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+        /// </summary>
+        public sealed partial class IUniformProbabilityTotalStatisticsNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IUniformProbabilityTotalStatisticsNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IUniformProbabilityTotalStatisticsNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IUniformProbabilityTotalStatisticsNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add statistical data 
+///            添加统计数据
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Append(ulong value)
+            {
+                return base.node.Append(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the statistical quantity 
+///            获取统计数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<double> Count()
+            {
+                return base.node.Count().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<byte> GetIndexBits()
+            {
+                return base.node.GetIndexBits().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {
@@ -3368,6 +6971,112 @@ namespace AutoCSer.CommandService
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __keepCallback__);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode{T})
+        /// </summary>
+        public sealed partial class ITimeoutMessageNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ITimeoutMessageNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ITimeoutMessageNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ITimeoutMessageNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add the task node 
+///            添加任务节点
+            /// </summary>
+            /// <param name="task"></param>
+            /// <returns>Task identifier. Return 0 upon failure 
+///            任务标识，失败返回 0</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task)
+            {
+                return base.getReturnValue(base.node.Append(task));
+            }
+            /// <summary>
+            /// Cancel the task 
+///            取消任务
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Cancel(long identity)
+            {
+                return base.getReturnValue(base.node.Cancel(identity));
+            }
+            /// <summary>
+            /// Get the total number of tasks 
+///            获取任务总数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCount()
+            {
+                return base.getReturnValue(base.node.GetCount());
+            }
+            /// <summary>
+            /// Get the number of failed tasks executed 
+///            获取执行失败任务数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFailedCount()
+            {
+                return base.getReturnValue(base.node.GetFailedCount());
+            }
+            /// <summary>
+            /// Failed task retry 
+///            失败任务重试
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RetryFailed()
+            {
+                return base.getReturnValue(base.node.RetryFailed());
+            }
+            /// <summary>
+            /// Trigger task execution 
+///            触发任务执行
+            /// </summary>
+            /// <param name="identity">Task identity 
+///            任务标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue RunTask(long identity)
+            {
+                return base.getReturnValue(base.node.RunTask(identity));
+            }
+            /// <summary>
+            /// Add immediate execution tasks 
+///            添加立即执行任务
+            /// </summary>
+            /// <param name="task"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendRun(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task)
+            {
+                return base.getReturnValue(base.node.AppendRun(task));
+            }
+            /// <summary>
+            /// Get the execution task message data 
+///            获取执行任务消息数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<T> keepCallback)
+            {
+                
+                return base.node.GetRunTask(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// Get the execution task message data 
+///            获取执行任务消息数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetRunTask(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3520,6 +7229,224 @@ namespace AutoCSer.CommandService
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> SortArray();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode{T})
+        /// </summary>
+        public sealed partial class IArrayNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IArrayNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IArrayNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IArrayNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data at the specified location 
+///            清除指定位置数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Clear data quantity 
+///            清除数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Clear(startIndex, count));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// Fill the array with data to specify the position 
+///            用数据填充数组指定位置
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The number of filled data 
+///            填充数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Fill(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Fill(value, startIndex, count));
+            }
+            /// <summary>
+            /// Fill the entire array with data 
+///            用数据填充整个数组
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue FillArray(T value)
+            {
+                return base.getReturnValue(base.node.FillArray(value));
+            }
+            /// <summary>
+            /// Get the array length 
+///            获取数组长度
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetLength()
+            {
+                return base.getReturnValue(base.node.GetLength());
+            }
+            /// <summary>
+            /// Get data based on index location 
+///            根据索引位置获取数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <returns>If the return exceeds the index, there will be no return value 
+///            超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValue(int index)
+            {
+                return base.getReturnValue(base.node.GetValue(index));
+            }
+            /// <summary>
+            /// Set the data according to the index position and return the data before the setting 
+///            根据索引位置设置数据并返回设置之前的数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Set the previous data. If it exceeds the index and returns, there will be no return value 
+///            设置之前的数据，超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueSet(int index, T value)
+            {
+                return base.getReturnValue(base.node.GetValueSet(index, value));
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.IndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfArray(T value)
+            {
+                return base.getReturnValue(base.node.IndexOfArray(value));
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">The last matching position (the starting position) 
+///            最后一个匹配位置（起始位置）</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOf(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.LastIndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOfArray(T value)
+            {
+                return base.getReturnValue(base.node.LastIndexOfArray(value));
+            }
+            /// <summary>
+            /// Reverse the array data at the specified position 
+///            反转指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Reverse the amount of data 
+///            反转数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Reverse(startIndex, count));
+            }
+            /// <summary>
+            /// Reverse the entire array data 
+///            反转整个数组数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReverseArray()
+            {
+                return base.getReturnValue(base.node.ReverseArray());
+            }
+            /// <summary>
+            /// Set the data according to the index position 
+///            根据索引位置设置数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetValue(int index, T value)
+            {
+                return base.getReturnValue(base.node.SetValue(index, value));
+            }
+            /// <summary>
+            /// Sort the array data at the specified position 
+///            排序指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The quantity of data to be sorted 
+///            排序数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Sort(startIndex, count));
+            }
+            /// <summary>
+            /// Array sorting 
+///            数组排序
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SortArray()
+            {
+                return base.getReturnValue(base.node.SortArray());
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3604,6 +7531,129 @@ namespace AutoCSer.CommandService
 ///            返回 false 表示索引超出范围</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> SetBit(uint index);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+        /// </summary>
+        public sealed partial class IBitmapNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IBitmapNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IBitmapNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IBitmapNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear bit status 
+///            清除位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ClearBit(uint index)
+            {
+                return base.getReturnValue(base.node.ClearBit(index));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearMap()
+            {
+                return base.getReturnValue(base.node.ClearMap());
+            }
+            /// <summary>
+            /// Read bit status 
+///            读取位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>A non-0 indicates that the binary bit is in the set state. If the index exceeds, there will be no return value 
+///            非 0 表示二进制位为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBit(index));
+            }
+            /// <summary>
+            /// Clear the bit state and return to the state before setting 
+///            清除位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Clear the state before the operation. A non-0 state indicates that the binary bit was in the set state before. If the index exceeds, there will be no return value 
+///            清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitClearBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitClearBit(index));
+            }
+            /// <summary>
+            /// Reverse the bit state and return the state before the operation 
+///            位状态取反并返回操作之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Take the state before the reverse operation. If it is not 0, it indicates that the binary bit is in the set state before. If the index exceeds, there will be no return value 
+///            取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitInvertBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitInvertBit(index));
+            }
+            /// <summary>
+            /// Set the bit state and return the state before setting 
+///            设置位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>The state before setting: A non-0 indicates that the binary bit was in the set state before, and there is no return value if the index exceeds 
+///            设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitSetBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitSetBit(index));
+            }
+            /// <summary>
+            /// Get the number of bitmap binary bits 
+///            获取位图二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<uint> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// Reverse the bit state 
+///            位状态取反
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> InvertBit(uint index)
+            {
+                return base.getReturnValue(base.node.InvertBit(index));
+            }
+            /// <summary>
+            /// Set bit status 
+///            设置位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetBit(uint index)
+            {
+                return base.getReturnValue(base.node.SetBit(index));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3682,6 +7732,135 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class IDictionaryNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IDictionaryNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IDictionaryNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="capacity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Renew(int capacity)
+            {
+                return base.getReturnValue(base.node.Renew(capacity));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3721,6 +7900,61 @@ namespace AutoCSer.CommandService
             /// <returns>Lock request identity. Return 0 if failed 
 ///            锁请求标识，失败返回 0</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<long>> TryEnter(T key, ushort timeoutSeconds);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode{T})
+        /// </summary>
+        public sealed partial class IDistributedLockNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IDistributedLockNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDistributedLockNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IDistributedLockNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Apply for a lock 
+///            申请锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="timeoutSeconds">Timeout seconds 
+///            超时秒数</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> Enter(T key, ushort timeoutSeconds)
+            {
+                return base.getReturnValue(base.node.Enter(key, timeoutSeconds));
+            }
+            /// <summary>
+            /// Release the lock 
+///            释放锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="identity">Lock request identity 
+///            锁请求标识</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Release(T key, long identity)
+            {
+                return base.node.Release(key, identity);
+            }
+            /// <summary>
+            /// Try to apply for a lock 
+///            尝试申请锁
+            /// </summary>
+            /// <param name="key">Keyword of lock 
+///            锁关键字</param>
+            /// <param name="timeoutSeconds">Timeout seconds 
+///            超时秒数</param>
+            /// <returns>Lock request identity. Return 0 if failed 
+///            锁请求标识，失败返回 0</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> TryEnter(T key, ushort timeoutSeconds)
+            {
+                return base.getReturnValue(base.node.TryEnter(key, timeoutSeconds));
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3814,6 +8048,149 @@ namespace AutoCSer.CommandService
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class IFragmentDictionaryNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IFragmentDictionaryNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IFragmentDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IFragmentDictionaryNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// Force the data to be set and overwrite if the keyword already exists 
+///            强制设置数据，如果关键字已存在则覆盖
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Return false on failure</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// Reusable dictionaries reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3883,6 +8260,115 @@ namespace AutoCSer.CommandService
 ///            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode{T})
+        /// </summary>
+        public sealed partial class IFragmentHashSetNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IFragmentHashSetNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IFragmentHashSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IFragmentHashSetNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(T value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// Clear the data (retain the fragmented array) 
+///            清除数据（保留分片数组）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large) 
+///            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(T[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+            /// <summary>
+            /// Reusable hash tables reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3955,6 +8441,116 @@ namespace AutoCSer.CommandService
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode{T})
+        /// </summary>
+        public sealed partial class IHashSetNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IHashSetNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IHashSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashSetNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(T value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// Clear all data and rebuild the container (to solve the problem of low performance of the clear call when the data volume is large) 
+///            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// </summary>
+            /// <param name="capacity">Container initialization size 
+///            容器初始化大小</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Renew(int capacity)
+            {
+                return base.getReturnValue(base.node.Renew(capacity));
+            }
+            /// <summary>
+            /// Reusable dictionaries reset data locations (The presence of reference type data can cause memory leaks) 
+///            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(T[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3980,6 +8576,43 @@ namespace AutoCSer.CommandService
             /// <returns>Auto-increment identity segment 
 ///            自增 ID 分段</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>> NextFragment(int count);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+        /// </summary>
+        public sealed partial class IIdentityGeneratorNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IIdentityGeneratorNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IIdentityGeneratorNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IIdentityGeneratorNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the next increment identity 
+///            获取下一个自增ID
+            /// </summary>
+            /// <returns>The next increment identity returns a negative number on failure 
+///            下一个自增ID，失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> Next()
+            {
+                return base.getReturnValue(base.node.Next());
+            }
+            /// <summary>
+            /// Gets the auto-increment identity segment 
+///            获取自增 ID 分段
+            /// </summary>
+            /// <param name="count">Get the quantity of data 
+///            获取数据数量</param>
+            /// <returns>Auto-increment identity segment 
+///            自增 ID 分段</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment> NextFragment(int count)
+            {
+                return base.getReturnValue(base.node.NextFragment(count));
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4228,6 +8861,372 @@ namespace AutoCSer.CommandService
 ///            是否存在可移除数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryPop();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode{T})
+        /// </summary>
+        public sealed partial class ILeftArrayNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILeftArrayNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILeftArrayNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILeftArrayNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value">data</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Add(T value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// Clear the data at the specified location 
+///            清除指定位置数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Clear data quantity 
+///            清除数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Clear(startIndex, count));
+            }
+            /// <summary>
+            /// Clear all the data and set the valid length of the data to 0 
+///            清除所有数据并将数据有效长度设置为 0
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearLength()
+            {
+                return base.getReturnValue(base.node.ClearLength());
+            }
+            /// <summary>
+            /// Fill the array with data to specify the position 
+///            用数据填充数组指定位置
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The number of filled data 
+///            填充数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Fill(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Fill(value, startIndex, count));
+            }
+            /// <summary>
+            /// Fill the entire array with data 
+///            用数据填充整个数组
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue FillArray(T value)
+            {
+                return base.getReturnValue(base.node.FillArray(value));
+            }
+            /// <summary>
+            /// Get the size of the array container 
+///            获取数组容器大小
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// Get the number of containers free 
+///            获取容器空闲数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFreeCount()
+            {
+                return base.getReturnValue(base.node.GetFreeCount());
+            }
+            /// <summary>
+            /// Get the valid length of the array 
+///            获取数组有效长度
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetLength()
+            {
+                return base.getReturnValue(base.node.GetLength());
+            }
+            /// <summary>
+            /// Remove the last data and return it 
+///            移除最后一个数据并返回该数据
+            /// </summary>
+            /// <returns>No data will be returned if there is no removable data 
+///            没有可移除数据则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetTryPopValue()
+            {
+                return base.getReturnValue(base.node.GetTryPopValue());
+            }
+            /// <summary>
+            /// Get data based on index location 
+///            根据索引位置获取数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <returns>If the return exceeds the index, there will be no return value 
+///            超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValue(int index)
+            {
+                return base.getReturnValue(base.node.GetValue(index));
+            }
+            /// <summary>
+            /// Remove the data at the specified index position and return the removed data 
+///            移除指定索引位置数据并返回被移除的数据
+            /// </summary>
+            /// <param name="index">Data location 
+///            数据位置</param>
+            /// <returns>No data will be returned if the index range is exceeded 
+///            超出索引范围则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueRemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.GetValueRemoveAt(index));
+            }
+            /// <summary>
+            /// Remove the data at the specified index position, move the last data to the specified position, and return the removed data 
+///            移除指定索引位置数据，将最后一个数据移动到该指定位置，并返回被移除的数据
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>No data will be returned if the index range is exceeded 
+///            超出索引范围则无数据返回</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueRemoveToEnd(int index)
+            {
+                return base.getReturnValue(base.node.GetValueRemoveToEnd(index));
+            }
+            /// <summary>
+            /// Set the data according to the index position and return the data before the setting 
+///            根据索引位置设置数据并返回设置之前的数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Set the previous data. If it exceeds the index and returns, there will be no return value 
+///            设置之前的数据，超出索引返回则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetValueSet(int index, T value)
+            {
+                return base.getReturnValue(base.node.GetValueSet(index, value));
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.IndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// Find the position of the first matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfArray(T value)
+            {
+                return base.getReturnValue(base.node.IndexOfArray(value));
+            }
+            /// <summary>
+            /// Insert data 
+///            插入数据
+            /// </summary>
+            /// <param name="index">Insert position 
+///            插入位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Insert(int index, T value)
+            {
+                return base.getReturnValue(base.node.Insert(index, value));
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex">The last matching position (the starting position) 
+///            最后一个匹配位置（起始位置）</param>
+            /// <param name="count">Search for the number of matching data 
+///            查找匹配数据数量</param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOf(T value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.LastIndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// Find the position of the last matching data from the array. (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Failure returns a negative number 
+///            失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOfArray(T value)
+            {
+                return base.getReturnValue(base.node.LastIndexOfArray(value));
+            }
+            /// <summary>
+            /// Remove the first matching data (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            移除第一个匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">data</param>
+            /// <returns>Returning false indicates that there is no data match 
+///            返回 false 表示不存在数据匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// Remove the data at the specified index position 
+///            移除指定索引位置数据
+            /// </summary>
+            /// <param name="index">Data location 
+///            数据位置</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.RemoveAt(index));
+            }
+            /// <summary>
+            /// Remove the data at the specified index position and move the last data to that specified position 
+///            移除指定索引位置数据并将最后一个数据移动到该指定位置
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveToEnd(int index)
+            {
+                return base.getReturnValue(base.node.RemoveToEnd(index));
+            }
+            /// <summary>
+            /// Reverse the array data at the specified position 
+///            反转指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">Reverse the amount of data 
+///            反转数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Reverse(startIndex, count));
+            }
+            /// <summary>
+            /// Reverse the entire array data 
+///            反转整个数组数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReverseArray()
+            {
+                return base.getReturnValue(base.node.ReverseArray());
+            }
+            /// <summary>
+            /// Empty and release the array 
+///            置空并释放数组
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetEmpty()
+            {
+                return base.getReturnValue(base.node.SetEmpty());
+            }
+            /// <summary>
+            /// Set the data according to the index position 
+///            根据索引位置设置数据
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="value">data</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetValue(int index, T value)
+            {
+                return base.getReturnValue(base.node.SetValue(index, value));
+            }
+            /// <summary>
+            /// Sort the array data at the specified position 
+///            排序指定位置数组数据
+            /// </summary>
+            /// <param name="startIndex">Starting position 
+///            起始位置</param>
+            /// <param name="count">The quantity of data to be sorted 
+///            排序数据数量</param>
+            /// <returns>Return false if it exceeds the index range 
+///            超出索引范围则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Sort(startIndex, count));
+            }
+            /// <summary>
+            /// Array sorting 
+///            数组排序
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SortArray()
+            {
+                return base.getReturnValue(base.node.SortArray());
+            }
+            /// <summary>
+            /// Add data when there is a free place 
+///            当有空闲位置时添加数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the array is full and the addition failed 
+///            返回 false 表示数组已满，添加失败</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(T value)
+            {
+                return base.getReturnValue(base.node.TryAdd(value));
+            }
+            /// <summary>
+            /// Try to remove the last data 
+///            尝试移除最后一个数据
+            /// </summary>
+            /// <returns>Is there any removable data 
+///            是否存在可移除数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryPop()
+            {
+                return base.getReturnValue(base.node.TryPop());
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -4265,6 +9264,59 @@ namespace AutoCSer.CommandService
             /// <returns>Returning Null indicates that the bitmap does not match 
 ///            返回 Null 表示位图不匹配</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.NullableBoolEnum>> CheckBits(int size, uint[] bits);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+        /// </summary>
+        public sealed partial class IManyHashBitMapFilterNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IManyHashBitMapFilterNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IManyHashBitMapFilterNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IManyHashBitMapFilterNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetSize()
+            {
+                return base.getReturnValue(base.node.GetSize());
+            }
+            /// <summary>
+            /// Set bit 
+///            设置位
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning false indicates that the bitmap size does not match 
+///            返回 false 表示位图大小不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetBits(int size, uint[] bits)
+            {
+                return base.getReturnValue(base.node.SetBits(size, bits));
+            }
+            /// <summary>
+            /// Binary bit set matching 
+///            位置集合匹配
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning Null indicates that the bitmap does not match 
+///            返回 Null 表示位图不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.NullableBoolEnum> CheckBits(int size, uint[] bits)
+            {
+                return base.getReturnValue(base.node.CheckBits(size, bits));
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4342,6 +9394,141 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetTotalCount();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode{T})
+        /// </summary>
+        public sealed partial class IMessageNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IMessageNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IMessageNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IMessageNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Producers add new message 
+///            生产者添加新消息
+            /// </summary>
+            /// <param name="message"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendMessage(T message)
+            {
+                return base.getReturnValue(base.node.AppendMessage(message));
+            }
+            /// <summary>
+            /// Clear all messages 
+///            清除所有消息
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Clear all failure messages (including handling timeout messages) 
+///            清除所有失败消息（包括处理超时消息）
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearFailed()
+            {
+                return base.getReturnValue(base.node.ClearFailed());
+            }
+            /// <summary>
+            /// The message has been processed 
+///            消息完成处理
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Completed(identity);
+            }
+            /// <summary>
+            /// Message failed processing 
+///            消息失败处理
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Failed(identity);
+            }
+            /// <summary>
+            /// Get the number of consumer callbacks 
+///            获取消费者回调数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCallbackCount()
+            {
+                return base.getReturnValue(base.node.GetCallbackCount());
+            }
+            /// <summary>
+            /// Get the number of uncompleted messages (excluding failed messages) 
+///            获取未完成消息数量（不包括失败消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCount()
+            {
+                return base.getReturnValue(base.node.GetCount());
+            }
+            /// <summary>
+            /// Get the number of failed messages (Including handling timeout messages) 
+///            获取失败消息数量（包括处理超时消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFailedCount()
+            {
+                return base.getReturnValue(base.node.GetFailedCount());
+            }
+            /// <summary>
+            /// The consumer client gets the message 
+///            消费客户端获取消息
+            /// </summary>
+            /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
+///            当前客户端最大并发消息数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<T> keepCallback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback));
+            }
+            /// <summary>
+            /// The consumer client gets the message 
+///            消费客户端获取消息
+            /// </summary>
+            /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
+///            当前客户端最大并发消息数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<T> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<T>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// Get the number of unfinished timeout messages 
+///            获取未完成的超时消息数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTimeoutCount()
+            {
+                return base.getReturnValue(base.node.GetTimeoutCount());
+            }
+            /// <summary>
+            /// Get the number of uncompleted messages (including failed messages) 
+///            获取未完成消息数量（包括失败消息）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTotalCount()
+            {
+                return base.getReturnValue(base.node.GetTotalCount());
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -4365,6 +9552,41 @@ namespace AutoCSer.CommandService
             /// <param name="value">Data to be archive 
 ///            待存档数据</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SaveSendOnly(T value);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode{T})
+        /// </summary>
+        public sealed partial class IOnlyPersistenceNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IOnlyPersistenceNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IOnlyPersistenceNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IOnlyPersistenceNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Data archiving 
+///            数据存档
+            /// </summary>
+            /// <param name="value">Data to be archive 
+///            待存档数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Save(T value)
+            {
+                return base.getReturnValue(base.node.Save(value));
+            }
+            /// <summary>
+            /// Data archiving (The server does not respond) 
+///            数据存档（服务端不响应）
+            /// </summary>
+            /// <param name="value">Data to be archive 
+///            待存档数据</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SaveSendOnly(T value)
+            {
+                return base.node.SaveSendOnly(value);
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4414,6 +9636,82 @@ namespace AutoCSer.CommandService
             /// <returns>If there is no pop-up data, no data will be returned 
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPeek();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode{T})
+        /// </summary>
+        public sealed partial class IQueueNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IQueueNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IQueueNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IQueueNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether there is matching data in the queue (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断队列中是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">Data to be matched 
+///            待匹配数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the number of queue data 
+///            获取队列数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Add the data to the queue 
+///            将数据添加到队列
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Enqueue(T value)
+            {
+                return base.getReturnValue(base.node.Enqueue(value));
+            }
+            /// <summary>
+            /// Pop a piece of data from the queue 
+///            从队列中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryDequeue()
+            {
+                return base.getReturnValue(base.node.TryDequeue());
+            }
+            /// <summary>
+            /// Get the next pop-up data in the queue (no pop-up data, only view) 
+///            获取队列中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPeek()
+            {
+                return base.getReturnValue(base.node.TryPeek());
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4556,6 +9854,242 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISearchTreeDictionaryNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISearchTreeDictionaryNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISearchTreeDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISearchTreeDictionaryNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountLess(KT key)
+            {
+                return base.getReturnValue(base.node.CountLess(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountThan(KT key)
+            {
+                return base.getReturnValue(base.node.CountThan(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetHeight()
+            {
+                return base.getReturnValue(base.node.GetHeight());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="skipCount"></param>
+            /// <param name="getCount"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetValues(int skipCount, byte getCount)
+            {
+                return base.node.GetValues(skipCount, getCount);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(KT key)
+            {
+                return base.getReturnValue(base.node.IndexOf(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>> TryGetFirstKey()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetFirstKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetFirstValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetKeyValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetKeyValueByIndex(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>> TryGetLastKey()
+            {
+                return base.getReturnValue(base.node.TryGetLastKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>> TryGetLastKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetLastValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetValueByIndex(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -4660,6 +10194,166 @@ namespace AutoCSer.CommandService
             /// <returns>The quantity of deleted data 
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode{T})
+        /// </summary>
+        public sealed partial class ISearchTreeSetNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISearchTreeSetNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISearchTreeSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISearchTreeSetNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(T value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Get the number of nodes smaller than the specified keyword 
+///            获取比指定关键字小的节点数量
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates that the data to be matched is null 
+///            返回 -1 表示待匹配数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountLess(T value)
+            {
+                return base.getReturnValue(base.node.CountLess(value));
+            }
+            /// <summary>
+            /// Get the number of nodes larger than the specified keyword 
+///            获取比指定关键字大的节点数量
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates that the data to be matched is null 
+///            返回 -1 表示待匹配数据为 null</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountThan(T value)
+            {
+                return base.getReturnValue(base.node.CountThan(value));
+            }
+            /// <summary>
+            /// Get data based on the node position 
+///            根据节点位置获取数据
+            /// </summary>
+            /// <param name="index">Node position 
+///            节点位置</param>
+            /// <returns>data</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetByIndex(int index)
+            {
+                return base.getReturnValue(base.node.GetByIndex(index));
+            }
+            /// <summary>
+            /// Get the first data 
+///            获取第一个数据
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetFrist()
+            {
+                return base.getReturnValue(base.node.GetFrist());
+            }
+            /// <summary>
+            /// Get the last data 
+///            获取最后一个数据
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetLast()
+            {
+                return base.getReturnValue(base.node.GetLast());
+            }
+            /// <summary>
+            /// Get the matching node location based on the keyword 
+///            根据关键字获取匹配节点位置
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning -1 indicates a failed match 
+///            返回 -1 表示失败匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(T value)
+            {
+                return base.getReturnValue(base.node.IndexOf(value));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value">keyword</param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(T[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5268,6 +10962,129 @@ namespace AutoCSer.CommandService
 ///            删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISortedDictionaryNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISortedDictionaryNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISortedDictionaryNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// To determine whether the data exists, the time complexity is O(n). It is not recommended to call (since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsValue(VT value)
+            {
+                return base.getReturnValue(base.node.ContainsValue(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<VT[]> GetValueArray(KT[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>The number of deleted keywords 
+///            删除关键字数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(KT[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -5363,6 +11180,152 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode{KT,VT})
+        /// </summary>
+        public sealed partial class ISortedListNodeReturnValueLocalNode<KT,VT> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISortedListNodeLocalClientNode<KT,VT>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode{KT,VT})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedListNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISortedListNodeLocalClientNode<KT,VT>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(KT key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// To determine whether the data exists, the time complexity is O(n). It is not recommended to call (since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsValue(VT value)
+            {
+                return base.getReturnValue(base.node.ContainsValue(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Get the container size 
+///            获取容器大小
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// Delete the keywords and return the deleted data 
+///            删除关键字并返回被删除数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> GetRemove(KT key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// Get the ranking position of the key word 
+///            获取关键字排序位置
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>A negative number indicates that the keyword was not found 
+///            负数表示没有找到关键字</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfKey(KT key)
+            {
+                return base.getReturnValue(base.node.IndexOfKey(key));
+            }
+            /// <summary>
+            /// Get the first matching data sort position (since cached data is a serialized copy of the object, the equality test is done by implementing IEquatable{VT}) 
+///            获取第一个匹配数据排序位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>A negative number indicates that no matching data was found 
+///            负数表示没有找到匹配数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfValue(VT value)
+            {
+                return base.getReturnValue(base.node.IndexOfValue(value));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(KT key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// Delete the data at the specified sort index position 
+///            删除指定排序索引位置数据
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.RemoveAt(index));
+            }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(KT key, VT value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// Get data based on keywords 
+///            根据关键字获取数据
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -5436,6 +11399,118 @@ namespace AutoCSer.CommandService
 ///            删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode{T})
+        /// </summary>
+        public sealed partial class ISortedSetNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ISortedSetNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ISortedSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISortedSetNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add data
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword already exists 
+///            返回 false 表示关键字已经存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(T value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether the keyword exists 
+///            判断关键字是否存在
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Get the maximum value 
+///            获取最大值
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetMax()
+            {
+                return base.getReturnValue(base.node.GetMax());
+            }
+            /// <summary>
+            /// Get the minimum value 
+///            获取最小值
+            /// </summary>
+            /// <returns>No return value is returned when there is no data 
+///            没有数据时返回无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> GetMin()
+            {
+                return base.getReturnValue(base.node.GetMin());
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(T value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// If the keyword does not exist, add the data 
+///            如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of the added data 
+///            添加数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(T[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// Remove keyword 
+///            删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>The quantity of deleted data 
+///            删除数据数量</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(T[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -5485,6 +11560,82 @@ namespace AutoCSer.CommandService
 ///            没有可弹出数据则返回无数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPop();
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode{T})
+        /// </summary>
+        public sealed partial class IStackNodeReturnValueLocalNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStackNodeLocalClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStackNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStackNodeLocalClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// Determine whether there is matching data (Since the cached data is a serialized copy of the object, the prerequisite for determining whether the objects are equal is to implement IEquatable{VT}) 
+///            判断是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// </summary>
+            /// <param name="value">Data to be matched 
+///            待匹配数据</param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(T value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// Get the quantity of data 
+///            获取数据数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Add the data to the stack 
+///            将数据添加到栈
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Push(T value)
+            {
+                return base.getReturnValue(base.node.Push(value));
+            }
+            /// <summary>
+            /// Get the next popped data in the stack (no popped data, only view) 
+///            获取栈中下一个弹出数据（不弹出数据仅查看）
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPeek()
+            {
+                return base.getReturnValue(base.node.TryPeek());
+            }
+            /// <summary>
+            /// Pop a piece of data from the stack 
+///            从栈中弹出一个数据
+            /// </summary>
+            /// <returns>If there is no pop-up data, no data will be returned 
+///            没有可弹出数据则返回无数据</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>> TryPop()
+            {
+                return base.getReturnValue(base.node.TryPop());
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -5512,6 +11663,49 @@ namespace AutoCSer.CommandService
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte>> GetIndexBits();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+        /// </summary>
+        public sealed partial class IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IUniformProbabilityTotalStatisticsNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IUniformProbabilityTotalStatisticsNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add statistical data 
+///            添加统计数据
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Append(ulong value)
+            {
+                return base.getReturnValue(base.node.Append(value));
+            }
+            /// <summary>
+            /// Get the statistical quantity 
+///            获取统计数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<double> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<byte> GetIndexBits()
+            {
+                return base.getReturnValue(base.node.GetIndexBits());
+            }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {

@@ -15,7 +15,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// The return value command
         /// 返回值命令
         /// </summary>
-        private readonly ReturnCommand<CallStateEnum> command;
+        internal readonly ReturnCommand<CallStateEnum> Command;
         /// <summary>
         /// Return the result of the call status
         /// 返回调用状态结果
@@ -26,9 +26,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 返回值命令</param>
         internal ResponseResultAwaiter(ClientNode node, ReturnCommand<CallStateEnum> command) : base(node)
         {
-            this.command = command;
+            this.Command = command;
             command.OnCompleted(onCommandCompleted);
         }
+        ///// <summary>
+        ///// Return the result of the call status
+        ///// 返回调用状态结果
+        ///// </summary>
+        ///// <param name="command">The return value command
+        ///// 返回值命令</param>
+        //internal ResponseResultAwaiter(ReturnCommand<CallStateEnum> command) : base()
+        //{
+        //    this.Command = command;
+        //    command.OnCompleted(onCommandCompleted);
+        //}
 
         /// <summary>
         /// Wait for the command call to return the result
@@ -48,8 +59,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ResponseResult GetResult()
         {
-            if (command.ReturnType == CommandClientReturnTypeEnum.Success) return command.ReturnValue;
-            return new ResponseResult(command.ReturnType, command.ErrorMessage);
+            if (Command.ReturnType == CommandClientReturnTypeEnum.Success) return Command.ReturnValue;
+            return new ResponseResult(Command.ReturnType, Command.ErrorMessage);
         }
         /// <summary>
         /// Get the awaiter object
@@ -66,9 +77,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private void onCommandCompleted()
         {
-            if (command.ReturnType == CommandClientReturnTypeEnum.Success)
+            if (Command.ReturnType == CommandClientReturnTypeEnum.Success)
             {
-                switch (command.ReturnValue)
+                switch (Command.ReturnValue)
                 {
                     case CallStateEnum.PersistenceCallbackException: renew(); return;
                     case CallStateEnum.NodeIndexOutOfRange:
@@ -78,6 +89,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
             }
             onCompleted();
+        }
+        /// <summary>
+        /// Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
+        /// 获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ResponseReturnValue GetValue(bool isIgnoreError = false)
+        {
+            return new ResponseReturnValue(this, isIgnoreError);
         }
     }
 }

@@ -119,5 +119,10 @@ namespace AutoCSer.Net
         /// 客户端未知错误，可能是没有连接上服务器或者验证未通过
         /// </summary>
         ClientUnknown,
+        /// <summary>
+        /// The client has released resources
+        /// 客户端已释放资源
+        /// </summary>
+        ClientDisposed,
     }
 }

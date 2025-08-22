@@ -56,6 +56,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #endif
         /// <summary>
+        /// Get the return value
+        /// 获取返回值
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+#if NetStandard21
+        public void GetValue(bool isIgnoreError = false)
+#else
+        public void GetValue(bool isIgnoreError = false)
+#endif
+        {
+            if (CallState == CallStateEnum.Success) return;
+            if (!isIgnoreError)
+            {
+#if AOT
+                throw new Exception($"调用返回状态错误 {CallState} {ErrorMessage}");
+#else
+                throw new Exception($"调用返回状态错误 {CallState}");
+#endif
+            }
+        }
+
+        /// <summary>
         /// Emptu callback
         /// </summary>
         /// <param name="result"></param>
@@ -198,6 +221,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public PageResult<PT> GetPageResult<PT>()
         {
             return new PageResult<PT>(CommandClientReturnTypeEnum.Success, CallState);
+        }
+        /// <summary>
+        /// Get the return value
+        /// 获取返回值
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        /// <returns>Return value</returns>
+#if NetStandard21
+        public T? GetValue(bool isIgnoreError = false)
+#else
+        public T GetValue(bool isIgnoreError = false)
+#endif
+        {
+            if (CallState == CallStateEnum.Success) return Value;
+            if (!isIgnoreError) throw new Exception($"调用返回状态错误 {CallState} {Exception}");
+            return default(T);
         }
 
         /// <summary>

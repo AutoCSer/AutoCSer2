@@ -45,8 +45,8 @@
     <Compile Include="InterfaceRealTimeCallMonitorService.cs" />
     <Compile Include="TimeoutCallback.cs" />
     <Compile Include="TimestampVerifySession.cs" />
-    <Compile Include="{AutoCSer.CommandService.InterfaceRealTimeCallMonitor}.AutoCSer.cs" />
     <Compile Include="IInterfaceRealTimeCallMonitorClientSocketEvent.cs" />
+    <Compile Include="{AutoCSer.CommandService.InterfaceRealTimeCallMonitor}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -55,6 +55,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             Console.WriteLine($"{nameof(DictionarySnapshotCloneCounterNode)} {await DictionarySnapshotCloneCounterNode.Test()}");
             Console.WriteLine($"{nameof(BeforePersistenceNode)} {await BeforePersistenceNode.Test()}");
             Console.WriteLine($"{nameof(LoadPersistenceNode)} {await LoadPersistenceNode.Test()}");
+
+            Console.WriteLine($"{nameof(CounterNode)} {await CounterNode.ReturnValueTest()}");
         }
     }
 }

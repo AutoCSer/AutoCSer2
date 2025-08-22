@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 256 基分片字典 节点接口
     /// </summary>
     /// <typeparam name="KT"></typeparam>
-    [ServerNode]
+    [ServerNode(IsReturnValueNode = ServerNodeAttribute.DefaultIsReturnValueNode)]
     public partial interface IByteArrayFragmentDictionaryNode<KT> where KT : IEquatable<KT>
     {
         /// <summary>

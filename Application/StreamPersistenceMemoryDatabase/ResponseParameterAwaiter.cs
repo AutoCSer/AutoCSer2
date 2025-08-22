@@ -33,6 +33,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 请求传参的节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
+        ///// <summary>
+        ///// Return parameters that support await
+        ///// 支持 await 的返回参数
+        ///// </summary>
+        //protected ResponseParameterAwaiter() { }
         /// <summary>
         /// Return parameters that support await
         /// 支持 await 的返回参数
@@ -72,7 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                node.Renew(nodeIndex).AutoCSerNotWait();
+                node?.Renew(nodeIndex).AutoCSerNotWait();
             }
             finally { onCompleted(); }
         }
@@ -84,7 +89,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                node.Reindex(nodeIndex).AutoCSerNotWait();
+                node?.Reindex(nodeIndex).AutoCSerNotWait();
             }
             finally { onCompleted(); }
         }
@@ -126,6 +131,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Value.ReturnValue = value;
         }
+        ///// <summary>
+        ///// Return parameters that support await
+        ///// 支持 await 的返回参数
+        ///// </summary>
+        ///// <param name="command"></param>
+        //internal ResponseParameterAwaiter(ReturnCommand<ResponseParameter> command)
+        //{
+        //    Set(command);
+        //}
 
         /// <summary>
         /// Wait for the command call to return the result
@@ -199,7 +213,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否忽略错误与异常</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public ResponseReturnValue<T> GetResponseReturnValue(bool isIgnoreError = false)
+        public ResponseReturnValue<T> GetValue(bool isIgnoreError = false)
         {
             return new ResponseReturnValue<T>(this, isIgnoreError);
         }

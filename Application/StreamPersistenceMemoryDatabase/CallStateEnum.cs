@@ -328,6 +328,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 客户端初始化加载未完成
         /// </summary>
         ClientLoadUnfinished,
+        /// <summary>
+        /// The client has released resources
+        /// 客户端已释放资源
+        /// </summary>
+        ClientDisposed,
 
         /// <summary>
         /// Callback already (available for counting)

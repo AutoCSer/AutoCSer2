@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public override void RunTask()
         {
-            result = service.GetNodeIndex(key, nodeInfo, true);
+            Result = service.GetNodeIndex(key, nodeInfo, true);
             completed();
         }
     }

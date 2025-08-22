@@ -1129,6 +1129,64 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(GameNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+        /// </summary>
+        public sealed partial class IGameNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IGameNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IGameNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IGameNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monster"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster)
+            {
+                return base.getReturnValue(base.node.AddMonster(monster));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monsters"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters)
+            {
+                return base.getReturnValue(base.node.AddMonsters(monsters));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="speed"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetSpeed(int id, int speed)
+            {
+                return base.getReturnValue(base.node.SetSpeed(id, speed));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="speeds"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetSpeeds(AutoCSer.KeyValue<int,int>[] speeds)
+            {
+                return base.getReturnValue(base.node.SetSpeeds(speeds));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1862,6 +1920,253 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(ICallbackNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(CallbackNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(CallbackNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+        /// </summary>
+        public sealed partial class ICallbackNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ICallbackNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ICallbackNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ICallbackNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue CallCustomPersistence(int value)
+            {
+                return base.getReturnValue(base.node.CallCustomPersistence(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void CallInoutOutputCommand(int value, System.Action<int> callback)
+            {
+                base.node.CallInoutOutputCommand(value, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void CallInoutOutputCommand(int value, System.Action<int> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error___callback__)
+            {
+                base.node.CallInoutOutputCommand(value, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(callback, error___callback__));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Callback()
+            {
+                return base.getReturnValue(base.node.Callback());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void CallbackCommand(System.Action callback)
+            {
+                base.node.CallbackCommand(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback(callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void CallbackCommand(System.Action callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error___callback__)
+            {
+                base.node.CallbackCommand(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback(callback, error___callback__));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> CheckSnapshot()
+            {
+                return base.getReturnValue(base.node.CheckSnapshot());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<int>> Enumerable()
+            {
+                return base.node.Enumerable();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster> GetJsonValue()
+            {
+                return base.getReturnValue(base.node.GetJsonValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetValue()
+            {
+                return base.getReturnValue(base.node.GetValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void GetValueCommand(System.Action<int> callback)
+            {
+                base.node.GetValueCommand(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void GetValueCommand(System.Action<int> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error___callback__)
+            {
+                base.node.GetValueCommand(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(callback, error___callback__));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<int>> InputEnumerable(int value, int count)
+            {
+                return base.node.InputEnumerable(value, count);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<int>> InputKeepCallback(int value, int count)
+            {
+                return base.node.InputKeepCallback(value, count);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<int>> KeepCallback()
+            {
+                return base.node.KeepCallback();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue PersistenceCallbackException()
+            {
+                return base.getReturnValue(base.node.PersistenceCallbackException());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> SetCallback()
+            {
+                return base.getReturnValue(base.node.SetCallback());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> SetCallbackPersistence()
+            {
+                return base.getReturnValue(base.node.SetCallbackPersistence());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetJsonValue(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster value)
+            {
+                return base.getReturnValue(base.node.SetJsonValue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetValue(int value)
+            {
+                return base.getReturnValue(base.node.SetValue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> SetValueCallback(int value)
+            {
+                return base.getReturnValue(base.node.SetValueCallback(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> SetValueCallbackPersistence(int value)
+            {
+                return base.getReturnValue(base.node.SetValueCallbackPersistence(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SetValueCommand(int value, System.Action callback)
+            {
+                base.node.SetValueCommand(value, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback(callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SetValueCommand(int value, System.Action callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error___callback__)
+            {
+                base.node.SetValueCommand(value, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback(callback, error___callback__));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SetValuePersistenceSendOnly(int value)
+            {
+                return base.node.SetValuePersistenceSendOnly(value);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SetValueSendOnly(int value)
+            {
+                return base.node.SetValueSendOnly(value);
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -4334,6 +4639,144 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(LongSearchTreeSetNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNode)
+        /// </summary>
+        public sealed partial class ILongSearchTreeSetNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILongSearchTreeSetNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILongSearchTreeSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILongSearchTreeSetNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(long value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(long[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(long value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountLess(long value)
+            {
+                return base.getReturnValue(base.node.CountLess(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountThan(long value)
+            {
+                return base.getReturnValue(base.node.CountThan(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> GetByIndex(int index)
+            {
+                return base.getReturnValue(base.node.GetByIndex(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> GetFrist()
+            {
+                return base.getReturnValue(base.node.GetFrist());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> GetLast()
+            {
+                return base.getReturnValue(base.node.GetLast());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(long value)
+            {
+                return base.getReturnValue(base.node.IndexOf(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(long value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(long[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -4695,6 +5138,104 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(ILongSortedSetNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(LongSortedSetNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(LongSortedSetNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNode)
+        /// </summary>
+        public sealed partial class ILongSortedSetNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILongSortedSetNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILongSortedSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILongSortedSetNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(long value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(long[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(long value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> GetMax()
+            {
+                return base.getReturnValue(base.node.GetMax());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> GetMin()
+            {
+                return base.getReturnValue(base.node.GetMin());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(long value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(long[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -5510,6 +6051,242 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(LongStringSearchTreeDictionaryNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNode)
+        /// </summary>
+        public sealed partial class ILongStringSearchTreeDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILongStringSearchTreeDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILongStringSearchTreeDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILongStringSearchTreeDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(long key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountLess(long key)
+            {
+                return base.getReturnValue(base.node.CountLess(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountThan(long key)
+            {
+                return base.getReturnValue(base.node.CountThan(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetHeight()
+            {
+                return base.getReturnValue(base.node.GetHeight());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetRemove(long key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<string[]> GetValueArray(long[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="skipCount"></param>
+            /// <param name="getCount"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>>> GetValues(int skipCount, byte getCount)
+            {
+                return base.node.GetValues(skipCount, getCount);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(long key)
+            {
+                return base.getReturnValue(base.node.IndexOf(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(long key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(long[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(long key, string value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(long key, string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> TryGetFirstKey()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<long,string>>> TryGetFirstKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetFirstValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<long,string>>> TryGetKeyValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetKeyValueByIndex(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<long>> TryGetLastKey()
+            {
+                return base.getReturnValue(base.node.TryGetLastKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<long,string>>> TryGetLastKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetLastValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValue(long key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetValueByIndex(index));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -6057,6 +6834,117 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(ILongStringSortedDictionaryNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(LongStringSortedDictionaryNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(LongStringSortedDictionaryNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNode)
+        /// </summary>
+        public sealed partial class ILongStringSortedDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILongStringSortedDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILongStringSortedDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILongStringSortedDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(long key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsValue(string value)
+            {
+                return base.getReturnValue(base.node.ContainsValue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetRemove(long key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<string[]> GetValueArray(long[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(long key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(long[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(long key, string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValue(long key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -6632,6 +7520,136 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(ILongStringSortedListNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(LongStringSortedListNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(LongStringSortedListNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNode)
+        /// </summary>
+        public sealed partial class ILongStringSortedListNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ILongStringSortedListNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILongStringSortedListNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ILongStringSortedListNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(long key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsValue(string value)
+            {
+                return base.getReturnValue(base.node.ContainsValue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetRemove(long key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfKey(long key)
+            {
+                return base.getReturnValue(base.node.IndexOfKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfValue(string value)
+            {
+                return base.getReturnValue(base.node.IndexOfValue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(long key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.RemoveAt(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(long key, string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValue(long key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -7278,6 +8296,135 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(PerformanceDictionaryNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNode)
+        /// </summary>
+        public sealed partial class IPerformanceDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IPerformanceDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IPerformanceDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IPerformanceDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(int key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetRemove(int key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int[]> GetValueArray(int[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(int key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(int[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="capacity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Renew(int capacity)
+            {
+                return base.getReturnValue(base.node.Renew(capacity));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(int key, int value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(int key, int value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetValue(int key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -7757,6 +8904,127 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(IPerformanceMessageNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(PerformanceMessageNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(PerformanceMessageNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNode)
+        /// </summary>
+        public sealed partial class IPerformanceMessageNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IPerformanceMessageNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IPerformanceMessageNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IPerformanceMessageNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="message"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage message)
+            {
+                return base.getReturnValue(base.node.AppendMessage(message));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearFailed()
+            {
+                return base.getReturnValue(base.node.ClearFailed());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Completed(identity);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Failed(identity);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCallbackCount()
+            {
+                return base.getReturnValue(base.node.GetCallbackCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCount()
+            {
+                return base.getReturnValue(base.node.GetCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFailedCount()
+            {
+                return base.getReturnValue(base.node.GetFailedCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="maxCount"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage> keepCallback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="maxCount"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTimeoutCount()
+            {
+                return base.getReturnValue(base.node.GetTimeoutCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTotalCount()
+            {
+                return base.getReturnValue(base.node.GetTotalCount());
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -8571,6 +9839,242 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(PerformanceSearchTreeDictionaryNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNode)
+        /// </summary>
+        public sealed partial class IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IPerformanceSearchTreeDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IPerformanceSearchTreeDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(int key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountLess(int key)
+            {
+                return base.getReturnValue(base.node.CountLess(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> CountThan(int key)
+            {
+                return base.getReturnValue(base.node.CountThan(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetHeight()
+            {
+                return base.getReturnValue(base.node.GetHeight());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetRemove(int key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int[]> GetValueArray(int[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="skipCount"></param>
+            /// <param name="getCount"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetValues(int skipCount, byte getCount)
+            {
+                return base.node.GetValues(skipCount, getCount);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(int key)
+            {
+                return base.getReturnValue(base.node.IndexOf(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(int key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(int[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(int key, int value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(int key, int value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetFirstKey()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue>> TryGetFirstKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetFirstValue()
+            {
+                return base.getReturnValue(base.node.TryGetFirstValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue>> TryGetKeyValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetKeyValueByIndex(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetLastKey()
+            {
+                return base.getReturnValue(base.node.TryGetLastKey());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue>> TryGetLastKeyValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastKeyValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetLastValue()
+            {
+                return base.getReturnValue(base.node.TryGetLastValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetValue(int key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> TryGetValueByIndex(int index)
+            {
+                return base.getReturnValue(base.node.TryGetValueByIndex(index));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -9327,6 +10831,182 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(StringArrayNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNode)
+        /// </summary>
+        public sealed partial class IStringArrayNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringArrayNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringArrayNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringArrayNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Clear(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Fill(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Fill(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue FillArray(string value)
+            {
+                return base.getReturnValue(base.node.FillArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetLength()
+            {
+                return base.getReturnValue(base.node.GetLength());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValue(int index)
+            {
+                return base.getReturnValue(base.node.GetValue(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValueSet(int index, string value)
+            {
+                return base.getReturnValue(base.node.GetValueSet(index, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.IndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfArray(string value)
+            {
+                return base.getReturnValue(base.node.IndexOfArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOf(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.LastIndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOfArray(string value)
+            {
+                return base.getReturnValue(base.node.LastIndexOfArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Reverse(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReverseArray()
+            {
+                return base.getReturnValue(base.node.ReverseArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetValue(int index, string value)
+            {
+                return base.getReturnValue(base.node.SetValue(index, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Sort(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SortArray()
+            {
+                return base.getReturnValue(base.node.SortArray());
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -9974,6 +11654,135 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(StringDictionaryNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNode)
+        /// </summary>
+        public sealed partial class IStringDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(string key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetRemove(string key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<string[]> GetValueArray(string[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(string key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(string[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="capacity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Renew(int capacity)
+            {
+                return base.getReturnValue(base.node.Renew(capacity));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(string key, string value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(string key, string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValue(string key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -10550,6 +12359,134 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(StringFragmentDictionaryNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNode)
+        /// </summary>
+        public sealed partial class IStringFragmentDictionaryNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringFragmentDictionaryNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringFragmentDictionaryNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringFragmentDictionaryNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ContainsKey(string key)
+            {
+                return base.getReturnValue(base.node.ContainsKey(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetRemove(string key)
+            {
+                return base.getReturnValue(base.node.GetRemove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<string[]> GetValueArray(string[] keys)
+            {
+                return base.getReturnValue(base.node.GetValueArray(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(string key)
+            {
+                return base.getReturnValue(base.node.Remove(key));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveKeys(string[] keys)
+            {
+                return base.getReturnValue(base.node.RemoveKeys(keys));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Set(string key, string value)
+            {
+                return base.getReturnValue(base.node.Set(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(string key, string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(key, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryGetValue(string key)
+            {
+                return base.getReturnValue(base.node.TryGetValue(key));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -10907,6 +12844,102 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(IStringFragmentHashSetNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(StringFragmentHashSetNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(StringFragmentHashSetNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNode)
+        /// </summary>
+        public sealed partial class IStringFragmentHashSetNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringFragmentHashSetNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringFragmentHashSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringFragmentHashSetNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(string value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(string[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearArray()
+            {
+                return base.getReturnValue(base.node.ClearArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(string value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(string value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(string[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -11335,6 +13368,103 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(IStringHashSetNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(StringHashSetNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(StringHashSetNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNode)
+        /// </summary>
+        public sealed partial class IStringHashSetNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringHashSetNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringHashSetNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringHashSetNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Add(string value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> AddValues(string[] values)
+            {
+                return base.getReturnValue(base.node.AddValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(string value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(string value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> RemoveValues(string[] values)
+            {
+                return base.getReturnValue(base.node.RemoveValues(values));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="capacity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Renew(int capacity)
+            {
+                return base.getReturnValue(base.node.Renew(capacity));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReusableClear()
+            {
+                return base.getReturnValue(base.node.ReusableClear());
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -12334,6 +14464,306 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(StringLeftArrayNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNode)
+        /// </summary>
+        public sealed partial class IStringLeftArrayNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringLeftArrayNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringLeftArrayNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringLeftArrayNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Add(string value)
+            {
+                return base.getReturnValue(base.node.Add(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Clear(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Clear(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearLength()
+            {
+                return base.getReturnValue(base.node.ClearLength());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Fill(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Fill(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue FillArray(string value)
+            {
+                return base.getReturnValue(base.node.FillArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFreeCount()
+            {
+                return base.getReturnValue(base.node.GetFreeCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetLength()
+            {
+                return base.getReturnValue(base.node.GetLength());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetTryPopValue()
+            {
+                return base.getReturnValue(base.node.GetTryPopValue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValue(int index)
+            {
+                return base.getReturnValue(base.node.GetValue(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValueRemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.GetValueRemoveAt(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValueRemoveToEnd(int index)
+            {
+                return base.getReturnValue(base.node.GetValueRemoveToEnd(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> GetValueSet(int index, string value)
+            {
+                return base.getReturnValue(base.node.GetValueSet(index, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOf(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.IndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> IndexOfArray(string value)
+            {
+                return base.getReturnValue(base.node.IndexOfArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Insert(int index, string value)
+            {
+                return base.getReturnValue(base.node.Insert(index, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOf(string value, int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.LastIndexOf(value, startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> LastIndexOfArray(string value)
+            {
+                return base.getReturnValue(base.node.LastIndexOfArray(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Remove(string value)
+            {
+                return base.getReturnValue(base.node.Remove(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveAt(int index)
+            {
+                return base.getReturnValue(base.node.RemoveAt(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> RemoveToEnd(int index)
+            {
+                return base.getReturnValue(base.node.RemoveToEnd(index));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Reverse(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Reverse(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ReverseArray()
+            {
+                return base.getReturnValue(base.node.ReverseArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetEmpty()
+            {
+                return base.getReturnValue(base.node.SetEmpty());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetValue(int index, string value)
+            {
+                return base.getReturnValue(base.node.SetValue(index, value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="startIndex"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Sort(int startIndex, int count)
+            {
+                return base.getReturnValue(base.node.Sort(startIndex, count));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SortArray()
+            {
+                return base.getReturnValue(base.node.SortArray());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryAdd(string value)
+            {
+                return base.getReturnValue(base.node.TryAdd(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> TryPop()
+            {
+                return base.getReturnValue(base.node.TryPop());
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -12552,6 +14982,73 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(StringQueueNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNode)
+        /// </summary>
+        public sealed partial class IStringQueueNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringQueueNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringQueueNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringQueueNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(string value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Enqueue(string value)
+            {
+                return base.getReturnValue(base.node.Enqueue(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryDequeue()
+            {
+                return base.getReturnValue(base.node.TryDequeue());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryPeek()
+            {
+                return base.getReturnValue(base.node.TryPeek());
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -12768,6 +15265,73 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(IStringStackNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(StringStackNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(StringStackNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNode)
+        /// </summary>
+        public sealed partial class IStringStackNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IStringStackNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IStringStackNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStringStackNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> Contains(string value)
+            {
+                return base.getReturnValue(base.node.Contains(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Push(string value)
+            {
+                return base.getReturnValue(base.node.Push(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryPeek()
+            {
+                return base.getReturnValue(base.node.TryPeek());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>> TryPop()
+            {
+                return base.getReturnValue(base.node.TryPop());
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -13251,6 +15815,127 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.Interfaces(typeof(TestClassMessageNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNode)
+        /// </summary>
+        public sealed partial class ITestClassMessageNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ITestClassMessageNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ITestClassMessageNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ITestClassMessageNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="message"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue AppendMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage message)
+            {
+                return base.getReturnValue(base.node.AppendMessage(message));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Clear()
+            {
+                return base.getReturnValue(base.node.Clear());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearFailed()
+            {
+                return base.getReturnValue(base.node.ClearFailed());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Completed(identity);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="identity"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity)
+            {
+                return base.node.Failed(identity);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCallbackCount()
+            {
+                return base.getReturnValue(base.node.GetCallbackCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetCount()
+            {
+                return base.getReturnValue(base.node.GetCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetFailedCount()
+            {
+                return base.getReturnValue(base.node.GetFailedCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="maxCount"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage> keepCallback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="maxCount"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback)
+            {
+                
+                return base.node.GetMessage(maxCount, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage>(keepCallback, error_callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTimeoutCount()
+            {
+                return base.getReturnValue(base.node.GetTimeoutCount());
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetTotalCount()
+            {
+                return base.getReturnValue(base.node.GetTotalCount());
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -13412,6 +16097,37 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.AotReflection.NonPublicFields(typeof(ITestClassOnlyPersistenceNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(TestClassOnlyPersistenceNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(TestClassOnlyPersistenceNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode)
+        /// </summary>
+        public sealed partial class ITestClassOnlyPersistenceNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<ITestClassOnlyPersistenceNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ITestClassOnlyPersistenceNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ITestClassOnlyPersistenceNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                return base.getReturnValue(base.node.Save(value));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                return base.node.SaveSendOnly(value);
             }
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game

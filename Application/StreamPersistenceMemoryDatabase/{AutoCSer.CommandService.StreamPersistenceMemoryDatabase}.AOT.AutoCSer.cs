@@ -1114,6 +1114,129 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.Interfaces(typeof(BitmapNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+        /// </summary>
+        public sealed partial class IBitmapNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IBitmapNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IBitmapNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IBitmapNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Clear bit status 
+///            清除位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> ClearBit(uint index)
+            {
+                return base.getReturnValue(base.node.ClearBit(index));
+            }
+            /// <summary>
+            /// Clear all data 
+///            清除所有数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue ClearMap()
+            {
+                return base.getReturnValue(base.node.ClearMap());
+            }
+            /// <summary>
+            /// Read bit status 
+///            读取位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>A non-0 indicates that the binary bit is in the set state. If the index exceeds, there will be no return value 
+///            非 0 表示二进制位为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBit(index));
+            }
+            /// <summary>
+            /// Clear the bit state and return to the state before setting 
+///            清除位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Clear the state before the operation. A non-0 state indicates that the binary bit was in the set state before. If the index exceeds, there will be no return value 
+///            清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitClearBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitClearBit(index));
+            }
+            /// <summary>
+            /// Reverse the bit state and return the state before the operation 
+///            位状态取反并返回操作之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Take the state before the reverse operation. If it is not 0, it indicates that the binary bit is in the set state before. If the index exceeds, there will be no return value 
+///            取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitInvertBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitInvertBit(index));
+            }
+            /// <summary>
+            /// Set the bit state and return the state before setting 
+///            设置位状态并返回设置之前的状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>The state before setting: A non-0 indicates that the binary bit was in the set state before, and there is no return value if the index exceeds 
+///            设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>> GetBitSetBit(uint index)
+            {
+                return base.getReturnValue(base.node.GetBitSetBit(index));
+            }
+            /// <summary>
+            /// Get the number of bitmap binary bits 
+///            获取位图二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<uint> GetCapacity()
+            {
+                return base.getReturnValue(base.node.GetCapacity());
+            }
+            /// <summary>
+            /// Reverse the bit state 
+///            位状态取反
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> InvertBit(uint index)
+            {
+                return base.getReturnValue(base.node.InvertBit(index));
+            }
+            /// <summary>
+            /// Set bit status 
+///            设置位状态
+            /// </summary>
+            /// <param name="index">Bit index position 
+///            位索引位置</param>
+            /// <returns>Returning false indicates that the index is out of range 
+///            返回 false 表示索引超出范围</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetBit(uint index)
+            {
+                return base.getReturnValue(base.node.SetBit(index));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -1337,6 +1460,43 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicFields(typeof(IIdentityGeneratorNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(IdentityGeneratorNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(IdentityGeneratorNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+        /// </summary>
+        public sealed partial class IIdentityGeneratorNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IIdentityGeneratorNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IIdentityGeneratorNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IIdentityGeneratorNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the next increment identity 
+///            获取下一个自增ID
+            /// </summary>
+            /// <returns>The next increment identity returns a negative number on failure 
+///            下一个自增ID，失败返回负数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<long> Next()
+            {
+                return base.getReturnValue(base.node.Next());
+            }
+            /// <summary>
+            /// Gets the auto-increment identity segment 
+///            获取自增 ID 分段
+            /// </summary>
+            /// <param name="count">Get the quantity of data 
+///            获取数据数量</param>
+            /// <returns>Auto-increment identity segment 
+///            自增 ID 分段</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment> NextFragment(int count)
+            {
+                return base.getReturnValue(base.node.NextFragment(count));
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -1590,6 +1750,60 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicFields(typeof(IManyHashBitMapClientFilterNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(ManyHashBitMapClientFilterNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(ManyHashBitMapClientFilterNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+        /// </summary>
+        public sealed partial class IManyHashBitMapClientFilterNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IManyHashBitMapClientFilterNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IManyHashBitMapClientFilterNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IManyHashBitMapClientFilterNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap> callback, System.Action<int> keepCallback)
+            {
+                
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>(callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(keepCallback));
+            }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback, System.Action<int> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_keepCallback)
+            {
+                
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>(callback, error_callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetSize()
+            {
+                return base.getReturnValue(base.node.GetSize());
+            }
+            /// <summary>
+            /// Set bit 
+///            设置位
+            /// </summary>
+            /// <param name="bit">The set binary bit 
+///            设置的二进制位</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetBit(int bit)
+            {
+                return base.getReturnValue(base.node.SetBit(bit));
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -1881,6 +2095,59 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicFields(typeof(IManyHashBitMapFilterNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(ManyHashBitMapFilterNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(ManyHashBitMapFilterNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+        /// </summary>
+        public sealed partial class IManyHashBitMapFilterNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IManyHashBitMapFilterNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IManyHashBitMapFilterNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IManyHashBitMapFilterNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Binary bit set matching 
+///            位置集合匹配
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning Null indicates that the bitmap does not match 
+///            返回 Null 表示位图不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<AutoCSer.NullableBoolEnum> CheckBits(int size, uint[] bits)
+            {
+                return base.getReturnValue(base.node.CheckBits(size, bits));
+            }
+            /// <summary>
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<int> GetSize()
+            {
+                return base.getReturnValue(base.node.GetSize());
+            }
+            /// <summary>
+            /// Set bit 
+///            设置位
+            /// </summary>
+            /// <param name="size">Bitmap size (number of bits) 
+///            位图大小（位数量）</param>
+            /// <param name="bits">Binary bit set 
+///            位置集合</param>
+            /// <returns>Returning false indicates that the bitmap size does not match 
+///            返回 false 表示位图大小不匹配</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<bool> SetBits(int size, uint[] bits)
+            {
+                return base.getReturnValue(base.node.SetBits(size, bits));
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -2975,6 +3242,52 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.Interfaces(typeof(UniformProbabilityClientStatisticsNodeLocalClient));
             }
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+        /// </summary>
+        public sealed partial class IUniformProbabilityClientStatisticsNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IUniformProbabilityClientStatisticsNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IUniformProbabilityClientStatisticsNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IUniformProbabilityClientStatisticsNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<byte[]> callback, System.Action<int> keepCallback)
+            {
+                
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<byte[]>(callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(keepCallback));
+            }
+            /// <summary>
+            /// Get data 
+///            获取数据
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<byte[]> callback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_callback, System.Action<int> keepCallback, Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> error_keepCallback)
+            {
+                
+                return base.node.GetData(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<byte[]>(callback, error_callback), new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="bits">The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量</param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue SetIndexBit(int index, byte bits)
+            {
+                return base.getReturnValue(base.node.SetIndexBit(index, bits));
+            }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
@@ -3209,6 +3522,49 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicFields(typeof(IUniformProbabilityTotalStatisticsNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(UniformProbabilityTotalStatisticsNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(UniformProbabilityTotalStatisticsNodeLocalClient));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+        /// </summary>
+        public sealed partial class IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode<IUniformProbabilityTotalStatisticsNodeLocalClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IUniformProbabilityTotalStatisticsNodeLocalClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add statistical data 
+///            添加统计数据
+            /// </summary>
+            /// <param name="value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue Append(ulong value)
+            {
+                return base.getReturnValue(base.node.Append(value));
+            }
+            /// <summary>
+            /// Get the statistical quantity 
+///            获取统计数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<double> Count()
+            {
+                return base.getReturnValue(base.node.Count());
+            }
+            /// <summary>
+            /// Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue<byte> GetIndexBits()
+            {
+                return base.getReturnValue(base.node.GetIndexBits());
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase

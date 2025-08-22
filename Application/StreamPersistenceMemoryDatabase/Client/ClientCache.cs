@@ -23,6 +23,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public readonly AutoCSer.Net.CommandClientSocketEventCache<ET> Client;
         /// <summary>
+        /// Has the client released the resources
+        /// 客户端是否已经释放资源
+        /// </summary>
+        public override bool IsDisposed { get { return Client.Client.IsDisposed; } }
+        /// <summary>
         /// Log stream persistence memory database client access lock
         /// 日志流持久化内存数据库客户端访问锁
         /// </summary>

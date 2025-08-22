@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// Service basic operation interface
     /// 服务基础操作接口
     /// </summary>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode(IsLocalClient = true, IsReturnValueNode = false)]
     public partial interface IServiceNode
     {
         /// <summary>

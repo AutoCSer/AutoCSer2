@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 命令返回值 await
+    /// Used for await
+    /// 用于 await
     /// </summary>
     public sealed class CommandReturnValue : INotifyCompletion
     {
@@ -47,7 +48,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private readonly bool isIgnoreError;
         /// <summary>
-        /// 命令返回值
+        /// Used for await
+        /// 用于 await
         /// </summary>
         /// <param name="command">The return value command
         /// 返回值命令</param>
@@ -61,6 +63,7 @@ namespace AutoCSer.Net.CommandServer
             else continuation = Common.EmptyAction;
         }
         /// <summary>
+        /// Complete the callback operation
         /// 完成回调操作
         /// </summary>
         private void onCompleted()
@@ -115,7 +118,8 @@ namespace AutoCSer.Net.CommandServer
         }
     }
     /// <summary>
-    /// 命令返回值 await T
+    /// Command return value (await T)
+    /// 命令返回值（await T）
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class CommandReturnValue<T> : INotifyCompletion
@@ -162,7 +166,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private readonly bool isIgnoreError;
         /// <summary>
-        /// 命令返回值
+        /// Command return value (await T)
+        /// 命令返回值（await T）
         /// </summary>
         /// <param name="command">The return value command
         /// 返回值命令</param>
@@ -176,6 +181,7 @@ namespace AutoCSer.Net.CommandServer
             else continuation = Common.EmptyAction;
         }
         /// <summary>
+        /// Complete the callback operation
         /// 完成回调操作
         /// </summary>
         private void onCompleted()

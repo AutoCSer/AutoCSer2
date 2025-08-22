@@ -418,6 +418,12 @@
             客户端初始化加载未完成
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.ClientDisposed">
+            <summary>
+            The client has released resources
+            客户端已释放资源
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.Callbacked">
             <summary>
             Callback already (available for counting)
@@ -939,6 +945,232 @@
             客户端节点类型</typeparam>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.Callback">
+            <summary>
+            Success value callback delegate
+            成功值回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.ErrorCallback">
+            <summary>
+            Error return value type callback delegate
+            错误成功值类型回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.#ctor(System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <param name="callback">Success value callback delegate
+            成功值回调委托</param>
+            <param name="errorCallback">Error return value type callback delegate
+            错误成功值类型回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)">
+            <summary>
+            Return value callback
+            返回值回调
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback)~System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.emptyCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)">
+            <summary>
+            Default empty callback
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback.EmptyCallback">
+            <summary>
+            Default empty callback
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1.Callback">
+            <summary>
+            Success value callback delegate
+            成功值回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1.ErrorCallback">
+            <summary>
+            Error return value type callback delegate
+            错误成功值类型回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1.#ctor(System.Action{`0},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <param name="callback">Success value callback delegate
+            成功值回调委托</param>
+            <param name="errorCallback">Error return value type callback delegate
+            错误成功值类型回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1.callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
+            <summary>
+            Return value callback
+            返回值回调
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback`1.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback{`0})~System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1">
+            <summary>
+            API encapsulation nodes that directly return values
+            直接返回值的 API 封装节点
+            </summary>
+            <typeparam name="T">Client node interface type
+            客户端节点接口类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.node">
+            <summary>
+            Client node
+            客户端节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.waitLock">
+            <summary>
+            获取客户端节点等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.exception">
+            <summary>
+            Exception information
+            异常信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.callState">
+            <summary>
+            Call status
+            调用状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.isReleaseWaitLock">
+            <summary>
+            是否需要释放节点等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.isDisposed">
+            <summary>
+            Whether resources have been released
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{`0},System.Boolean,System.Boolean)">
+            <summary>
+            API encapsulation nodes that directly return values
+            直接返回值的 API 封装节点
+            </summary>
+            <param name="node">Log stream persistence memory database client node cache for client singleton
+            日志流持久化内存数据库客户端节点缓存，用于客户端单例</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored
+            默认为 false 表示忽略异常与错误信息</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations
+            默认为 false 表示不使用 IO 线程同步回调，否则 API 调用 await 后续操作不允许存在同步阻塞逻辑或者长时间占用 CPU 运算</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.Dispose">
+            <summary>
+            Release resources
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{`0},System.Boolean)">
+            <summary>
+            Get the client node
+            获取客户端节点
+            </summary>
+            <param name="node"></param>
+            <param name="isSynchronousCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
+            <summary>
+            Get the client node
+            获取客户端节点
+            </summary>
+            <param name="node"></param>
+            <param name="result"></param>
+            <returns>Whether to end the program
+            是否结束程序</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.releaseWaitLock">
+            <summary>
+            释放节点等待锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.GetNodeResult">
+            <summary>
+            Get the client node
+            获取客户端节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.GetNodeResultAsync">
+            <summary>
+            Get the client node
+            获取客户端节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getNodeResultAsync">
+            <summary>
+            Get the client node
+            获取客户端节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getReturnValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            直接获取返回值
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getReturnValue``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{``0}})">
+            <summary>
+            直接获取返回值
+            </summary>
+            <typeparam name="VT"></typeparam>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueNode`1.getReturnValue(System.Object)">
+            <summary>
+            代码生成模板
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1">
             <summary>
             The local service invocation keep callback output
@@ -1106,6 +1338,14 @@
             <param name="state"></param>
             <param name="errorMessage"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.GetValue(System.Boolean)">
+            <summary>
+            Get the return value
+            获取返回值
+            </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)">
             <summary>
             Emptu callback
@@ -1214,6 +1454,15 @@
             <typeparam name="PT"></typeparam>
             <returns>Error paging data
             错误分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.GetValue(System.Boolean)">
+            <summary>
+            Get the return value
+            获取返回值
+            </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+            <returns>Return value</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
             <summary>
@@ -11098,6 +11347,180 @@
             第二阶段返回参数回调</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue">
+            <summary>
+            Used for await
+            用于 await
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.Node">
+            <summary>
+            Return value node
+            返回值节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.continuation">
+            <summary>
+            Asynchronous callback
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.IsCompleted">
+            <summary>
+            Completed status
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.State">
+            <summary>
+            Call status
+            调用状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult},System.Boolean)">
+            <summary>
+            Used for await
+            用于 await
+            </summary>
+            <param name="node">Return value node
+            返回值节点</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.onCompleted">
+            <summary>
+            Complete the callback operation
+            完成回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.OnCompleted(System.Action)">
+            <summary>
+            Set asynchronous callback
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.Wait">
+            <summary>
+            Wait for the command call to return the result
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.GetResult">
+            <summary>
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue.GetAwaiter">
+            <summary>
+            Get the awaiter object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1">
+            <summary>
+            Return value (await T)
+            返回值（await T）
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.Node">
+            <summary>
+            Return value node
+            返回值节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.continuation">
+            <summary>
+            Asynchronous callback
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.IsCompleted">
+            <summary>
+            Completed status
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.Exception">
+            <summary>
+            Exception information
+            异常信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.State">
+            <summary>
+            Call status
+            调用状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.ReturnValue">
+            <summary>
+            Return value
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},System.Boolean)">
+            <summary>
+            Return value (await T)
+            返回值（await T）
+            </summary>
+            <param name="node">Return value node
+            返回值节点</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.onCompleted">
+            <summary>
+            Complete the callback operation
+            完成回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.OnCompleted(System.Action)">
+            <summary>
+            Set asynchronous callback
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.Wait">
+            <summary>
+            Wait for the command call to return the result
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.GetResult">
+            <summary>
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceReturnValue`1.GetAwaiter">
+            <summary>
+            Get the awaiter object
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1">
             <summary>
             本地服务调用节点方法队列节点
@@ -15337,7 +15760,7 @@
             异步回调
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode`1.result">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode`1.Result">
             <summary>
             Return result
             返回结果
@@ -15370,7 +15793,7 @@
             任务调用完成处理
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode`1.OnCompleted(System.Action)">
             <summary>
             Set asynchronous callback
             设置异步回调
@@ -16772,16 +17195,33 @@
             服务端节点接口配置
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute.IsClient">
+            <summary>
+            The default is true, indicating the generation of remote client interface code (Only for JIT mode)
+            默认为 true 表示生成远程客户端接口代码（仅用于 JIT 模式）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute.IsReturnValueNode">
+            <summary>
+            A default value of true indicates the API encapsulation type that generates a direct return value
+            默认为 true 表示生成直接返回值的 API 封装类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute.IsLocalClient">
             <summary>
             The default is true, indicating the generation of the local client interface code
             默认为 true 表示生成本地客户端接口代码
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute.DefaultIsReturnValueNode">
+            <summary>
+            默认为 false 表示 AutoCSer 内置节点不生成直接返回值的 API 封装类型（用于泛型接口定义）
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute.LocalClientTypeName">
             <summary>
-            Generate the local client node name
-            生成本地客户端节点名称
+            Generate the local client node name (Only for.NET NativeAOT)
+            生成本地客户端节点名称（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod">
@@ -18284,6 +18724,102 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.ClearBit(System.UInt32)">
+            <summary>
+            Clear bit status 
+                       清除位状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>Returning false indicates that the index is out of range 
+                       返回 false 表示索引超出范围</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.ClearMap">
+            <summary>
+            Clear all data 
+                       清除所有数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.GetBit(System.UInt32)">
+            <summary>
+            Read bit status 
+                       读取位状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>A non-0 indicates that the binary bit is in the set state. If the index exceeds, there will be no return value 
+                       非 0 表示二进制位为已设置状态，索引超出则无返回值</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.GetBitClearBit(System.UInt32)">
+            <summary>
+            Clear the bit state and return to the state before setting 
+                       清除位状态并返回设置之前的状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>Clear the state before the operation. A non-0 state indicates that the binary bit was in the set state before. If the index exceeds, there will be no return value 
+                       清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.GetBitInvertBit(System.UInt32)">
+            <summary>
+            Reverse the bit state and return the state before the operation 
+                       位状态取反并返回操作之前的状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>Take the state before the reverse operation. If it is not 0, it indicates that the binary bit is in the set state before. If the index exceeds, there will be no return value 
+                       取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.GetBitSetBit(System.UInt32)">
+            <summary>
+            Set the bit state and return the state before setting 
+                       设置位状态并返回设置之前的状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>The state before setting: A non-0 indicates that the binary bit was in the set state before, and there is no return value if the index exceeds 
+                       设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.GetCapacity">
+            <summary>
+            Get the number of bitmap binary bits 
+                       获取位图二进制位数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.InvertBit(System.UInt32)">
+            <summary>
+            Reverse the bit state 
+                       位状态取反
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>Returning false indicates that the index is out of range 
+                       返回 false 表示索引超出范围</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeReturnValueLocalNode.SetBit(System.UInt32)">
+            <summary>
+            Set bit status 
+                       设置位状态
+            </summary>
+            <param name="index">Bit index position 
+                       位索引位置</param>
+            <returns>Returning false indicates that the index is out of range 
+                       返回 false 表示索引超出范围</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode">
             <summary>
             64-bit auto-increment identity node interface 
@@ -18433,6 +18969,37 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeReturnValueLocalNode.Next">
+            <summary>
+            Get the next increment identity 
+                       获取下一个自增ID
+            </summary>
+            <returns>The next increment identity returns a negative number on failure 
+                       下一个自增ID，失败返回负数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeReturnValueLocalNode.NextFragment(System.Int32)">
+            <summary>
+            Gets the auto-increment identity segment 
+                       获取自增 ID 分段
+            </summary>
+            <param name="count">Get the quantity of data 
+                       获取数据数量</param>
+            <returns>Auto-increment identity segment 
+                       自增 ID 分段</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode">
             <summary>
@@ -18600,6 +19167,46 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap},System.Action{System.Int32})">
+            <summary>
+            Get data 
+                       获取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult},System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            Get data 
+                       获取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode.GetSize">
+            <summary>
+            Get the bitmap size (number of bits) 
+                       获取位图大小（位数量）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeReturnValueLocalNode.SetBit(System.Int32)">
+            <summary>
+            Set bit 
+                       设置位
+            </summary>
+            <param name="bit">The set binary bit 
+                       设置的二进制位</param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode">
             <summary>
@@ -18794,6 +19401,50 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeReturnValueLocalNode.CheckBits(System.Int32,System.UInt32[])">
+            <summary>
+            Binary bit set matching 
+                       位置集合匹配
+            </summary>
+            <param name="size">Bitmap size (number of bits) 
+                       位图大小（位数量）</param>
+            <param name="bits">Binary bit set 
+                       位置集合</param>
+            <returns>Returning Null indicates that the bitmap does not match 
+                       返回 Null 表示位图不匹配</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeReturnValueLocalNode.GetSize">
+            <summary>
+            Get the bitmap size (number of bits) 
+                       获取位图大小（位数量）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeReturnValueLocalNode.SetBits(System.Int32,System.UInt32[])">
+            <summary>
+            Set bit 
+                       设置位
+            </summary>
+            <param name="size">Bitmap size (number of bits) 
+                       位图大小（位数量）</param>
+            <param name="bits">Binary bit set 
+                       位置集合</param>
+            <returns>Returning false indicates that the bitmap size does not match 
+                       返回 false 表示位图大小不匹配</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode">
             <summary>
@@ -19494,6 +20145,41 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeReturnValueLocalNode.GetData(System.Action{System.Byte[]},System.Action{System.Int32})">
+            <summary>
+            Get data 
+                       获取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeReturnValueLocalNode.GetData(System.Action{System.Byte[]},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult},System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            Get data 
+                       获取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeReturnValueLocalNode.SetIndexBit(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position 
+                       尝试修改指定索引位置的二进制位数量
+            </summary>
+            <param name="index">Index position 
+                       索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1 
+                       最后连续的二进制位 1 的数量</param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode">
             <summary>
             Total statistics node interface based on uniform probability (similar to HyperLogLog) 
@@ -19649,6 +20335,40 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode.Append(System.UInt64)">
+            <summary>
+            Add statistical data 
+                       添加统计数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode.Count">
+            <summary>
+            Get the statistical quantity 
+                       获取统计数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeReturnValueLocalNode.GetIndexBits">
+            <summary>
+            Get the number of index binary bits 
+                       获取索引二进制位数量
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeMethodEnum">
             <summary>
@@ -20443,6 +21163,12 @@
             客户端节点访问锁
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache`1.IsDisposed">
+            <summary>
+            Has the client released the resources
+            客户端是否已经释放资源
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache`1.GetNode">
             <summary>
             Get the client node
@@ -20485,6 +21211,12 @@
             <summary>
             Log stream persistence memory database local client cache for client singleton
             日志流持久化内存数据库本地客户端缓存，用于客户端单例
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache`2.IsDisposed">
+            <summary>
+            Has the client released the resources
+            客户端是否已经释放资源
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache`2.getNodeTask">

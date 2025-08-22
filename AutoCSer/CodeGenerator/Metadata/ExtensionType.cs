@@ -271,9 +271,20 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <summary>
         /// 获取类名称定义
         /// </summary>
-        /// <param name="typeNameSuffix">生成类型名称后缀</param>
+        /// <param name="nameSuffix">生成类型名称后缀</param>
         /// <returns></returns>
-        public string GetTypeNameDefinition(string typeNameSuffix = null) { return Type?.getDefinitionString(typeNameSuffix); }
+        public string GetTypeNameDefinition(string nameSuffix = null) { return Type?.getDefinitionString(nameSuffix); }
+        /// <summary>
+        /// 获取泛型类型字符串
+        /// </summary>
+        /// <returns></returns>
+        public string GetGenericTypeString() { return Type?.getGenericTypeString(); }
+        /// <summary>
+        /// 获取类型名称
+        /// </summary>
+        /// <param name="nameSuffix"></param>
+        /// <returns></returns>
+        public string GetName(string nameSuffix) { return Type?.getName(nameSuffix); }
 
         /// <summary>
         /// 空类型

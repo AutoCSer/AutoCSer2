@@ -49,6 +49,7 @@ namespace AutoCSer.CodeGenerator.Template
         public partial class UnderlyingType : Pub { }
         public partial class MemberType : Pub { }
         public partial class MethodReturnType : Pub { }
+        public partial class ReturnValueMethodReturnType : Pub { }
         public partial class ReturnValueType : Pub { }
         public partial class TwoStageReturnValueType : Pub { }
         public partial class ParameterType : Pub { }

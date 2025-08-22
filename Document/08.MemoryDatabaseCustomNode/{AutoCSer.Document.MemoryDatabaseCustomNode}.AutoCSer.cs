@@ -48,6 +48,66 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(long identity);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IBeforePersistenceNode)
+        /// </summary>
+        public sealed partial class IBeforePersistenceNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IBeforePersistenceNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IBeforePersistenceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IBeforePersistenceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IBeforePersistenceNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Add a new data 
+///            添加一个新数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>New data identity. Return 0 if failed 
+///            新数据 ID，失败返回 0</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> AppendEntity(AutoCSer.Document.MemoryDatabaseCustomNode.IdentityEntity value)
+            {
+                return base.node.AppendEntity(value).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <param name="identity"></param>
+            /// <returns>If the identity is not found, return -1 
+///            没有找到 ID 则返回 -1</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount(long identity)
+            {
+                return base.node.GetCount(identity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            /// <param name="identity"></param>
+            /// <returns>Return false if the identity is not found 
+///            没有找到 ID 则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Increment(long identity)
+            {
+                return base.node.Increment(identity).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete data 
+///            删除数据
+            /// </summary>
+            /// <param name="identity"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(long identity)
+            {
+                return base.node.Remove(identity).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
         /// <summary>
@@ -69,6 +129,39 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
 ///            计数 +1
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Increment();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.ICounterNode)
+        /// </summary>
+        public sealed partial class ICounterNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ICounterNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.ICounterNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ICounterNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ICounterNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <returns>Current count 
+///            当前计数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount()
+            {
+                return base.node.GetCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Increment()
+            {
+                return base.node.Increment().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
@@ -192,6 +285,58 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
 ///            返回 false 表示关键字不存在</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(T key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IDictionaryCounterNode{T})
+        /// </summary>
+        public sealed partial class IDictionaryCounterNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDictionaryCounterNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IDictionaryCounterNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDictionaryCounterNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryCounterNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>If the key is null, -1 will be returned 
+///            key 为 null 则返回 -1</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount(T key)
+            {
+                return base.node.GetCount(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>If the key is null, it returns false 
+///            key 为 null 则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Increment(T key)
+            {
+                return base.node.Increment(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the count 
+///            删除计数
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
         /// <summary>
@@ -229,6 +374,58 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
 ///            返回 false 表示关键字不存在</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(T key);
         }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IDictionarySnapshotCloneCounterNode{T})
+        /// </summary>
+        public sealed partial class IDictionarySnapshotCloneCounterNodeReturnValueNode<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<IDictionarySnapshotCloneCounterNodeClientNode<T>>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.IDictionarySnapshotCloneCounterNode{T})
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public IDictionarySnapshotCloneCounterNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionarySnapshotCloneCounterNodeClientNode<T>> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>If the key is null, -1 will be returned 
+///            key 为 null 则返回 -1</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount(T key)
+            {
+                return base.node.GetCount(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>If the key is null, it returns false 
+///            key 为 null 则返回 false</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Increment(T key)
+            {
+                return base.node.Increment(key).GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Delete the count 
+///            删除计数
+            /// </summary>
+            /// <param name="key">The keyword for counting 
+///            计数关键字</param>
+            /// <returns>Returning false indicates that the keyword does not exist 
+///            返回 false 表示关键字不存在</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<bool> Remove(T key)
+            {
+                return base.node.Remove(key).GetValue(isIgnoreError);
+            }
+        }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
         /// <summary>
@@ -250,6 +447,39 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
 ///            计数 +1
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Increment();
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.ILoadPersistenceNode)
+        /// </summary>
+        public sealed partial class ILoadPersistenceNodeReturnValueNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientReturnValueNode<ILoadPersistenceNodeClientNode>
+        {
+            /// <summary>
+            /// Get the direct return value API encapsulation (AutoCSer.Document.MemoryDatabaseCustomNode.ILoadPersistenceNode)
+            /// </summary>
+            /// <param name="node">Log stream persistence memory database client node cache for client singleton</param>
+            /// <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            /// <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+            public ILoadPersistenceNodeReturnValueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ILoadPersistenceNodeClientNode> node, bool isIgnoreError = false, bool isSynchronousCallback = false) : base(node, isIgnoreError, isSynchronousCallback) { }
+            /// <summary>
+            /// Get the current count 
+///            获取当前计数
+            /// </summary>
+            /// <returns>Current count 
+///            当前计数</returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue<long> GetCount()
+            {
+                return base.node.GetCount().GetValue(isIgnoreError);
+            }
+            /// <summary>
+            /// Count +1 
+///            计数 +1
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue Increment()
+            {
+                return base.node.Increment().GetValue(isIgnoreError);
+            }
         }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {

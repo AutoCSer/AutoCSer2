@@ -716,6 +716,49 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[])">
+            <summary>
+            
+            </summary>
+            <param name="monsters"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.SetSpeed(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="speed"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeReturnValueLocalNode.SetSpeeds(AutoCSer.KeyValue{System.Int32,System.Int32}[])">
+            <summary>
+            
+            </summary>
+            <param name="speeds"></param>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeMethodEnum">
             <summary>
              (node method sequence number mapping enumeration type)
@@ -2263,6 +2306,175 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallCustomPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallInoutOutputCommand(System.Int32,System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.Callback">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallbackCommand(System.Action)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CallbackCommand(System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.CheckSnapshot">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.Enumerable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetJsonValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValueCommand(System.Action{System.Int32})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.GetValueCommand(System.Action{System.Int32},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.InputEnumerable(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.InputKeepCallback(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.KeepCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.PersistenceCallbackException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetCallback">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetCallbackPersistence">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetJsonValue(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCallback(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCallbackPersistence(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCommand(System.Int32,System.Action)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueCommand(System.Int32,System.Action,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValuePersistenceSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeReturnValueLocalNode.SetValueSendOnly(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode">
             <summary>
@@ -3827,6 +4039,105 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.Add(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.AddValues(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.Contains(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.CountLess(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.CountThan(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.GetByIndex(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.GetFrist">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.GetLast">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.IndexOf(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.Remove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSearchTreeSetNodeReturnValueLocalNode.RemoveValues(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeLocalClientNode">
             <summary>
             测试排序集合节点接口 节点接口 local client node interface
@@ -4063,6 +4374,77 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.Add(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.AddValues(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.Contains(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.GetMax">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.GetMin">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.Remove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNodeReturnValueLocalNode.RemoveValues(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeLocalClientNode">
             <summary>
@@ -4582,6 +4964,173 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.ContainsKey(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.CountLess(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.CountThan(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.GetHeight">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.GetRemove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.GetValueArray(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.GetValues(System.Int32,System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.IndexOf(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.Remove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.RemoveKeys(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.Set(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryAdd(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstKey">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstKeyValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetKeyValueByIndex(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastKey">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastKeyValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetValue(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSearchTreeDictionaryNodeReturnValueLocalNode.TryGetValueByIndex(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeLocalClientNode">
             <summary>
             测试排序字典节点 local client node interface
@@ -4927,6 +5476,87 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.ContainsKey(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.ContainsValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.GetRemove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.GetValueArray(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.Remove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.RemoveKeys(System.Int64[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.TryAdd(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedDictionaryNodeReturnValueLocalNode.TryGetValue(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeLocalClientNode">
             <summary>
@@ -5290,6 +5920,100 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.ContainsKey(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.ContainsValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.GetCapacity">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.GetRemove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.IndexOfKey(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.IndexOfValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.Remove(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.RemoveAt(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.TryAdd(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongStringSortedListNodeReturnValueLocalNode.TryGetValue(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeLocalClientNode">
             <summary>
@@ -5701,6 +6425,99 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.ContainsKey(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.GetRemove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.GetValueArray(System.Int32[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.Remove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.RemoveKeys(System.Int32[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.Renew(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.ReusableClear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.Set(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.TryAdd(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceDictionaryNodeReturnValueLocalNode.TryGetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeLocalClientNode">
             <summary>
             性能测试消息处理节点接口 local client node interface
@@ -6009,6 +6826,89 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.AppendMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.ClearFailed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetCallbackCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetFailedCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetMessage(System.Int32,System.Action{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage})">
+            <summary>
+            
+            </summary>
+            <param name="maxCount"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetMessage(System.Int32,System.Action{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="maxCount"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetTimeoutCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceMessageNodeReturnValueLocalNode.GetTotalCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeLocalClientNode">
             <summary>
@@ -6528,6 +7428,173 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.ContainsKey(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.CountLess(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.CountThan(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.GetHeight">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.GetRemove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.GetValueArray(System.Int32[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.GetValues(System.Int32,System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.IndexOf(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.Remove(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.RemoveKeys(System.Int32[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.Set(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryAdd(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstKey">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstKeyValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetFirstValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetKeyValueByIndex(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastKey">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastKeyValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetLastValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IPerformanceSearchTreeDictionaryNodeReturnValueLocalNode.TryGetValueByIndex(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeLocalClientNode">
             <summary>
             测试数组节点接口 local client node interface
@@ -6999,6 +8066,134 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.Clear(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.ClearArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.Fill(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.FillArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.GetLength">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.GetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.GetValueSet(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.IndexOf(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.IndexOfArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.LastIndexOf(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.LastIndexOfArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.Reverse(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.ReverseArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.SetValue(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.Sort(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNodeReturnValueLocalNode.SortArray">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeLocalClientNode">
             <summary>
             Dictionary generic expansion custom node interface example 
@@ -7411,6 +8606,99 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.ContainsKey(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.GetRemove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.GetValueArray(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.RemoveKeys(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.Renew(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.ReusableClear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.Set(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.TryAdd(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringDictionaryNodeReturnValueLocalNode.TryGetValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeLocalClientNode">
             <summary>
             测试 256 基分片字典 节点接口 local client node interface
@@ -7779,6 +9067,98 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.ClearArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.ContainsKey(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.GetRemove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.GetValueArray(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.RemoveKeys(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.ReusableClear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.Set(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.TryAdd(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentDictionaryNodeReturnValueLocalNode.TryGetValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeLocalClientNode">
             <summary>
             测试 256 基分片哈希表 节点接口 local client node interface
@@ -8010,6 +9390,75 @@
             <summary>
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.Add(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.AddValues(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.ClearArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.Contains(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.RemoveValues(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringFragmentHashSetNodeReturnValueLocalNode.ReusableClear">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeLocalClientNode">
@@ -8285,6 +9734,76 @@
             <summary>
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Add(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.AddValues(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Contains(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.RemoveValues(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.Renew(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringHashSetNodeReturnValueLocalNode.ReusableClear">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeLocalClientNode">
@@ -8919,6 +10438,219 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Add(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Clear(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.ClearLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Fill(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.FillArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetCapacity">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetFreeCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetLength">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetTryPopValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetValue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetValueRemoveAt(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetValueRemoveToEnd(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.GetValueSet(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.IndexOf(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.IndexOfArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Insert(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.LastIndexOf(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.LastIndexOfArray(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.RemoveAt(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.RemoveToEnd(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Reverse(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.ReverseArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.SetEmpty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.SetValue(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.Sort(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.SortArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.TryAdd(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringLeftArrayNodeReturnValueLocalNode.TryPop">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeLocalClientNode">
             <summary>
             测试队列节点接口 local client node interface
@@ -9063,6 +10795,55 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.Contains(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.Enqueue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.TryDequeue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringQueueNodeReturnValueLocalNode.TryPeek">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeLocalClientNode">
             <summary>
             测试栈节点接口 local client node interface
@@ -9206,6 +10987,55 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.Contains(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.Push(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.TryPeek">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringStackNodeReturnValueLocalNode.TryPop">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeLocalClientNode">
             <summary>
@@ -9516,6 +11346,89 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.AppendMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.ClearFailed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetCallbackCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetFailedCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetMessage(System.Int32,System.Action{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage})">
+            <summary>
+            
+            </summary>
+            <param name="maxCount"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetMessage(System.Int32,System.Action{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult})">
+            <summary>
+            
+            </summary>
+            <param name="maxCount"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetTimeoutCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassMessageNodeReturnValueLocalNode.GetTotalCount">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeLocalClientNode">
             <summary>
             测试仅存档节点接口 local client node interface
@@ -9620,6 +11533,31 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeReturnValueLocalNode.Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeReturnValueLocalNode.SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeMethodEnum">
             <summary>

@@ -44,6 +44,13 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="returnValue">Return value</param>
         public CompletedReturnCommand(ref T returnValue) : base(ref returnValue) { }
+        ///// <summary>
+        ///// The return value command has been completed
+        ///// 已完成返回值命令
+        ///// </summary>
+        ///// <param name="returnType"></param>
+        ///// <param name="errorMessage"></param>
+        //public CompletedReturnCommand(CommandClientReturnTypeEnum returnType, string? errorMessage) : base(returnType, errorMessage) { }
 
         /// <summary>
         /// 默认值已完成返回值命令

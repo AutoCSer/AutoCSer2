@@ -332,6 +332,91 @@
             <returns>Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="T:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.IQueryServiceNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.IQueryServiceNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType)">
+            <summary>
+            创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="keyType">索引关键字类型</param>
+            <param name="valueType">数据关键字类型</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
+            <summary>
+            创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="keyType">索引关键字类型</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.CreateUserRemarkWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建用户备注分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
+            <summary>
+            创建字符串 Trie 图节点 IStaticTrieGraphNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
+            <param name="replaceChars">替换文字集合</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeReturnValueLocalNode.CreateUserNameWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建用户名称分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeLocalClientNode">
             <summary>
             Non-index condition query data node interface 
@@ -388,12 +473,101 @@
             <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.SearchQueryService.ISearchUserNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.Create(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.LoadCreate(AutoCSer.TestCase.SearchDataSource.SearchUser)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.Update(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.Filter(AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{System.Int32},System.Func{AutoCSer.TestCase.SearchDataSource.SearchUser,System.Boolean})">
+            <summary>
+            非索引条件过滤
+            </summary>
+            <param name="keys">关键字集合</param>
+            <param name="isValue">条件委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.GetArray(AutoCSer.LeftArray{System.Int32},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{AutoCSer.TestCase.SearchDataSource.SearchUser})">
+            <summary>
+            获取非索引条件数据用户数组
+            </summary>
+            <param name="userIds">用户标识数组</param>
+            <param name="users">用户数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeReturnValueLocalNode.GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter)">
+            <summary>
+            获取非索引条件数据用户分页数据
+            </summary>
+            <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeLocalClientNode">
             <summary>
             搜索聚合查询服务服务本地节点的自定义基础服务接口 local client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeLocalClientNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建非索引条件查询数据节点 ISearchUserNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserServiceNodeReturnValueLocalNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             创建非索引条件查询数据节点 ISearchUserNode
             </summary>
@@ -2083,6 +2257,33 @@
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeLocalClientNode.CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="timeoutSeconds">触发任务执行超时秒数</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeReturnValueLocalNode">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNode)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeReturnValueLocalNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeLocalClientNode},System.Boolean,System.Boolean)">
+            <summary>
+            Get the direct return value API encapsulation (AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNode)
+            </summary>
+            <param name="node">Log stream persistence memory database local client node cache for client singleton</param>
+            <param name="isIgnoreError">A default value of false indicates that exceptions and error messages are not ignored</param>
+            <param name="isSynchronousCallback">The default value of false indicates that the IO thread synchronization callback is not used; otherwise, the subsequent operations of the API call await are not allowed to have synchronization blocking logic or long-term CPU occupation operations</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeReturnValueLocalNode.CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
             <summary>
             创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
             </summary>

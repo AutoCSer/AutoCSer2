@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool Callback(CallStateEnum result)
         {
-            this.result = new LocalResult(result);
+            this.Result = new LocalResult(result);
             completed(clientNode.IsSynchronousCallback);
             if (result != CallStateEnum.Success) clientNode.CheckState(nodeIndex, result);
             return true;

@@ -67,6 +67,54 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool IsJoinKeepCallback { get { return IsJoinCallback || CallbackType != null; } }
             /// <summary>
+            /// 是否同步调用方法
+            /// </summary>
+            public readonly bool IsSynchronous;
+            /// <summary>
+            /// 是否存在返回值
+            /// </summary>
+            public bool IsReturnValue { get { return ReturnValueMethodReturnType.Type != typeof(void); } }
+            /// <summary>
+            /// 是否需要调用直接获取返回值的方法
+            /// </summary>
+            public readonly bool IsGetReturnValue;
+            /// <summary>
+            /// 返回值类型
+            /// </summary>
+            public readonly ExtensionType ReturnValueMethodReturnType;
+            /// <summary>
+            /// 直接返回值的回调委托类型
+            /// </summary>
+            public readonly ExtensionType ReturnValueCallbackType;
+            /// <summary>
+            /// 直接返回值的回调委托类型
+            /// </summary>
+            public readonly ExtensionType ReturnValueKeepCallbackType;
+            /// <summary>
+            /// 直接获取返回值的回调委托类型
+            /// </summary>
+            public readonly ExtensionType CallbackReturnValueType;
+            /// <summary>
+            /// 直接获取返回值的持续回调委托类型
+            /// </summary>
+            public readonly ExtensionType KeepCallbackReturnValueType;
+            /// <summary>
+            /// 回调参数名称
+            /// </summary>
+            public readonly string CallbackParameterName;
+            /// <summary>
+            /// 错误状态回调参数名称
+            /// </summary>
+            public string ErrorCallbackParameterName { get { return "error_" + CallbackParameterName; } }
+            /// <summary>
+            /// 持续回调参数名称
+            /// </summary>
+            public readonly string KeepCallbackParameterName;
+            /// <summary>
+            /// 错误状态回调参数名称
+            /// </summary>
+            public string ErrorKeepCallbackParameterName { get { return "error_" + KeepCallbackParameterName; } }
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
             /// <param name="nodeAttribute"></param>
@@ -83,6 +131,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     {
                         case CallTypeEnum.SendOnly:
                             MethodReturnType = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.LocalClientSendOnlyMethodReturnType;
+                            IsSynchronous = true;
                             break;
                         case CallTypeEnum.KeepCallback:
                         case CallTypeEnum.InputKeepCallback:
@@ -90,26 +139,82 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputEnumerable:
                             if (method.MethodAttribute.IsCallbackClient)
                             {
+                                switch (method.CallType)
+                                {
+                                    case CallTypeEnum.KeepCallback:
+                                    case CallTypeEnum.InputKeepCallback:
+                                        KeepCallbackParameterName = method.Parameters[method.ParameterEndIndex].Name;
+                                        break;
+                                    default: KeepCallbackParameterName = "__keepCallback__"; break;
+                                }
                                 KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
                                 MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
+                                ReturnValueKeepCallbackType = typeof(Action<>).MakeGenericType(method.ReturnValueType);
+                                KeepCallbackReturnValueType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<>).MakeGenericType(method.ReturnValueType);
                             }
-                            else MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(method.ReturnValueType));
+                            else
+                            {
+                                MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(method.ReturnValueType));
+                                IsSynchronous = true;
+                            }
                             break;
                         case CallTypeEnum.TwoStageCallback:
                         case CallTypeEnum.InputTwoStageCallback:
+                            CallbackParameterName = method.Parameters[method.ParameterEndIndex].Name;
+                            KeepCallbackParameterName = method.Parameters[method.ParameterEndIndex + 1].Name;
                             CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.TwoStageReturnValueType));
                             KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
                             MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
+                            ReturnValueCallbackType = typeof(Action<>).MakeGenericType(method.TwoStageReturnValueType);
+                            CallbackReturnValueType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<>).MakeGenericType(method.TwoStageReturnValueType);
+                            ReturnValueKeepCallbackType = typeof(Action<>).MakeGenericType(method.ReturnValueType);
+                            KeepCallbackReturnValueType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<>).MakeGenericType(method.ReturnValueType);
                             break;
-                        default:
+                        case CallTypeEnum.Call:
+                        case CallTypeEnum.CallInput:
                             if (method.MethodAttribute.IsCallbackClient)
                             {
-                                CallbackType = method.ReturnValueType == typeof(void) ? typeof(Action<LocalResult>) : typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                                CallbackParameterName = "__callback__";
+                                CallbackType =typeof(Action<LocalResult>);
                                 MethodReturnType = typeof(void);
+                                ReturnValueCallbackType = typeof(Action);
+                                CallbackReturnValueType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback);
                             }
-                            else MethodReturnType = method.ReturnValueType == typeof(void) ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                            else
+                            {
+                                MethodReturnType = typeof(LocalServiceQueueNode<LocalResult>);
+                                ReturnValueMethodReturnType = typeof(LocalServiceReturnValue);
+                                IsGetReturnValue = IsSynchronous = true;
+                            }
+                            break;
+                        case CallTypeEnum.InputCallback:
+                        case CallTypeEnum.Callback:
+                        case CallTypeEnum.CallInputOutput:
+                        case CallTypeEnum.CallOutput:
+                            if (method.MethodAttribute.IsCallbackClient)
+                            {
+                                switch (method.CallType)
+                                {
+                                    case CallTypeEnum.InputCallback:
+                                    case CallTypeEnum.Callback:
+                                        CallbackParameterName = method.Parameters[method.ParameterEndIndex].Name;
+                                        break;
+                                    default: CallbackParameterName = "__callback__"; break;
+                                }
+                                CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                                MethodReturnType = typeof(void);
+                                ReturnValueCallbackType = typeof(Action<>).MakeGenericType(method.ReturnValueType);
+                                CallbackReturnValueType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientReturnValueCallback<>).MakeGenericType(method.ReturnValueType);
+                            }
+                            else
+                            {
+                                MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                                ReturnValueMethodReturnType = typeof(LocalServiceReturnValue<>).MakeGenericType(method.ReturnValueType);
+                                IsGetReturnValue = IsSynchronous = true;
+                            }
                             break;
                     }
+                    if (ReturnValueMethodReturnType == null) ReturnValueMethodReturnType = MethodReturnType;
                 }
             }
         }
@@ -121,6 +226,26 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 节点方法集合
         /// </summary>
         public NodeMethod[] Methods;
+        /// <summary>
+        /// 是否生成直接返回值的 API 封装类型
+        /// </summary>
+        public bool IsReturnValueNode { get { return CurrentAttribute.IsReturnValueNode; } }
+        /// <summary>
+        /// 客户端节点接口类型名称
+        /// </summary>
+        public string ClientNodeTypeName { get { return CurrentType.GetName(typeNameSuffix); } }
+        /// <summary>
+        /// 直接返回值的 API 封装类型名称
+        /// </summary>
+        public string ReturnValueNodeTypeName { get { return CurrentType.TypeOnlyName + "ReturnValueLocalNode"; } }
+        /// <summary>
+        /// 是否泛型类型
+        /// </summary>
+        public bool IsGenericTypeDefinition { get { return CurrentType.Type.IsGenericTypeDefinition; } }
+        /// <summary>
+        /// 直接返回值的 API 封装类型的泛型定义字符串
+        /// </summary>
+        public string ReturnValueNodeCurrentType { get { return CurrentType.GetGenericTypeString(); } }
 
         /// <summary>
         /// 安装下一个类型

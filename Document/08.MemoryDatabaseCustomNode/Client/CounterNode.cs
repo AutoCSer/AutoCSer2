@@ -45,5 +45,32 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             }
             return true;
         }
+        /// <summary>
+        /// The client node singleton of the API that directly returns the value
+        /// 直接返回值的 API 的客户端节点单例
+        /// </summary>
+        private static readonly ICounterNodeReturnValueNode returnValueNode = new ICounterNodeReturnValueNode(nodeCache);
+        /// <summary>
+        /// Counter node client example
+        /// 计数器节点客户端示例
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ReturnValueTest()
+        {
+            long valueResult = await returnValueNode.GetCount();
+            if (valueResult < 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            
+            await returnValueNode.Increment();
+
+            long nextResult = await returnValueNode.GetCount();
+            if (nextResult != valueResult + 1)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
     }
 }
