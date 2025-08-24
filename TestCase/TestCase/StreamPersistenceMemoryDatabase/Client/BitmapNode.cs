@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeClientNode node = nodeResult.Value.AutoCSerExtensions().NotNull();
             var result = await node.ClearMap();
             if (!result.IsSuccess)
             {

@@ -821,7 +821,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isPushQueue = false;
             try
             {
-                persistenceQueue.IsPushHead(methodParameter.Clone());
+                persistenceQueue.Push(methodParameter.Clone());
                 isPushQueue = true;
             }
             finally

@@ -170,7 +170,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                 var node = await Client.GetNode();
                 if (node.IsSuccess)
                 {
-                    var result = await node.Value.AutoCSerClassGenericTypeExtensions().NotNull().AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(new Data.TestClass { Int = value, String = value.AutoCSerExtensions().ToString() }));
+                    var result = await node.Value.AutoCSerExtensions().NotNull().AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(new Data.TestClass { Int = value, String = value.AutoCSerExtensions().ToString() }));
                     if (result.IsSuccess) Console.Write('+');
                     else ConsoleWriteQueue.Breakpoint($"AppendMessage {result.ReturnType}.{result.CallState}");
                 }

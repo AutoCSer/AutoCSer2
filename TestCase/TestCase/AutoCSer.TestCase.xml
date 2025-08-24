@@ -6854,6 +6854,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.Sort.TestCase">
+            <summary>
+            数组排序测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode">
             <summary>
             A client example of a total statistics node based on uniform probability

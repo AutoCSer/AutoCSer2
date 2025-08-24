@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Xml
 {
@@ -11,6 +12,13 @@ namespace AutoCSer.Xml
         /// XML 序列化
         /// </summary>
         internal readonly XmlSerializer Serializer = new XmlSerializer(true);
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        ~ThreadStaticSerializer()
+        {
+            Serializer.Dispose();
+        }
 
         /// <summary>
         /// 线程静态变量
@@ -22,30 +30,13 @@ namespace AutoCSer.Xml
         private static ThreadStaticSerializer value;
 #endif
         /// <summary>
-        /// 创建线程静态变量访问锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock createLock;
-        /// <summary>
         /// 默认线程静态变量
         /// </summary>
         /// <returns></returns>
-        internal static ThreadStaticSerializer Get()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static XmlSerializer Get()
         {
-            return value ?? get();
-        }
-        /// <summary>
-        /// 默认线程静态变量
-        /// </summary>
-        /// <returns></returns>
-        private static ThreadStaticSerializer get()
-        {
-            createLock.EnterSleep();
-            try
-            {
-                if (value == null) value = new ThreadStaticSerializer();
-            }
-            finally { createLock.Exit(); }
-            return value;
+            return (value ?? (value = new ThreadStaticSerializer())).Serializer;
         }
     }
 }

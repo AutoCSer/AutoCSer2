@@ -27,7 +27,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            ICounterNodeClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            ICounterNodeClientNode node = nodeResult.Value.AutoCSerExtensions().NotNull();
             var valueResult = await node.GetCount();
             if (!valueResult.IsSuccess)
             {

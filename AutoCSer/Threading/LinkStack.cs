@@ -6,6 +6,63 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Threading
 {
     /// <summary>
+    /// 无锁栈（用于指针）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct LinkStack
+    {
+        /// <summary>
+        /// 头节点指针
+        /// </summary>
+        internal long Head;
+        /// <summary>
+        /// Add a node
+        /// </summary>
+        /// <param name="value"></param>
+        internal void Push(void* value)
+        {
+#if DEBUG
+            if (value == null) throw new Exception("value == null");
+#endif
+            do
+            {
+                long head = Head;
+                *(long*)value = head;
+                if (System.Threading.Interlocked.CompareExchange(ref Head, (long)value, head) == head) return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 弹出一个数据
+        /// </summary>
+        /// <returns></returns>
+        internal void* Pop()
+        {
+            do
+            {
+                long head = Head;
+                if (head != 0)
+                {
+                    if (System.Threading.Interlocked.CompareExchange(ref Head, *(long*)head, head) == head)
+                    {
+                        return (void*)head;
+                    }
+                }
+                else return null;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 获取栈链表
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void* Get()
+        {
+            return (void*)System.Threading.Interlocked.Exchange(ref Head, 0);
+        }
+    }
+    /// <summary>
     /// 无锁栈
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -51,10 +108,19 @@ namespace AutoCSer.Threading
         /// Add a node
         /// </summary>
         /// <param name="value"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Push(T value)
         {
-            IsPushHead(value);
+#if DEBUG
+                if (value == null) throw new Exception("value == null");
+                if (value.LinkNext != null) throw new Exception("value.LinkNext != null");
+#endif
+            do
+            {
+                var thisHead = this.head;
+                value.LinkNext = thisHead;
+                if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, value, thisHead), thisHead)) return;
+            }
+            while (true);
         }
         /// <summary>
         /// 添加首节点
@@ -79,16 +145,8 @@ namespace AutoCSer.Threading
             do
             {
                 var thisHead = this.head;
-                if (thisHead == null)
-                {
-                    value.LinkNext = null;
-                    if (System.Threading.Interlocked.CompareExchange(ref this.head, value, null) == null) return true;
-                }
-                else
-                {
-                    value.LinkNext = thisHead;
-                    if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, value, thisHead), thisHead)) return false;
-                }
+                value.LinkNext = thisHead;
+                if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, value, thisHead), thisHead)) return thisHead == null;
             }
             while (true);
         }
@@ -113,16 +171,8 @@ namespace AutoCSer.Threading
             do
             {
                 var thisHead = this.head;
-                if (thisHead == null)
-                {
-                    end.LinkNext = null;
-                    if (System.Threading.Interlocked.CompareExchange(ref this.head, head, null) == null) return true;
-                }
-                else
-                {
-                    end.LinkNext = thisHead;
-                    if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, head, thisHead), thisHead)) return false;
-                }
+                end.LinkNext = thisHead;
+                if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, head, thisHead), thisHead)) return thisHead == null;
             }
             while (true);
         }
@@ -139,12 +189,15 @@ namespace AutoCSer.Threading
             do
             {
                 var thisHead = this.head;
-                if (thisHead == null) return null;
-                if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, thisHead.LinkNext, thisHead), thisHead))
+                if (thisHead != null)
                 {
-                    thisHead.LinkNext = null;
-                    return thisHead;
+                    if (object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref this.head, thisHead.LinkNext, thisHead), thisHead))
+                    {
+                        thisHead.LinkNext = null;
+                        return thisHead;
+                    }
                 }
+                else return null;
             }
             while (true);
         }

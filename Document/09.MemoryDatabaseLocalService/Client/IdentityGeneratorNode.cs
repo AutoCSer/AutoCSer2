@@ -26,7 +26,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode node = nodeResult.Value.AutoCSerExtensions().NotNull();
             var valueResult = await node.Next();
             if (!valueResult.IsSuccess && valueResult.Value > 0)
             {

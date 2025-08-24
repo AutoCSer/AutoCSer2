@@ -177,16 +177,16 @@ namespace AutoCSer
             freeThreadStatic();
             AutoCSer.Threading.LinkPool<JsonSerializer>.Default.Push(this);
         }
-        /// <summary>
-        /// Release resources
-        /// </summary>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void FreeBinaryMix()
-        {
-            IsBinaryMix = false;
-            CharStream.Reset();
-            Free();
-        }
+        ///// <summary>
+        ///// Release resources
+        ///// </summary>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal void FreeBinaryMix()
+        //{
+        //    IsBinaryMix = false;
+        //    CharStream.Reset();
+        //    Free();
+        //}
         /// <summary>
         /// 设置二进制混杂模式
         /// </summary>

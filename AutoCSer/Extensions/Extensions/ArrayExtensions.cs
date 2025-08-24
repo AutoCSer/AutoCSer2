@@ -38,7 +38,7 @@ namespace AutoCSer.Extensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct ArrayExtensions<T>
+    public partial struct ArrayExtensions<T>
     {
         /// <summary>
         /// Array
@@ -143,6 +143,106 @@ namespace AutoCSer.Extensions
         public T GetSetDefault(int index)
         {
             return array.getSetDefault(index);
+        }
+        /// <summary>
+        /// 根据集合内容返回数组
+        /// </summary>
+        /// <typeparam name="VT">返回数组类型</typeparam>
+        /// <param name="getValue">获取数组值的委托</param>
+        /// <returns>Array</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public VT[] GetArray<VT>(Func<T, VT> getValue)
+        {
+            return array.getArray(getValue);
+        }
+
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort(Func<T, int> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length, getKey);
+            else QuickSort(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort(Func<T, uint> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length, getKey);
+            else QuickSort(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort(Func<T, long> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.KeySortSize64) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length, getKey);
+            else QuickSort(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort(Func<T, ulong> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.KeySortSize64) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length, getKey);
+            else QuickSort(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void SortDesc(Func<T, int> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.SortDesc(array, 0, array.Length, getKey);
+            else QuickSortDesc(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void SortDesc(Func<T, uint> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.SortDesc(array, 0, array.Length, getKey);
+            else QuickSortDesc(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void SortDesc(Func<T, long> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.KeySortSize64) AutoCSer.Algorithm.RadixSort.SortDesc(array, 0, array.Length, getKey);
+            else QuickSortDesc(getKey);
+        }
+        /// <summary>
+        /// Array sorting
+        /// 数组排序
+        /// </summary>
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void SortDesc(Func<T, ulong> getKey)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.KeySortSize64) AutoCSer.Algorithm.RadixSort.SortDesc(array, 0, array.Length, getKey);
+            else QuickSortDesc(getKey);
         }
     }
 }

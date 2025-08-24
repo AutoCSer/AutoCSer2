@@ -127,41 +127,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.ULongSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, count, sortIndex);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -182,41 +150,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.ULongSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSortDesc(Func<T, ulong> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSortDesc(array.Length, getKey);
         }
     }
 }

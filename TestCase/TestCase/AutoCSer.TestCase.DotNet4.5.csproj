@@ -129,6 +129,7 @@
     <Compile Include="ReusableDictionary.cs" />
     <Compile Include="SearchTree.cs" />
     <Compile Include="ShortLinkCommandServer.cs" />
+    <Compile Include="Sort.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\BitmapNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayDictionaryNode.cs" />

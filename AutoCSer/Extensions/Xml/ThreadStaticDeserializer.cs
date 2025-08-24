@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Xml
 {
@@ -22,30 +23,13 @@ namespace AutoCSer.Xml
         private static ThreadStaticDeserializer value;
 #endif
         /// <summary>
-        /// 创建线程静态变量访问锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock createLock;
-        /// <summary>
         /// 默认线程静态变量
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static ThreadStaticDeserializer Get()
         {
-            return value ?? get();
-        }
-        /// <summary>
-        /// 默认线程静态变量
-        /// </summary>
-        /// <returns></returns>
-        private static ThreadStaticDeserializer get()
-        {
-            createLock.EnterSleep();
-            try
-            {
-                if (value == null) value = new ThreadStaticDeserializer();
-            }
-            finally { createLock.Exit(); }
-            return value;
+            return value ?? (value = new ThreadStaticDeserializer());
         }
     }
 }

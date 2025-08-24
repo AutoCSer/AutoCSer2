@@ -170,6 +170,14 @@ namespace AutoCSer.Extensions
         {
             array.Sort();
         }
+        /// <summary>
+        /// 随机排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void RandomSort()
+        {
+            array.RandomSort();
+        }
     }
 }
 
@@ -237,6 +245,14 @@ namespace AutoCSer.Extensions
         public void Sort()
         {
             array.Sort();
+        }
+        /// <summary>
+        /// 随机排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void RandomSort()
+        {
+            array.RandomSort();
         }
     }
 }
@@ -306,6 +322,14 @@ namespace AutoCSer.Extensions
         {
             array.Sort();
         }
+        /// <summary>
+        /// 随机排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void RandomSort()
+        {
+            array.RandomSort();
+        }
     }
 }
 
@@ -314,16 +338,18 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = sizeof(long) + sizeof(int))]
     internal partial struct LongSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(0)]
         internal long Value;
         /// <summary>
         /// 位置索引
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(sizeof(long))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -336,6 +362,75 @@ namespace AutoCSer.Algorithm
             Value = value;
             Index = index;
         }
+
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int count, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            if (startIndex == 0)
+            {
+                Sort(array, endIndex, sortIndex);
+                return;
+            }
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
     }
 }
 
@@ -344,16 +439,18 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = sizeof(uint) + sizeof(int))]
     internal partial struct UIntSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(0)]
         internal uint Value;
         /// <summary>
         /// 位置索引
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(sizeof(uint))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -366,6 +463,75 @@ namespace AutoCSer.Algorithm
             Value = value;
             Index = index;
         }
+
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int count, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            if (startIndex == 0)
+            {
+                Sort(array, endIndex, sortIndex);
+                return;
+            }
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
     }
 }
 
@@ -374,16 +540,18 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = sizeof(int) + sizeof(int))]
     internal partial struct IntSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(0)]
         internal int Value;
         /// <summary>
         /// 位置索引
         /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(sizeof(int))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -395,6 +563,75 @@ namespace AutoCSer.Algorithm
         {
             Value = value;
             Index = index;
+        }
+
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int count, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal unsafe static void Sort<T>(T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            if (startIndex == 0)
+            {
+                Sort(array, endIndex, sortIndex);
+                return;
+            }
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
         }
     }
 }
@@ -2295,41 +2532,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.ULongSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, count, sortIndex);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -2350,41 +2555,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.ULongSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSort(Func<T, ulong> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSort(array.Length, getKey);
         }
     }
 }
@@ -2514,41 +2704,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.LongSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, count, sortIndex);
+                AutoCSer.Algorithm.LongSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.LongSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -2569,41 +2727,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.LongSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.LongSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSortDesc(Func<T, long> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSortDesc(array.Length, getKey);
         }
     }
 }
@@ -2733,41 +2876,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.LongSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, count, sortIndex);
+                AutoCSer.Algorithm.LongSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.LongSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -2788,41 +2899,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.LongSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.LongSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSort(Func<T, long> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSort(array.Length, getKey);
         }
     }
 }
@@ -2952,41 +3048,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.UIntSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, count, sortIndex);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -3007,41 +3071,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.UIntSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSortDesc(Func<T, uint> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSortDesc(array.Length, getKey);
         }
     }
 }
@@ -3171,41 +3220,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.UIntSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, count, sortIndex);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -3226,41 +3243,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.UIntSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSort(Func<T, uint> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSort(array.Length, getKey);
         }
     }
 }
@@ -3390,41 +3392,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.IntSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, count, sortIndex);
+                AutoCSer.Algorithm.IntSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.IntSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -3445,41 +3415,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.IntSortIndex.SortDesc(sortIndex, nextSortIndex);
-                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.IntSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSortDesc(Func<T, int> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSortDesc(array.Length, getKey);
         }
     }
 }
@@ -3609,41 +3564,9 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, count, sortIndex);
+                AutoCSer.Algorithm.IntSortIndex.Sort(array, count, sortIndex);
             }
             finally { buffer.PushOnly(); }
-        }
-        /// <summary>
-        /// 索引排序以后调整数组数据
-        /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="count">The quantity of data to be sorted
-        /// 排序数据数量</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.IntSortIndex* sortIndex)
-        {
-            int index = 0, readIndex;
-            do
-            {
-                readIndex = sortIndex[index].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != count);
         }
         /// <summary>
         /// Array sorting
@@ -3664,41 +3587,26 @@ namespace AutoCSer.Extensions
                 (*nextSortIndex).Set(getKey(array[index]), index);
                 while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
                 AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
-                QuickSort(array, startIndex, endIndex, sortIndex);
+                AutoCSer.Algorithm.IntSortIndex.Sort(array, startIndex, endIndex, sortIndex);
             }
             finally { buffer.PushOnly(); }
         }
+    }
+    /// <summary>
+    /// Array expansion operation
+    /// 数组扩展操作
+    /// </summary>
+    public partial struct ArrayExtensions<T>
+    {
         /// <summary>
-        /// 索引排序以后调整数组数据
+        /// Array sorting
+        /// 数组排序
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
-        /// <param name="array">Array</param>
-        /// <param name="startIndex">排序起始位置</param>
-        /// <param name="endIndex">排序结束位置</param>
-        /// <param name="sortIndex">排序索引</param>
-        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        /// <param name="getKey">排序键值获取器</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void QuickSort(Func<T, int> getKey)
         {
-            int index = startIndex, readIndex;
-            do
-            {
-                readIndex = sortIndex[index - startIndex].Index;
-                if (readIndex != index)
-                {
-                    T value = array[index];
-                    int writeIndex = index;
-                    do
-                    {
-                        sortIndex[writeIndex - startIndex].Index = writeIndex;
-                        array[writeIndex] = array[readIndex];
-                        writeIndex = readIndex;
-                        readIndex = sortIndex[readIndex - startIndex].Index;
-                    }
-                    while (readIndex != index);
-                    sortIndex[writeIndex - startIndex].Index = writeIndex;
-                    array[writeIndex] = value;
-                }
-            }
-            while (++index != endIndex);
+            if (array.Length > 1) array.QuickSort(array.Length, getKey);
         }
     }
 }

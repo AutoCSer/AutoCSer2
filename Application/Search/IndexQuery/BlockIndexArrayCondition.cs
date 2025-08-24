@@ -102,7 +102,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
                             (*nextSortIndex).Set(array[index].EstimatedCount, index);
                             while (++index != count) (*++nextSortIndex).Set(array[index].EstimatedCount, index);
                             AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
-                            AutoCSer.Extensions.ArraySort.QuickSort(array, count, sortIndex);
+                            AutoCSer.Algorithm.IntSortIndex.Sort(array, count, sortIndex);
                         }
                         finally { buffer.PushOnly(); }
                     }

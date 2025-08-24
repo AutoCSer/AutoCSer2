@@ -116,6 +116,7 @@
     <Compile Include="ReusableDictionary.cs" />
     <Compile Include="SearchTree.cs" />
     <Compile Include="ShortLinkCommandServer.cs" />
+    <Compile Include="Sort.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapFilterNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />

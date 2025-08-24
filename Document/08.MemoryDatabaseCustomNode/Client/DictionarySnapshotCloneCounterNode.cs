@@ -26,7 +26,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            IDictionarySnapshotCloneCounterNodeClientNode<int> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            IDictionarySnapshotCloneCounterNodeClientNode<int> node = nodeResult.Value.AutoCSerExtensions().NotNull();
 
             //Test the counter with the user identity of 1
             //测试用户ID 为 1 的计数器

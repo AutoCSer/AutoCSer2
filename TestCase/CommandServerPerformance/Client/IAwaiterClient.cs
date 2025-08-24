@@ -222,7 +222,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         {
             long startTimestamp = Stopwatch.GetTimestamp();
             int count = 0;
-            await Enumerable.Range(1, maxTestCount >> 1).AutoCSerEnumerableExtensions().EnumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
+            await Enumerable.Range(1, maxTestCount >> 1).AutoCSerExtensions().EnumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
             //await Enumerable.Range(1, 1000000).enumerableTask(50, async index => //0.1:4.4 轮空测试耗时占比 2.3%
             {
                 if (!isEmpty)

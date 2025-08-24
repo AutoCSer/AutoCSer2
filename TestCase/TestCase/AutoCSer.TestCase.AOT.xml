@@ -9449,6 +9449,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.Sort.TestCase">
+            <summary>
+            数组排序测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.TestCase.Xml.xmlSerializeConfig">
             <summary>
             带成员位图的XML序列化参数配置

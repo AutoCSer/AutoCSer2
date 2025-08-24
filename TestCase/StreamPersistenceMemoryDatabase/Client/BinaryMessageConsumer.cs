@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 
             //new BinaryMessageConsumer(commandClient, node.Value).Start(1 << 10).NotWait();
 
-            foreach (TestClass message in messages.AutoCSerCollectionExtensions().GetArray())
+            foreach (TestClass message in messages.AutoCSerExtensions<TestClass>().GetArray())
             {
                 result = await node.Value.AppendMessage(message);
                 if (!Program.Breakpoint(result)) return;

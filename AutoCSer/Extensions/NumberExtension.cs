@@ -998,6 +998,17 @@ namespace AutoCSer.Extensions
         //{
         //    return logicalInversion(value) ^ 1;
         //}
+        /// <summary>
+        /// Logical inversion: 0 to 1, non-0 to 0
+        /// 逻辑取反，0 转 1，非 0 转 0
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static ulong logicalInversion(this ulong value)
+        {
+            return ((value - 1) & ~value) >> 63;
+        }
 
         /// <summary>
         /// Fill the empty space after the first valid binary bit

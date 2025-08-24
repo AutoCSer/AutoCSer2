@@ -56,7 +56,7 @@ namespace AutoCSer
         /// <summary>
         /// Release resources
         /// </summary>
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             if (isProcessing) throw new InvalidOperationException(AutoCSer.Common.Culture.NotAllowDisposeSerializer);
             CharStream.Dispose();

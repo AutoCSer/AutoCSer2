@@ -113,6 +113,7 @@
     <Compile Include="SearchTree.cs" />
     <Compile Include="ShortLinkCommandServer.cs" />
     <Compile Include="Json.cs" />
+    <Compile Include="Sort.cs" />
     <Compile Include="Xml.cs" />
     <Compile Include="{AutoCSer.TestCase}.AOT.AutoCSer.cs" />
   </ItemGroup>

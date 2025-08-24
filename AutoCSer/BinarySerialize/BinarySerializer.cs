@@ -321,16 +321,11 @@ namespace AutoCSer
         /// <summary>
         /// Release resources
         /// </summary>
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             if (isProcessing) throw new InvalidOperationException(AutoCSer.Common.Culture.NotAllowDisposeSerializer);
-            //MemberMap = CurrentMemberMap = JsonMemberMap = null;
-            if (jsonSerializer != null)
-            {
-                jsonSerializer.FreeBinaryMix();
-                jsonSerializer = null;
-            }
             Stream.Dispose();
+            jsonSerializer?.Dispose();
         }
         /// <summary>
         /// Release resources (Thread static instance mode)

@@ -72,7 +72,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// <returns></returns>
         public override string[] GetDatabase(CommandServerCallQueue queue)
         {
-            return ConfigFile.Default.DatabaseArray.AutoCSerCollectionExtensions().GetArray(p => p.Name);
+            return ConfigFile.Default.DatabaseArray.AutoCSerExtensions().GetArray(p => p.Name);
         }
         /// <summary>
         /// 创建数据库备份器

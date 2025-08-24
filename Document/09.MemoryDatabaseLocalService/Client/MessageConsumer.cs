@@ -58,7 +58,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeLocalClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeLocalClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node = nodeResult.Value.AutoCSerExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {

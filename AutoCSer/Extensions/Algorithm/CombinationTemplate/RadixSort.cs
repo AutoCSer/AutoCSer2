@@ -66,5 +66,13 @@ namespace AutoCSer.Extensions
         {
             array.Sort();
         }
+        /// <summary>
+        /// 随机排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void RandomSort()
+        {
+            array.RandomSort();
+        }
     }
 }

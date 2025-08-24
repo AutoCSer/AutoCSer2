@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeClientNode node = nodeResult.Value.AutoCSerExtensions().NotNull();
             var result = await node.Append(AutoCSer.Random.Default.NextULong());
             if (!result.IsSuccess)
             {

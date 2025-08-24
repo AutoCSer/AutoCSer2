@@ -5232,7 +5232,7 @@
             <param name="isSerializeCopyString"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.System#IDisposable#Dispose">
+        <member name="M:AutoCSer.BinarySerializer.Dispose">
             <summary>
             Release resources
             </summary>
@@ -8863,18 +8863,7 @@
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.ThreadStaticDeserializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.BinarySerialize.ThreadStaticDeserializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.ThreadStaticDeserializer.get">
             <summary>
             默认线程静态变量
             </summary>
@@ -9612,23 +9601,17 @@
             二进制序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.ThreadStaticSerializer.Finalize">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinarySerialize.ThreadStaticSerializer.value">
             <summary>
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.ThreadStaticSerializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.BinarySerialize.ThreadStaticSerializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.ThreadStaticSerializer.get">
             <summary>
             默认线程静态变量
             </summary>
@@ -13179,6 +13162,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Extensions.NumberExtension.logicalInversion(System.UInt64)">
+            <summary>
+            Logical inversion: 0 to 1, non-0 to 0
+            逻辑取反，0 转 1，非 0 转 0
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Extensions.NumberExtension.fullBit(System.UInt32)">
             <summary>
             Fill the empty space after the first valid binary bit
@@ -15952,22 +15943,17 @@
         </member>
         <member name="F:AutoCSer.Memory.UnmanagedPool.free">
             <summary>
-            空闲内存地址
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Memory.UnmanagedPool.freeLock">
-            <summary>
-            空闲内存地址访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Memory.UnmanagedPool.Size">
-            <summary>
-            缓冲区尺寸
+            空闲内存链表
             </summary>
         </member>
         <member name="F:AutoCSer.Memory.UnmanagedPool.isGetNewBuffer">
             <summary>
             是否申请了新的缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedPool.Size">
+            <summary>
+            缓冲区尺寸
             </summary>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedPool.#ctor(System.Int32)">
@@ -16000,12 +15986,6 @@
             获取缓冲区
             </summary>
             <returns>缓冲区</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.UnmanagedPool.Push(System.Byte*)">
-            <summary>
-            保存缓冲区
-            </summary>
-            <param name="buffer">缓冲区</param>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedPool.PushOnly(AutoCSer.Memory.Pointer@)">
             <summary>
@@ -18234,18 +18214,7 @@
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.Json.ThreadStaticDeserializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.Json.ThreadStaticDeserializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Json.ThreadStaticDeserializer.get">
             <summary>
             默认线程静态变量
             </summary>
@@ -18261,23 +18230,17 @@
             JSON 序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.Json.ThreadStaticSerializer.Finalize">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="F:AutoCSer.Json.ThreadStaticSerializer.value">
             <summary>
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.Json.ThreadStaticSerializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.Json.ThreadStaticSerializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Json.ThreadStaticSerializer.get">
             <summary>
             默认线程静态变量
             </summary>
@@ -21332,11 +21295,6 @@
             </summary>
         </member>
         <member name="M:AutoCSer.JsonSerializer.Free">
-            <summary>
-            Release resources
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.FreeBinaryMix">
             <summary>
             Release resources
             </summary>
@@ -56159,6 +56117,34 @@
             链表节点池
             </summary>
         </member>
+        <member name="T:AutoCSer.Threading.LinkStack">
+            <summary>
+            无锁栈（用于指针）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkStack.Head">
+            <summary>
+            头节点指针
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack.Push(System.Void*)">
+            <summary>
+            Add a node
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack.Pop">
+            <summary>
+            弹出一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack.Get">
+            <summary>
+            获取栈链表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Threading.LinkStack`1">
             <summary>
             无锁栈
@@ -61447,7 +61433,7 @@
             <param name="config">Configuration parameters</param>
             <param name="isThreadStatic">是否单线程模式</param>
         </member>
-        <member name="M:AutoCSer.TextSerializer`2.System#IDisposable#Dispose">
+        <member name="M:AutoCSer.TextSerializer`2.Dispose">
             <summary>
             Release resources
             </summary>

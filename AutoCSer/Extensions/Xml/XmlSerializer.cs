@@ -1612,7 +1612,7 @@ namespace AutoCSer
         public static string ThreadStaticSerialize<T>(ref T value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig config = null)
 #endif
         {
-            XmlSerializer serializer = ThreadStaticSerializer.Get().Serializer;
+            XmlSerializer serializer = ThreadStaticSerializer.Get();
             try
             {
                 string xml = serializer.serializeThreadStatic(ref value, config);

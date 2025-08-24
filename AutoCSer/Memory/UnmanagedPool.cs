@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -11,21 +12,17 @@ namespace AutoCSer.Memory
     public unsafe sealed class UnmanagedPool : AutoCSer.Threading.SecondTimerArrayNode
     {
         /// <summary>
-        /// 空闲内存地址
+        /// 空闲内存链表
         /// </summary>
-        private byte* free;
+        private AutoCSer.Threading.LinkStack free;
         /// <summary>
-        /// 空闲内存地址访问锁
+        /// 是否申请了新的缓冲区
         /// </summary>
-        private AutoCSer.Threading.SpinLock freeLock;
+        private ulong isGetNewBuffer;
         /// <summary>
         /// 缓冲区尺寸
         /// </summary>
         public readonly int Size;
-        /// <summary>
-        /// 是否申请了新的缓冲区
-        /// </summary>
-        private bool isGetNewBuffer;
         /// <summary>
         /// 内存池
         /// </summary>
@@ -39,19 +36,11 @@ namespace AutoCSer.Memory
         /// 获取缓冲区
         /// </summary>
         /// <returns>缓冲区,失败返回null</returns>
-        private byte* tryGet()
+        private void* tryGet()
         {
-            freeLock.EnterYield();
-            if (free != null)
-            {
-                byte* value = free;
-                free = *(byte**)free;
-                freeLock.Exit();
-                return value;
-            }
-            freeLock.Exit();
-            isGetNewBuffer = true;
-            return null;
+            void* value = free.Pop();
+            isGetNewBuffer |= ((ulong)value).logicalInversion();
+            return value;
         }
         /// <summary>
         /// 获取缓冲区
@@ -60,7 +49,7 @@ namespace AutoCSer.Memory
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal Pointer GetPointer()
         {
-            byte* data = tryGet();
+            void* data = tryGet();
             return data != null ? new Pointer(data, Size) : Unmanaged.GetPointer(Size, false);
         }
         /// <summary>
@@ -81,7 +70,7 @@ namespace AutoCSer.Memory
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal UnmanagedPoolPointer GetPoolPointer()
         {
-            byte* data = tryGet();
+            void* data = tryGet();
             return data != null ? new UnmanagedPoolPointer(this, data) : new UnmanagedPoolPointer(this, Unmanaged.GetPointer(Size, false));
         }
         ///// <summary>
@@ -96,27 +85,13 @@ namespace AutoCSer.Memory
         //    return new UnmanagedPoolPointer(Unmanaged.GetPointer(size, false));
         //}
         /// <summary>
-        /// 保存缓冲区
-        /// </summary>
-        /// <param name="buffer">缓冲区</param>
-        internal void Push(byte* buffer)
-        {
-#if DEBUG
-            if (buffer == null) throw new Exception("buffer == null");
-#endif
-            freeLock.EnterYield();
-            *(byte**)buffer = free;
-            free = buffer;
-            freeLock.Exit();
-        }
-        /// <summary>
         /// 保存缓冲区（一次性单线程队列释放，不允许多次调用）
         /// </summary>
         /// <param name="buffer">缓冲区</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void PushOnly(ref Pointer buffer)
         {
-            Push(buffer.Byte);
+            free.Push(buffer.Data);
         }
         /// <summary>
         /// 保存缓冲区（多线程并发）
@@ -125,7 +100,7 @@ namespace AutoCSer.Memory
         internal void PushPool(ref Pointer buffer)
         {
             int size = System.Threading.Interlocked.Exchange(ref buffer.ByteSize, 0);
-            if (size != 0) Push((byte*)buffer.GetDataClearOnly());
+            if (size != 0) free.Push(buffer.GetDataClearOnly());
         }
         /// <summary>
         /// 保存缓冲区（多线程并发）
@@ -143,8 +118,8 @@ namespace AutoCSer.Memory
         /// </summary>
         protected internal override void OnTimer()
         {
-            if (free != null && !isGetNewBuffer) TaskQueue.AddDefault(onTimer);
-            else isGetNewBuffer = false;
+            if (free.Head != 0 && isGetNewBuffer != 0) TaskQueue.AddDefault(onTimer);
+            else isGetNewBuffer = 0;
         }
         /// <summary>
         /// Clear cache data at regular intervals
@@ -152,34 +127,24 @@ namespace AutoCSer.Memory
         /// </summary>
         private void onTimer()
         {
-            freeLock.EnterYield();
-            if (free != null)
+            void* head = free.Get();
+            bool isPush = false;
+            while (head != null)
             {
-                byte* head = *(byte**)free;
-                *(byte**)free = null;
-                freeLock.Exit();
-                bool isPush = false;
-                while (head != null)
+                ulong next = *(ulong*)head;
+                if (isPush)
                 {
-                    byte* next = *(byte**)head;
-                    if (isPush)
-                    {
-                        freeLock.EnterYield();
-                        *(byte**)head = free;
-                        free = head;
-                        freeLock.Exit();
-                        isPush = false;
-                    }
-                    else
-                    {
-                        Unmanaged.FreePool(head, Size);
-                        isPush = true;
-                    }
-                    head = next;
+                    free.Push(head);
+                    isPush = false;
                 }
+                else
+                {
+                    Unmanaged.FreePool(head, Size);
+                    isPush = true;
+                }
+                head = (void*)next;
             }
-            else freeLock.Exit();
-            isGetNewBuffer = false;
+            isGetNewBuffer = 0;
         }
 
         /// <summary>

@@ -751,16 +751,6 @@
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
             <summary>
             Array sorting
@@ -771,16 +761,6 @@
             <param name="startIndex">排序起始位置</param>
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int64[])">
             <summary>
@@ -1030,16 +1010,6 @@
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
             <summary>
             Array sorting
@@ -1051,16 +1021,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.Int64})">
             <summary>
             Array sorting
@@ -1070,16 +1030,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
             <summary>
@@ -1092,16 +1042,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.Int64})">
             <summary>
             Array sorting
@@ -1111,16 +1051,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
             <summary>
@@ -1133,16 +1063,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.UInt32})">
             <summary>
             Array sorting
@@ -1152,16 +1072,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
             <summary>
@@ -1174,16 +1084,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.UInt32})">
             <summary>
             Array sorting
@@ -1193,16 +1093,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
             <summary>
@@ -1215,16 +1105,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.Int32})">
             <summary>
             Array sorting
@@ -1234,16 +1114,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
             <summary>
@@ -1256,16 +1126,6 @@
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.Int32})">
             <summary>
             Array sorting
@@ -1275,16 +1135,6 @@
             <param name="array">Array</param>
             <param name="count">排序数据数量，大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="count">The quantity of data to be sorted
-            排序数据数量</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
             <summary>
@@ -1296,16 +1146,6 @@
             <param name="startIndex">排序起始位置</param>
             <param name="endIndex">排序结束位置，数量大于 1</param>
             <param name="getKey">排序键值获取器</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
-            <summary>
-            索引排序以后调整数组数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="array">Array</param>
-            <param name="startIndex">排序起始位置</param>
-            <param name="endIndex">排序结束位置</param>
-            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSort(System.UInt64[],System.Int32,System.Int32)">
             <summary>
@@ -1392,6 +1232,11 @@
             <summary>
             ulong array sorting
             ulong 数组排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongArrayExtensions.RandomSort">
+            <summary>
+            随机排序
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.SubArraySort">
@@ -1483,6 +1328,241 @@
             <param name="array">待排序数组</param>
             <param name="skipCount">获取跳过数据数量</param>
             <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="T:AutoCSer.Extensions.ArrayExtensions`1">
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSortDesc(System.Func{`0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="F:AutoCSer.Extensions.ArrayExtensions`1.array">
+            <summary>
+            Array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.#ctor(`0[])">
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.IsEmpty">
+            <summary>
+            数组是否为空或者长度为0
+            </summary>
+            <returns>数组是否为空或者长度为0</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Copy">
+            <summary>
+            复制数组
+            </summary>
+            <returns>复制后的新数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Concat(`0[])">
+            <summary>
+            合并数组
+            </summary>
+            <param name="otherArray">追加的数组</param>
+            <returns>合并后的数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetFind(System.Func{`0,System.Boolean})">
+            <summary>
+            获取匹配集合
+            </summary>
+            <param name="isValue">Determine whether the data match
+            判断数据是否匹配</param>
+            <returns>匹配集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,`0,System.Int32})">
+            <summary>
+            排序
+            </summary>
+            <param name="comparer">Data sorting comparator
+            数据排序比较器</param>
+            <returns>排序后的数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.JoinString(System.Char,System.Func{`0,System.String})">
+            <summary>
+            Connect string
+            连接字符串
+            </summary>
+            <param name="toString">The delegate that gets the string
+            获取字符串的委托</param>
+            <param name="join">连接字符</param>
+            <returns>字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.RandomSort">
+            <summary>
+            随机排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SetDefault(System.Int32)">
+            <summary>
+            Set the array elements to the default values
+            设置数组元素为默认值
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetSetDefault(System.Int32)">
+            <summary>
+            Set the array elements as default values and return the original values
+            设置数组元素为默认值并返回原始值
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetArray``1(System.Func{`0,``0})">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <typeparam name="VT">返回数组类型</typeparam>
+            <param name="getValue">获取数组值的委托</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SortDesc(System.Func{`0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SortDesc(System.Func{`0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SortDesc(System.Func{`0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SortDesc(System.Func{`0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSort(System.Func{`0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSortDesc(System.Func{`0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSort(System.Func{`0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSortDesc(System.Func{`0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSort(System.Func{`0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSortDesc(System.Func{`0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.QuickSort(System.Func{`0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <param name="getKey">排序键值获取器</param>
         </member>
         <member name="T:AutoCSer.Extensions.CombinationTemplateConfig">
             <summary>
@@ -1679,89 +1759,6 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="array"></param>
-        </member>
-        <member name="T:AutoCSer.Extensions.ArrayExtensions`1">
-            <summary>
-            Array expansion operation
-            数组扩展操作
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Extensions.ArrayExtensions`1.array">
-            <summary>
-            Array
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.#ctor(`0[])">
-            <summary>
-            Array expansion operation
-            数组扩展操作
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.IsEmpty">
-            <summary>
-            数组是否为空或者长度为0
-            </summary>
-            <returns>数组是否为空或者长度为0</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Copy">
-            <summary>
-            复制数组
-            </summary>
-            <returns>复制后的新数组</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Concat(`0[])">
-            <summary>
-            合并数组
-            </summary>
-            <param name="otherArray">追加的数组</param>
-            <returns>合并后的数组</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetFind(System.Func{`0,System.Boolean})">
-            <summary>
-            获取匹配集合
-            </summary>
-            <param name="isValue">Determine whether the data match
-            判断数据是否匹配</param>
-            <returns>匹配集合</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,`0,System.Int32})">
-            <summary>
-            排序
-            </summary>
-            <param name="comparer">Data sorting comparator
-            数据排序比较器</param>
-            <returns>排序后的数组</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.JoinString(System.Char,System.Func{`0,System.String})">
-            <summary>
-            Connect string
-            连接字符串
-            </summary>
-            <param name="toString">The delegate that gets the string
-            获取字符串的委托</param>
-            <param name="join">连接字符</param>
-            <returns>字符串</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.RandomSort">
-            <summary>
-            随机排序
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SetDefault(System.Int32)">
-            <summary>
-            Set the array elements to the default values
-            设置数组元素为默认值
-            </summary>
-            <param name="index"></param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetSetDefault(System.Int32)">
-            <summary>
-            Set the array elements as default values and return the original values
-            设置数组元素为默认值并返回原始值
-            </summary>
-            <param name="index"></param>
         </member>
         <member name="T:AutoCSer.Extensions.ULongExtensions">
             <summary>
@@ -1985,44 +1982,44 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.UInt64[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Int64[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.UInt32[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Int32[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(``0[])">
             <summary>
             Get the AutoCSer array extension encapsulation
             获取 AutoCSer 数组扩展封装
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerULongArrayExtensions(System.UInt64[])">
-            <summary>
-            Get the AutoCSer array extension encapsulation
-            获取 AutoCSer 数组扩展封装
-            </summary>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerLongArrayExtensions(System.Int64[])">
-            <summary>
-            Get the AutoCSer array extension encapsulation
-            获取 AutoCSer 数组扩展封装
-            </summary>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerUIntArrayExtensions(System.UInt32[])">
-            <summary>
-            Get the AutoCSer array extension encapsulation
-            获取 AutoCSer 数组扩展封装
-            </summary>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerIntArrayExtensions(System.Int32[])">
-            <summary>
-            Get the AutoCSer array extension encapsulation
-            获取 AutoCSer 数组扩展封装
-            </summary>
             <param name="array"></param>
             <returns></returns>
         </member>
@@ -2036,15 +2033,7 @@
             <param name="dictionary"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerEnumerableExtensions``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            获取 AutoCSer 可枚举集合扩展封装
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerCollectionExtensions``1(System.Collections.Generic.ICollection{``0})">
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(System.Collections.Generic.ICollection{``0})">
             <summary>
             Get the AutoCSer collection extension encapsulation
             获取 AutoCSer 集合扩展封装
@@ -2053,20 +2042,12 @@
             <param name="collection"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerClassGenericTypeExtensions``1(``0)">
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-            获取 AutoCSer 泛型扩展封装
+            获取 AutoCSer 可枚举集合扩展封装
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Extension.AutoCSerGenericTypeExtensions``1(``0)">
-            <summary>
-            获取 AutoCSer 泛型扩展封装
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
+            <param name="values"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Threading.SynchronizationContext)">
@@ -2108,6 +2089,22 @@
             获取 AutoCSer ValueTask 扩展封装
             </summary>
             <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(``0)">
+            <summary>
+            获取 AutoCSer 泛型扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerGenericTypeExtensions``1(``0)">
+            <summary>
+            获取 AutoCSer 泛型扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.Extension.AutoCSerObjectExtensions(System.Object)">
@@ -4477,6 +4474,11 @@
             long 数组排序
             </summary>
         </member>
+        <member name="M:AutoCSer.Extensions.LongArrayExtensions.RandomSort">
+            <summary>
+            随机排序
+            </summary>
+        </member>
         <member name="T:AutoCSer.Extensions.UIntArrayExtensions">
             <summary>
             uint array expansion operation
@@ -4501,6 +4503,11 @@
             uint 数组排序
             </summary>
         </member>
+        <member name="M:AutoCSer.Extensions.UIntArrayExtensions.RandomSort">
+            <summary>
+            随机排序
+            </summary>
+        </member>
         <member name="T:AutoCSer.Extensions.IntArrayExtensions">
             <summary>
             int array expansion operation
@@ -4523,6 +4530,11 @@
             <summary>
             int array sorting
             int 数组排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntArrayExtensions.RandomSort">
+            <summary>
+            随机排序
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.ShortExtensions">
@@ -4708,6 +4720,25 @@
             </summary>
             <param name="value">数值</param>
             <param name="index">位置索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongSortIndex.Sort``1(``0[],System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongSortIndex.Sort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Algorithm.ULongSortIndex.Sort(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
             <summary>
@@ -4955,6 +4986,11 @@
             64B 基数排序数据量
             </summary>
         </member>
+        <member name="F:AutoCSer.Algorithm.RadixSort.KeySortSize64">
+            <summary>
+            64B 关键字基数排序数据量
+            </summary>
+        </member>
         <member name="M:AutoCSer.Algorithm.RadixSort.sort(System.UInt32*,System.UInt32*,System.UInt32*,System.Int32)">
             <summary>
             Array sorting
@@ -4964,6 +5000,25 @@
             <param name="newArrayFixed">目标数组起始位置</param>
             <param name="swapFixed">临时数组起始位置</param>
             <param name="length">数组数据长度</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sum(System.Int32*,System.UInt32)">
+            <summary>
+            累加计数
+            </summary>
+            <param name="start">+1</param>
+            <param name="markValue">高位位 0 表示相同</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort(System.Int32*,System.UInt32*,System.UInt32*,System.UInt32*,System.UInt32,System.Int32)">
+            <summary>
+            排序
+            </summary>
+            <param name="count0"></param>
+            <param name="arrayFixed"></param>
+            <param name="newArrayFixed"></param>
+            <param name="swapFixed"></param>
+            <param name="markValue"></param>
+            <param name="length"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Algorithm.RadixSort.Sort(System.UInt32[],System.Int32,System.Int32)">
             <summary>
@@ -5007,6 +5062,25 @@
             <param name="swapFixed">临时数组起始位置</param>
             <param name="length">数组数据长度</param>
         </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sum(System.Int32*,System.UInt64)">
+            <summary>
+            累加计数
+            </summary>
+            <param name="start">+1</param>
+            <param name="markValue"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort(System.Int32*,System.UInt64*,System.UInt64*,System.UInt64*,System.UInt64,System.Int32)">
+            <summary>
+            排序
+            </summary>
+            <param name="count0"></param>
+            <param name="arrayFixed"></param>
+            <param name="newArrayFixed"></param>
+            <param name="swapFixed"></param>
+            <param name="markValue"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Algorithm.RadixSort.Sort(System.UInt64[],System.Int32,System.Int32)">
             <summary>
             Array sorting
@@ -5038,6 +5112,133 @@
             起始位置</param>
             <param name="count">The quantity of data to be sorted
             排序数据数量</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.Sort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.SortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort(AutoCSer.Algorithm.UIntSortIndex*,System.Int32*,System.UInt32,System.Int32)">
+            <summary>
+            排序
+            </summary>
+            <param name="sortIndex"></param>
+            <param name="count0"></param>
+            <param name="markValue"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort``1(``0[],System.Int32,System.Int32*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort``1(``0[],System.Int32,System.Int32,System.Int32*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.Sort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.SortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.Sort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.SortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.sort(AutoCSer.Algorithm.ULongSortIndex*,System.Int32*,System.UInt64,System.Int32)">
+            <summary>
+            排序
+            </summary>
+            <param name="sortIndex"></param>
+            <param name="count0"></param>
+            <param name="markValue"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.Sort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.RadixSort.SortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            Array sorting
+            数组排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+            <param name="getKey"></param>
         </member>
         <member name="T:AutoCSer.Algorithm.QuickRangeSort`1">
             <summary>
@@ -5109,6 +5310,25 @@
             <param name="value">数值</param>
             <param name="index">位置索引</param>
         </member>
+        <member name="M:AutoCSer.Algorithm.LongSortIndex.Sort``1(``0[],System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongSortIndex.Sort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
         <member name="M:AutoCSer.Algorithm.LongSortIndex.SortDesc(AutoCSer.Algorithm.LongSortIndex*,AutoCSer.Algorithm.LongSortIndex*)">
             <summary>
             索引快速排序子过程
@@ -5153,6 +5373,25 @@
             <param name="value">数值</param>
             <param name="index">位置索引</param>
         </member>
+        <member name="M:AutoCSer.Algorithm.UIntSortIndex.Sort``1(``0[],System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntSortIndex.Sort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
         <member name="M:AutoCSer.Algorithm.UIntSortIndex.SortDesc(AutoCSer.Algorithm.UIntSortIndex*,AutoCSer.Algorithm.UIntSortIndex*)">
             <summary>
             索引快速排序子过程
@@ -5196,6 +5435,25 @@
             </summary>
             <param name="value">数值</param>
             <param name="index">位置索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntSortIndex.Sort``1(``0[],System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntSortIndex.Sort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据（数据量较大的情况下 new 一个新数组比原地调整数组效率更高）
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="array">Array</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Algorithm.IntSortIndex.SortDesc(AutoCSer.Algorithm.IntSortIndex*,AutoCSer.Algorithm.IntSortIndex*)">
             <summary>
@@ -20236,18 +20494,7 @@
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.ThreadStaticDeserializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.ThreadStaticDeserializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Xml.ThreadStaticDeserializer.get">
             <summary>
             默认线程静态变量
             </summary>
@@ -20263,23 +20510,17 @@
             XML 序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.Xml.ThreadStaticSerializer.Finalize">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="F:AutoCSer.Xml.ThreadStaticSerializer.value">
             <summary>
             线程静态变量
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.ThreadStaticSerializer.createLock">
-            <summary>
-            创建线程静态变量访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.ThreadStaticSerializer.Get">
-            <summary>
-            默认线程静态变量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Xml.ThreadStaticSerializer.get">
             <summary>
             默认线程静态变量
             </summary>

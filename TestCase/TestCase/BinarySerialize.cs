@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase
 
             #region 引用类型二进制序列化测试
             Data.Field fieldData = AutoCSer.RandomObject.Creator<Data.Field>.Create(randomConfig);
-            Data.Field newFieldData = fieldData.AutoCSerClassGenericTypeExtensions().MemberCopy();
+            Data.Field newFieldData = fieldData.AutoCSerExtensions().MemberCopy();
             if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -201,7 +201,7 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
-                if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociatedList, businessModel.ModelAssociatedList.AutoCSerCollectionExtensions().GetListArray(p => (Data.ORM.ModelAssociated)p)))
+                if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociatedList, businessModel.ModelAssociatedList.AutoCSerExtensions<Data.ORM.BusinessModelAssociated>().GetListArray(p => (Data.ORM.ModelAssociated)p)))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }

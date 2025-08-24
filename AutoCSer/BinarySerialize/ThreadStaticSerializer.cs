@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.BinarySerialize
 {
@@ -11,6 +12,13 @@ namespace AutoCSer.BinarySerialize
         /// 二进制序列化
         /// </summary>
         internal readonly BinarySerializer Serializer = new BinarySerializer(true);
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        ~ThreadStaticSerializer()
+        {
+            Serializer.Dispose();
+        }
 
         /// <summary>
         /// 线程静态变量
@@ -22,30 +30,13 @@ namespace AutoCSer.BinarySerialize
         private static ThreadStaticSerializer value;
 #endif
         /// <summary>
-        /// 创建线程静态变量访问锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock createLock;
-        /// <summary>
         /// 默认线程静态变量
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static ThreadStaticSerializer Get()
         {
-            return value ?? get();
-        }
-        /// <summary>
-        /// 默认线程静态变量
-        /// </summary>
-        /// <returns></returns>
-        private static ThreadStaticSerializer get()
-        {
-            createLock.EnterSleep();
-            try
-            {
-                if (value == null) value = new ThreadStaticSerializer();
-            }
-            finally { createLock.Exit(); }
-            return value;
+            return value ?? (value = new ThreadStaticSerializer());
         }
     }
 }

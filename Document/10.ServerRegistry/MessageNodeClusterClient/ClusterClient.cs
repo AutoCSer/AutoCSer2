@@ -67,7 +67,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                     Console.WriteLine($"New client {Log.SessionID}");
                     //Each client of the cluster service needs to create a message consumer
                     //集群服务的每一个客户端都需要创建一个消息消费者
-                    messageConsumer = new MessageConsumer(client.ClientCache.Client, node.Value.AutoCSerClassGenericTypeExtensions().NotNull());
+                    messageConsumer = new MessageConsumer(client.ClientCache.Client, node.Value.AutoCSerExtensions().NotNull());
                     return true;
                 }
             }

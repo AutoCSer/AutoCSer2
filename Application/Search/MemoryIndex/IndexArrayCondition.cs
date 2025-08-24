@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
                         (*nextSortIndex).Set(array[index].Count, index);
                         while (++index != count) (*++nextSortIndex).Set(array[index].Count, index);
                         AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
-                        AutoCSer.Extensions.ArraySort.QuickSort(array, count, sortIndex);
+                        AutoCSer.Algorithm.IntSortIndex.Sort(array, count, sortIndex);
                     }
                     finally { buffer.PushOnly(); }
                     EstimatedCount = indexs.Array[0].Count;
